@@ -1,5 +1,5 @@
-baseURL = "https://hongshunli-spec.github.io/blog/"
-relativeURLs = true
+baseURL = "https://hongshunli-spec.github.io/"
+relativeURLs = false
 canonifyURLs = false
 theme = "PaperMod"
 locale = "zh-CN"
