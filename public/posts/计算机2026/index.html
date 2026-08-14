@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title></title>
 <meta name="keywords" content="">
 <meta name="description" content="多系统启动
@@ -20,16 +20,16 @@
 7、diskgenius从6.20版本后，也自带引导修复。
 引导修复,autobootfix,主要改了esp分区的那个文件，我硬盘2个windows，我将1克隆给了2，然后多系统引导2，引导不了，修复后2也可以。BCD 内分区 GUID 不匹配，或者对应的磁盘路径不对。">
 <meta name="author" content="池州老洪">
-<link rel="canonical" href="https://hongshunli-spec.github.io/blog/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/">
-<link crossorigin="anonymous" href="../../blog/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://hongshunli-spec.github.io/blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://hongshunli-spec.github.io/blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://hongshunli-spec.github.io/blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://hongshunli-spec.github.io/blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://hongshunli-spec.github.io/blog/safari-pinned-tab.svg">
+<link rel="canonical" href="http://localhost:1313/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://hongshunli-spec.github.io/blog/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/">
 <noscript>
     <style>
         #theme-toggle,
@@ -75,73 +75,6 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://hongshunli-spec.github.io/blog/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/">
-  <meta property="og:site_name" content="池州老洪的博客">
-  <meta property="og:title" content="池州老洪的博客">
-  <meta property="og:description" content="多系统启动 1、uefi启动，f12选择里面那个硬盘启动，才能能正常启动。不同硬盘得esp分区，对应不同的硬盘启动。机械硬盘启动一次，就会改默认的uefi启动硬盘为机械硬盘，可以bootice改回，bootice能看到uefi对应的硬盘启动入口。dell标志出现，f2，f12，或者bootice，easyuefi启动到uefi 2、csm兼容模块关掉才是真正的uefi，但rx580不支持，关掉后显卡无法启动，得拔卡用集显
-关于操作系统 1、不要用win10管理批量优化，出现莫名其妙问题，顶多是摸个具体点的修改 2、操作系统是工具，不要折腾它，而是用他出作品。 3、最后的lstc是win10 lstc 2019,1809版本号，用于工控等专业设备，10年以上支持时间，一般家用是2年，家用还是用正常版本，商店，wsl什么的还是有用的。 4、多系统，只要一个主力的，另外一个快速纯净的就 可以，不要太折腾。 5、系统异地备份还原的，diskgenius、snapshot、都不行，dism&#43;&#43;还原后修复引导，可以。傲梅备份还原可以，但是太慢，或者用系统迁移。结论，非原来分区直接克隆不行，必须引导修复。 6、一个esp分区对应一个uefi启动的入口，每个esp分区有bcd启动表，可以用dism&#43;&#43;修复或者uefei修复挂载启动盘增加系统盘。操作系统备份，可以用dism&#43;&#43;，或者不备份，安装快，自带还原节点恢复，还不容易坏。 7、diskgenius从6.20版本后，也自带引导修复。 引导修复,autobootfix,主要改了esp分区的那个文件，我硬盘2个windows，我将1克隆给了2，然后多系统引导2，引导不了，修复后2也可以。BCD 内分区 GUID 不匹配，或者对应的磁盘路径不对。">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="池州老洪的博客">
-  <meta name="twitter:description" content="多系统启动 1、uefi启动，f12选择里面那个硬盘启动，才能能正常启动。不同硬盘得esp分区，对应不同的硬盘启动。机械硬盘启动一次，就会改默认的uefi启动硬盘为机械硬盘，可以bootice改回，bootice能看到uefi对应的硬盘启动入口。dell标志出现，f2，f12，或者bootice，easyuefi启动到uefi 2、csm兼容模块关掉才是真正的uefi，但rx580不支持，关掉后显卡无法启动，得拔卡用集显
-关于操作系统 1、不要用win10管理批量优化，出现莫名其妙问题，顶多是摸个具体点的修改 2、操作系统是工具，不要折腾它，而是用他出作品。 3、最后的lstc是win10 lstc 2019,1809版本号，用于工控等专业设备，10年以上支持时间，一般家用是2年，家用还是用正常版本，商店，wsl什么的还是有用的。 4、多系统，只要一个主力的，另外一个快速纯净的就 可以，不要太折腾。 5、系统异地备份还原的，diskgenius、snapshot、都不行，dism&#43;&#43;还原后修复引导，可以。傲梅备份还原可以，但是太慢，或者用系统迁移。结论，非原来分区直接克隆不行，必须引导修复。 6、一个esp分区对应一个uefi启动的入口，每个esp分区有bcd启动表，可以用dism&#43;&#43;修复或者uefei修复挂载启动盘增加系统盘。操作系统备份，可以用dism&#43;&#43;，或者不备份，安装快，自带还原节点恢复，还不容易坏。 7、diskgenius从6.20版本后，也自带引导修复。 引导修复,autobootfix,主要改了esp分区的那个文件，我硬盘2个windows，我将1克隆给了2，然后多系统引导2，引导不了，修复后2也可以。BCD 内分区 GUID 不匹配，或者对应的磁盘路径不对。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://hongshunli-spec.github.io/blog/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "",
-      "item": "https://hongshunli-spec.github.io/blog/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
-  "description": "多系统启动 1、uefi启动，f12选择里面那个硬盘启动，才能能正常启动。不同硬盘得esp分区，对应不同的硬盘启动。机械硬盘启动一次，就会改默认的uefi启动硬盘为机械硬盘，可以bootice改回，bootice能看到uefi对应的硬盘启动入口。dell标志出现，f2，f12，或者bootice，easyuefi启动到uefi 2、csm兼容模块关掉才是真正的uefi，但rx580不支持，关掉后显卡无法启动，得拔卡用集显\n关于操作系统 1、不要用win10管理批量优化，出现莫名其妙问题，顶多是摸个具体点的修改 2、操作系统是工具，不要折腾它，而是用他出作品。 3、最后的lstc是win10 lstc 2019,1809版本号，用于工控等专业设备，10年以上支持时间，一般家用是2年，家用还是用正常版本，商店，wsl什么的还是有用的。 4、多系统，只要一个主力的，另外一个快速纯净的就 可以，不要太折腾。 5、系统异地备份还原的，diskgenius、snapshot、都不行，dism++还原后修复引导，可以。傲梅备份还原可以，但是太慢，或者用系统迁移。结论，非原来分区直接克隆不行，必须引导修复。 6、一个esp分区对应一个uefi启动的入口，每个esp分区有bcd启动表，可以用dism++修复或者uefei修复挂载启动盘增加系统盘。操作系统备份，可以用dism++，或者不备份，安装快，自带还原节点恢复，还不容易坏。 7、diskgenius从6.20版本后，也自带引导修复。 引导修复,autobootfix,主要改了esp分区的那个文件，我硬盘2个windows，我将1克隆给了2，然后多系统引导2，引导不了，修复后2也可以。BCD 内分区 GUID 不匹配，或者对应的磁盘路径不对。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "多系统启动 1、uefi启动，f12选择里面那个硬盘启动，才能能正常启动。不同硬盘得esp分区，对应不同的硬盘启动。机械硬盘启动一次，就会改默认的uefi启动硬盘为机械硬盘，可以bootice改回，bootice能看到uefi对应的硬盘启动入口。dell标志出现，f2，f12，或者bootice，easyuefi启动到uefi 2、csm兼容模块关掉才是真正的uefi，但rx580不支持，关掉后显卡无法启动，得拔卡用集显\n关于操作系统 1、不要用win10管理批量优化，出现莫名其妙问题，顶多是摸个具体点的修改 2、操作系统是工具，不要折腾它，而是用他出作品。 3、最后的lstc是win10 lstc 2019,1809版本号，用于工控等专业设备，10年以上支持时间，一般家用是2年，家用还是用正常版本，商店，wsl什么的还是有用的。 4、多系统，只要一个主力的，另外一个快速纯净的就 可以，不要太折腾。 5、系统异地备份还原的，diskgenius、snapshot、都不行，dism++还原后修复引导，可以。傲梅备份还原可以，但是太慢，或者用系统迁移。结论，非原来分区直接克隆不行，必须引导修复。 6、一个esp分区对应一个uefi启动的入口，每个esp分区有bcd启动表，可以用dism++修复或者uefei修复挂载启动盘增加系统盘。操作系统备份，可以用dism++，或者不备份，安装快，自带还原节点恢复，还不容易坏。 7、diskgenius从6.20版本后，也自带引导修复。 引导修复,autobootfix,主要改了esp分区的那个文件，我硬盘2个windows，我将1克隆给了2，然后多系统引导2，引导不了，修复后2也可以。BCD 内分区 GUID 不匹配，或者对应的磁盘路径不对。\n",
-  "wordCount" : "18",
-  "inLanguage": "en",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "池州老洪"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://hongshunli-spec.github.io/blog/posts/%E8%AE%A1%E7%AE%97%E6%9C%BA2026/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://hongshunli-spec.github.io/blog/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
@@ -213,7 +146,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://hongshunli-spec.github.io/blog/"></a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/"></a></span> · 
 
     
     
