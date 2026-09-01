@@ -8,9 +8,9 @@ locale = "zh-CN"
 pagerSize = 5
 
 [params]
-title = "池州老洪的博客"
+title = "池州老橡的博客"
 description = "技术笔记博客"
-author = "池州老洪"
+author = "池州老橡"
 homePostsCount = 5
 paginationShowPageNumbers = true
 disableSpecial1stPost = true

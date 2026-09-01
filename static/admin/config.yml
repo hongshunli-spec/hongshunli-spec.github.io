@@ -15,8 +15,8 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "标题", name: "title", widget: "string" }
-      - { label: "发布日期", name: "date", widget: "datetime" }
-      - { label: "草稿", name: "draft", widget: "boolean", default: false }
-      - { label: "标签", name: "tags", widget: "list", required: false }
-      - { label: "正文", name: "body", widget: "markdown" }
+      - { label: 标题, name: title, widget: string }
+      - { label: 发布日期, name: date, widget: datetime }
+      - { label: 草稿, name: draft, widget: boolean, default: false }
+      - { label: 标签, name: tags, widget: list, required: false }
+      - { label: 正文, name: body, widget: markdown }
