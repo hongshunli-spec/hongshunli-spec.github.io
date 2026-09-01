@@ -2,8 +2,6 @@ backend:
   name: github
   repo: hongshunli-spec/hongshunli-spec.github.io
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
 
 media_folder: static/uploads
 public_folder: /uploads
