@@ -1,10 +1,10 @@
 # Decap CMS 配置 - hongshunli-spec.github.io 博客后台
-# 后端：GitHub + 自建 Cloudflare Worker OAuth 网关
+# 后端：GitHub + 自建 Cloudflare Pages OAuth 网关（pages.dev，国内访问更稳）
 backend:
   name: github
   repo: hongshunli-spec/hongshunli-spec.github.io
   branch: main
-  base_url: https://blog-cms-oauth.hongshunli.workers.dev
+  base_url: https://blog-cms-oauth.pages.dev
   auth_endpoint: /auth
 
 media_folder: static/uploads
