@@ -1,10 +1,11 @@
 {{- define "main" }}
+{{- $pageTitle := partial "title.html" . }}
 
 <article class="post-single">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
     <h1 class="post-title entry-hint-parent">
-      {{ .Title }}
+      {{ $pageTitle }}
       {{- if .Draft }}
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
@@ -34,11 +35,15 @@
   {{- partial "toc.html" . }}
   {{- end }}
 
-  {{- if .Content }}
+  {{- $content := .Content }}
+  {{- if and .Content (not .Params.title) }}
+  {{- $content = replaceRE "(?s)^\\s*<h1[^>]*>.*?</h1>" "" $content 1 }}
+  {{- end }}
+  {{- if $content }}
   <div class="post-content md-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    {{- partial "anchored_headings.html" $content -}}
+    {{- else }}{{ $content }}{{ end }}
   </div>
   {{- end }}
 

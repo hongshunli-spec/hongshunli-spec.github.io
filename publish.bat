@@ -15,5 +15,9 @@ echo.
 echo 推送至GitHub
 git push origin main
 echo.
+echo.
+echo Deploying to Cloudflare Pages...
+npx --yes wrangler@3 pages deploy D:\myblog\public --project-name hongshunli-blog --branch main
+echo.
 echo ========== 发布完成 ==========
 pause
