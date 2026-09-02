@@ -1,0 +1,37 @@
+# Decap CMS 配置 - hongshunli-spec.github.io 博客后台
+# 后端：GitHub（需 GitHub OAuth App + OAuth 网关）
+# base_url / auth 相关由 GitHub OAuth App 的回调 URL 决定
+
+backend:
+  name: github
+  repo: hongshunli-spec/hongshunli-spec.github.io
+  branch: main
+  base_url: https://oauth.your-worker.workers.dev   # TODO: 替换为你的 OAuth 网关地址
+  auth_endpoint: /auth
+  cms_label_prefix: content/
+
+# 媒体文件目录（相对仓库根）
+media_folder: static/images
+public_folder: /images
+
+# 站点配置
+site_url: https://hongshunli-spec.github.io
+locale: zh_Hans
+
+# 内容集合
+collections:
+  - name: posts
+    label: 博客文章
+    label_singular: 文章
+    folder: content/posts
+    create: true
+    slug: "{{slug}}"
+    path: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title, label: 标题, widget: string }
+      - { name: date, label: 日期, widget: datetime }
+      - { name: draft, label: 草稿, widget: boolean, default: false }
+      - { name: tags, label: 标签, widget: list, required: false }
+      - { name: body, label: 正文, widget: markdown }
