@@ -6,7 +6,7 @@ backend:
   name: github
   repo: hongshunli-spec/hongshunli-spec.github.io
   branch: main
-  base_url: https://oauth.your-worker.workers.dev   # TODO: 替换为你的 OAuth 网关地址
+  base_url: https://blog-cms-oauth.hongshunli.workers.dev
   auth_endpoint: /auth
   cms_label_prefix: content/
 
