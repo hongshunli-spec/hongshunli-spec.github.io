@@ -1,4 +1,4 @@
-baseURL = "https://hongshunli-spec.github.io/"
+baseURL = "https://hongshunli-blog.pages.dev/"
 relativeURLs = false
 canonifyURLs = false
 theme = "PaperMod"
