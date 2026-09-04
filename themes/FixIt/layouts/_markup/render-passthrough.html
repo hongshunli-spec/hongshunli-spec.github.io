@@ -1,0 +1,34 @@
+{{- $math := dict "Page" .Page "Key" "math" "ToCamel" true | partial "function/param.html" -}}
+
+{{- /*
+  Mathematical formulas rendering:
+    - KaTeX server-side rendering
+    - MathJax client-side rendering
+  Regular passthrough rendering:
+    - support more features in future
+*/ -}}
+{{- if $math.enable | and (ne hugo.Context.MarkupScope "home") -}}
+  {{- if eq $math.type "katex" -}}
+    {{- $opts := $math.katex | merge (dict "output" "htmlAndMathml" "displayMode" (eq $.Type "block")) }}
+    {{- /* render mathematical markup to HTML */ -}}
+    {{- with try (transform.ToMath .Inner $opts) }}
+      {{- with .Err }}
+        {{- errorf "Unable to render mathematical markup to HTML using the transform.ToMath function. The KaTeX display engine threw the following error: %s: see %s." . $.Position }}
+      {{- else }}
+        {{- .Value }}
+        {{- $.Page.Store.Set "hasKaTeX" true -}}
+      {{- end }}
+    {{- end -}}
+  {{- else if eq $math.type "mathjax" -}}
+    {{- if eq $.Type "block" -}}
+      $${{- .Inner -}}$$
+    {{- else -}}
+      ${{ .Inner }}$
+    {{- end -}}
+    {{- $.Page.Store.Set "hasMathJax" true -}}
+  {{- end -}}
+{{- else -}}
+  {{- /* Regular passthrough rendering */ -}}
+  {{- /* waiting for Hugo interface to get delimiters */ -}}
+  {{- .Inner -}}
+{{- end -}}

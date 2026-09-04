@@ -1,0 +1,20 @@
+{{- /*
+Hope this easter egg brings you surprise rather than shock :-)
+Don't worry, the easter egg will only be triggered in development mode.
+*/ -}}
+
+{{- if not hugo.IsProduction -}}
+  {{- $info := dict
+    "FixIt" (dict
+      "author" "Lruihao"
+      "description" "A clean, elegant but advanced blog theme for Hugo."
+      "homepage" "https://fixit.lruihao.cn"
+      "repository" "https://github.com/Lruihao/FixIt"
+      "version" (hugo.Store.Get "version")
+    )
+    "🎉" "🧐 Hey, you have discovered a FixIt easter egg!"
+    "🚀" "Dig it? Toss us a ⭐ and hit share!"
+    | jsonify (dict "prefix" " " "indent" "  ")
+  -}}
+  {{- printf "```json\n%s\n```" $info | $.Page.RenderString -}}
+{{- end -}}

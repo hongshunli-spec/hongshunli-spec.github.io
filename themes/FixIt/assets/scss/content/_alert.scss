@@ -1,0 +1,38 @@
+@use "sass:map";
+@use "core/functions" as *;
+@use "core/mixins" as *;
+@use "core/maps" as maps;
+
+.single .alert {
+  padding: 0.5rem 1rem;
+  margin-block: 1rem;
+  color: inherit;
+  border-inline-start: 0.25em solid fi-var(alert-border-color);
+
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  .alert-title {
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    line-height: 1;
+    margin-bottom: 1rem;
+    color: fi-var(alert-color);
+  }
+
+  @each $type, $item in maps.$alert-color-map {
+    $dark-item: map.get(maps.$alert-color-map-dark, $type);
+
+    &.alert-#{$type} {
+      @include set-fi-vars((
+        alert-border-color: light-dark(map.get($item, border-color), map.get($dark-item, border-color)),
+        alert-color: light-dark(map.get($item, color), map.get($dark-item, color))
+      ));
+    }
+  }
+}

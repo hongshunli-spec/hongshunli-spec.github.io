@@ -1,0 +1,87 @@
+{{- /*
+  Script tag renderer.
+  - Accepts direct script HTML, a pre-built resource, or builds from source path.
+  - Supports template execution, minify/build/fingerprint pipeline, and extra attrs.
+  @param {String} [.Source] - Script source URL/path; if starts with "<script" it's treated as raw HTML
+  @param {resource.Resource} [.Resource] - Pre-built resource (skips build pipeline)
+  @param {String} [.Content] - Inline content to write as generated resource
+  @param {String} [.Path] - Target path for resource created from Content
+  @param {Object} [.Template] - Target path for resource created from template execution
+  @param {Object} [.Context] - Template context for ExecuteAsTemplate
+  @param {Boolean} [.Minify] - Whether to minify resource
+  @param {Object} [.Build] - js.Build options (Build.minify is normalized to .Minify for path semantics)
+  @param {String} [.Fingerprint] - Fingerprint algorithm
+  @param {Boolean} [.Async] - Whether to add async attribute
+  @param {Boolean} [.Defer] - Whether to add defer attribute
+  @param {Boolean} [.Crossorigin] - Whether to add crossorigin=anonymous
+  @param {String} [.Integrity] - SRI hash value
+  @param {String} [.Attr] - Additional attributes
+*/ -}}
+
+{{- if strings.HasPrefix (.Source | default "") "<script" -}}
+  {{- safeHTML .Source -}}
+{{- else -}}
+  {{- $src := "" -}}
+  {{- $integrity := .Integrity -}}
+
+  {{- /* Resource (pre-built) */ -}}
+  {{- with .Resource -}}
+    {{- $src = .RelPermalink -}}
+    {{- with .Data.Integrity -}}
+      {{- $integrity = . -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* Source build */ -}}
+  {{- if .Source | and (not .Resource) | and (not (urls.Parse .Source).Host) -}}
+    {{- $resource := resources.Get .Source -}}
+    {{- with .Template -}}
+      {{- $resource = resources.ExecuteAsTemplate . $.Context $resource -}}
+    {{- end -}}
+    {{- $resource = dict "Resource" $resource "Build" .Build "Minify" .Minify "Fingerprint" .Fingerprint | partial "function/js-build.html" -}}
+    {{- with .Fingerprint -}}
+      {{- $integrity = $resource.Data.Integrity -}}
+    {{- end -}}
+    {{- with $resource.RelPermalink -}}
+      {{- $src = . -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* Script from string */ -}}
+  {{- if .Content | and .Path -}}
+    {{- $contentResource := resources.FromString .Path .Content -}}
+    {{- $contentResource = dict "Resource" $contentResource "Build" .Build "Minify" .Minify "Fingerprint" .Fingerprint | partial "function/js-build.html" -}}
+    {{- with .Fingerprint -}}
+      {{- $integrity = $contentResource.Data.Integrity -}}
+    {{- end -}}
+    {{- $src = $contentResource.RelPermalink -}}
+  {{- end -}}
+
+  {{- /* Fallback to source */ -}}
+  {{- $src = $src | default .Source -}}
+
+  {{- /* Script attributes */ -}}
+  {{- if $src -}}
+    {{- $attrs := printf `src="%v"` $src -}}
+    {{- if .Crossorigin -}}
+      {{- $attrs = ` crossorigin="anonymous"` | add $attrs -}}
+    {{- end -}}
+    {{- with $integrity -}}
+      {{- $attrs = printf ` integrity="%v"` . | add $attrs -}}
+    {{- end -}}
+    {{- if .Async -}}
+      {{- $attrs = " async" | add $attrs -}}
+    {{- end -}}
+    {{- if .Defer -}}
+      {{- $attrs = " defer" | add $attrs -}}
+    {{- end -}}
+    {{- with .Attr -}}
+      {{- $attrs = add " " . | add $attrs -}}
+    {{- end -}}
+    <script {{ $attrs | safeHTMLAttr }}></script>
+  {{- else -}}
+    {{- with .Content -}}
+      <script{{ with $.Attr }} {{ . | safeHTMLAttr }}{{ end }}>{{ . | safeJS }}</script>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

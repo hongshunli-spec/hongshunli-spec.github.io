@@ -1,0 +1,49 @@
+/// Color map of GitHub-style alerts (light theme).
+/// @type Map
+$alert-color-map: (
+  note: (
+    border-color: #0969da,
+    color: #0969da,
+  ),
+  tip: (
+    border-color: #1a7f37,
+    color: #1a7f37,
+  ),
+  important: (
+    border-color: #8250df,
+    color: #8250df,
+  ),
+  warning: (
+    border-color: #bf8700,
+    color: #9a6700,
+  ),
+  caution: (
+    border-color: #cf222e,
+    color: #d1242f,
+  ),
+) !default;
+
+/// Color map of GitHub-style alerts (dark theme).
+/// @type Map
+$alert-color-map-dark: (
+  note: (
+    border-color: #316dca,
+    color: #478be6,
+  ),
+  tip: (
+    border-color: #347d39,
+    color: #57ab5a,
+  ),
+  important: (
+    border-color: #8256d0,
+    color: #986ee2,
+  ),
+  warning: (
+    border-color: #966600,
+    color: #c69026,
+  ),
+  caution: (
+    border-color: #c93c37,
+    color: #e5534b,
+  ),
+) !default;

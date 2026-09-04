@@ -1,0 +1,440 @@
+---
+title: Code Block Test
+date: 2025-11-28T15:16:35+08:00
+collections:
+  - Tests
+categories:
+  - Markdown
+tags:
+  - Code Block
+---
+
+Testing code block in FixIt theme.
+
+<!--more-->
+<!-- markdownlint-disable-file blanks-around-lists ul-style ul-indent code-block-style -->
+
+```fixit
+🎉🥚 in development mode!
+```
+
+## Multiple `modes`
+
+```js {mode="classic"}
+// Classic mode
+function add(a, b) {
+  return a + b
+}
+```
+
+```js {mode="mac"}
+// Mac mode
+function add(a, b) {
+  return a + b
+}
+```
+
+```js {mode="simple"}
+// Simple mode
+function add(a, b) {
+  return a + b
+}
+```
+
+## Code title
+
+```{title="Quine Clock"}
+(r=()=>setInterval(t=>{for(j=o="\n",y=5;y--;document.body["inn"
++"erHTML"]="<pre>&lt"+(S="script>\n")+o+"\n\n&lt/"+S)for(x=-01;
+63-!y>x++;o+=`(r=${r})()`[j++].fontcolor(c?'#FF0':"#444"))c=x/2
+%4<3&&parseInt("odRFacb67o2vi5gmOZmwFNteohbOh3sw".slice(i="9"<(
+D=Date()[16+(x/8|0)])?30:D*3,i+3),36)&1<<(x/2|0)%4+3*y},100))()
+```
+
+## Code File Name
+
+```js {name="hello.js"}
+function hello(x = 'world') {
+  console.log(`Hello, ${x}!`)
+}
+
+hello()
+// Hello, world!
+hello('FixIt')
+// Hello, FixIt!
+```
+
+## Shadow
+
+{{< tabs >}}
+{{% tab title="Always" %}}
+
+```js {shadow="always"}
+function hello(x = 'world') {
+  console.log(`Hello, ${x}!`)
+}
+```
+
+{{% /tab %}}
+{{% tab title="Hover" %}}
+
+```js {shadow="hover"}
+function hello(x = 'world') {
+  console.log(`Hello, ${x}!`)
+}
+```
+
+{{% /tab %}}
+{{% tab title="Never" %}}
+
+```js {shadow="never"}
+function hello(x = 'world') {
+  console.log(`Hello, ${x}!`)
+}
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+## Collapsed/Expanded
+
+```
+eval(z = 'p="<"+"pre>"/* ,.oq#+     ,._, */;for(y in n="zw24l6k\
+4e3t4jnt4qj24xh2 x/* =<,m#F^    A W###q. */42kty24wrt413n243n\
+9h243pdxt41csb yz/* #K       q##H######Am */43iyb6k43pk7243nm\
+r24".split(4)){/* dP      cpq#q##########b, */for(a in t=pars\
+eInt(n[y],36)+/*         p##@###YG=[#######y */(e=x=r=[]))for\
+(r=!r,i=0;t[a/*         d#qg `*PWo##q#######D */]>i;i+=.05)wi\
+th(Math)x-= /*        aem1k.com Q###KWR#### W[ */.05,0>cos(o=\
+new Date/1e3/*      .Q#########Md#.###OP  A@ , */+x/PI)&&(e[~\
+~(32*sin(o)*/* ,    (W#####Xx######.P^     T % */sin(.5+y/7))\
++60] =-~ r);/* #y    `^TqW####P###BP           */for(x=0;122>\
+x;)p+="   *#"/* b.        OQ####x#K           */[e[x++]+e[x++\
+]]||(S=("eval"/* l         `X#####D  ,       */+"(z=\'"+z.spl\
+it(B = "\\\\")./*           G####B" #       */join(B+B).split\
+(Q="\'").join(B+Q/*          VQBP`        */)+Q+")//m1k")[x/2\
++61*y-1]).fontcolor/*         TP         */(/\\w/.test(S)&&"#\
+03B");document.body.innerHTML=p+=B+"\\n"}setTimeout(z)')//
+```
+
+````md
+```lang {.is-collapsed}
+// This code block will be collapsed by default.
+```
+````
+
+````md
+```lang {.is-expanded}
+// This code block will be expanded regardless of its length.
+```
+````
+
+## No wrapper
+
+Set `wrapper=false` to disable code wrapper.
+
+```js {wrapper=false}
+function add(a, b) {
+  return a + b
+}
+```
+
+```js {wrapper=false, lineNos=false}
+function add(a, b) {
+  return a + b
+}
+```
+
+## lineNos=false
+
+```js {lineNos=false}
+function add(a, b) {
+  return a + b
+}
+```
+
+## lineNumbersInTable=false
+
+> [!WARNING]
+> Not recommended!
+
+```js {lineNumbersInTable=false}
+function add(a, b) {
+  return a + b
+}
+```
+
+## Diff Code
+
+```diff
+- theme = "LoveIt"
++ theme = "FixIt"
+! enhancements and fixes
+```
+
+## Long Code
+
+```html
+<p>Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.</p>
+```
+
+    <p>Lorem ipsum dolor sit amet, graecis denique ei vel, at duo primis mandamus. Et legere ocurreret pri, animal tacimates complectitur ad cum. Cu eum inermis inimicus efficiendi. Labore officiis his ex, soluta officiis concludaturque ei qui, vide sensibus vim ad.</p>
+
+## Code Toggle
+
+```toggle {before_tabs="hugo."}
+[params]
+description = ''
+keywords = []
+
+[params.codeblock]
+mode = 'classic'
+wrapper = true
+```
+
+## Mermaid
+
+```mermaid
+flowchart TD
+    A[Start] --> B{Is it?}
+    B -->|Yes| C[OK]
+    C --> D[Rethink]
+    D --> B
+    B ---->|No| E[End]
+```
+
+## ECharts
+
+```echarts
+[title]
+text = "Summary Line Chart"
+top = "2%"
+left = "center"
+
+[tooltip]
+trigger = "axis"
+
+[legend]
+data = [
+  "Email Marketing",
+  "Affiliate Advertising",
+  "Video Advertising",
+  "Direct View",
+  "Search Engine"
+]
+top = "10%"
+
+[grid]
+left = "5%"
+right = "5%"
+bottom = "5%"
+top = "20%"
+containLabel = true
+
+[toolbox]
+left = "left"
+[toolbox.feature]
+[toolbox.feature.saveAsImage]
+title = "Save as Image"
+
+[xAxis]
+type = "category"
+boundaryGap = false
+data = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+]
+
+[yAxis]
+type = "value"
+
+[[series]]
+name = "Email Marketing"
+type = "line"
+stack = "Total"
+data = [
+  120.0,
+  132.0,
+  101.0,
+  134.0,
+  90.0,
+  230.0,
+  210.0
+]
+
+[[series]]
+name = "Affiliate Advertising"
+type = "line"
+stack = "Total"
+data = [
+  220.0,
+  182.0,
+  191.0,
+  234.0,
+  290.0,
+  330.0,
+  310.0
+]
+
+[[series]]
+name = "Video Advertising"
+type = "line"
+stack = "Total"
+data = [
+  150.0,
+  232.0,
+  201.0,
+  154.0,
+  190.0,
+  330.0,
+  410.0
+]
+
+[[series]]
+name = "Direct View"
+type = "line"
+stack = "Total"
+data = [
+  320.0,
+  332.0,
+  301.0,
+  334.0,
+  390.0,
+  330.0,
+  320.0
+]
+
+[[series]]
+name = "Search Engine"
+type = "line"
+stack = "Total"
+data = [
+  820.0,
+  932.0,
+  901.0,
+  934.0,
+  1290.0,
+  1330.0,
+  1320.0
+]
+```
+
+## Timeline
+
+```timeline
+events:
+  - timestamp: 2024-07-11
+    content: Success
+  - timestamp: 2024-07-13
+    content: Approved
+  - timestamp: 2024-07-15
+    content: Event start
+```
+
+## JSON
+
+```json
+{
+  "name": "FixIt",
+  "version": "0.4.0",
+  "description": "A clean, elegant but advanced blog theme for Hugo",
+  "keywords": ["Hugo", "theme", "FixIt"]
+}
+```
+
+## File Tree
+
+{{< file-tree >}}
+- name: src
+  type: dir
+  children:
+    - name: index.ts
+      type: file
+    - name: app.ts
+      type: file
+- name: package.json
+  type: file
+{{< /file-tree >}}
+
+## Code block inside other blocks
+
+> [!NOTE]+
+>
+> ```js {mode="classic"}
+> function add(a, b) {
+>   return a + b
+> }
+> ```
+
+{{< typeit code=java >}}
+public class HelloWorld {
+    public static void main(String []args) {
+        System.out.println("Hello World");
+    }
+}
+{{< /typeit >}}
+
+{{< details "Code Block inside Details" >}}
+
+```js {mode="classic"}
+function add(a, b) {
+  return a + b
+}
+```
+
+{{< /details >}}
+
+## Highlighting
+
+Highlighting in code fences is enabled by default.
+
+```js {linenostart=287,hl_lines=[2,"8-10"]}
+/**
+ * check if a string is a JS object string
+ * @example isObjectLiteral("{a:1,b:2}") // true
+ * @param {string} str string to check
+ * @returns {boolean} whether the string is a JS object string
+ */
+function isObjectLiteral(str) {
+  if (typeof str !== 'string') {
+    return false
+  }
+  str = str.replace(/\s+/g, ' ').trim().replace(/;$/, '')
+  if (str.startsWith('{') && str.endsWith('}')) {
+    return true
+  }
+  return false
+}
+```
+
+Highlighting in shortcode highlight.
+
+{{< highlight javascript "hl_lines=2 8-10,linenostart=287" >}}
+/**
+ * check if a string is a JS object string
+ * @example isObjectLiteral("{a:1,b:2}") // true
+ * @param {string} str string to check
+ * @returns {boolean} whether the string is a JS object string
+ */
+function isObjectLiteral(str) {
+  if (typeof str !== 'string') {
+    return false
+  }
+  str = str.replace(/\s+/g, ' ').trim().replace(/;$/, '')
+  if (str.startsWith('{') && str.endsWith('}')) {
+    return true
+  }
+  return false
+}
+{{< /highlight >}}
+
+## Gist Embed
+
+{{< env "production" >}}
+{{< gist Lruihao fb8b2d0353465c4d40bf74818db80710 >}}
+{{< /env >}}

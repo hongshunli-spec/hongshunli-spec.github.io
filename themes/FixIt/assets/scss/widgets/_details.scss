@@ -1,0 +1,58 @@
+@use "core/functions" as *;
+@use "core/mixins" as *;
+
+.details {
+  > .details-summary {
+    transition: border-radius 0.2s ease 0.2s;
+    @include border-radius;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    i.details-icon {
+      color: fi-var(global-font-secondary-color);
+      transition: all 0.2s ease;
+
+      [dir="rtl"] & {
+        scale: -1 1;
+      }
+
+      &:hover {
+        color: fi-var(global-font-color);
+      }
+    }
+  }
+
+  > .details-content {
+    height: 0;
+    overflow-y: hidden;
+    transition: height 0.5s ease-out;
+  }
+
+  &.open {
+    > .details-summary {
+      transition: border-radius 0s;
+      @include border-radius(top);
+
+      i.details-icon {
+        rotate: 90deg;
+
+        [dir="rtl"] & {
+          rotate: -90deg;
+        }
+      }
+    }
+
+    > .details-content {
+      height: auto;
+      @include border-radius(bottom);
+    }
+  }
+
+  &.disabled {
+    > .details-summary {
+      cursor: default;
+    }
+  }
+}

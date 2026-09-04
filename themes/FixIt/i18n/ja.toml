@@ -1,0 +1,269 @@
+# Translations for Japanese
+# 日本語翻訳
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "Hugo のバージョンが低すぎます。\n\n現在の Hugo バージョンは {{ .Current }} ですが、FixIt がサポートする最小バージョンは {{ .Minimal }} です。\n\n自分のコンピューターで Hugo を実行している場合は、https://gohugo.io/getting-started/installing/#upgrade-hugo でアップグレードガイドを参照してください。\n\nサードパーティプラットフォームにデプロイしている場合は、Hugo バージョンを適切に設定してください。"
+configurationError = "設定ファイルエラー\nまだ FixIt のバージョンパラメータを正しく設定していません。 https://fixit.lruihao.cn/docs/getting-started/configuration/params/?lang=japanese を参照してください"
+compatibilityError = "互換性エラー ({{ .From }} -> {{ .To }}):\n互換性のない更新が行われました。 https://github.com/hugo-fixit/FixIt/releases を参照してください"
+devVersionWarn = "開発版の FixIt を使用しています。安定版の使用を検討してください。\n https://github.com/hugo-fixit/FixIt/releases を参照"
+devEnvWarn = "現在の実行環境は「development」です。「コメントシステム」、「PWA」、「CDN」、「フィンガープリント」、「統計」は有効になりません。"
+quicklyUpgrade = "コマンドを使用して迅速にアップグレード："
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "トップに戻る"
+viewComments = "コメントを見る"
+noscript = "このサイトは JavaScript を有効にした状態で最適に表示されます。"
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "アーカイブ"
+
+[allSome]
+other = "すべての{{ .Some }}"
+
+[category]
+other = "カテゴリ"
+
+[categories]
+other = "カテゴリ"
+
+[collection]
+other = "コレクション"
+
+[collections]
+other = "コレクション"
+
+[tag]
+other = "タグ"
+
+[tags]
+other = "タグ"
+
+[posts]
+other = "記事"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "最近更新"
+
+[section.totalWordCount]
+other = "合計約 {{ .Count }} 字"
+
+[section.archiveCounter]
+other = "合計 {{ .Count }} 件の記事"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "もっと見る"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "言語を選択"
+noTranslations = "翻訳なし"
+switchTheme = "テーマを切り替え"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "{{ .Hugo }} によって強力に駆動されています | テーマ - {{ .Theme }}"
+siteUV = "総訪問者数"
+sitePV = "総訪問数"
+siteRunning = "サイトが実行中……"
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "あなたのコメント……"
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "テーブル"
+search = "検索"
+searchPlaceholder = "タイトルまたは内容を検索..."
+searchIn = "{{ . }} で検索"
+searchBy = "検索エンジン"
+gotoResultsPage = "検索結果ページへ移動..."
+clear = "クリア"
+cancel = "キャンセル"
+navigate = "移動"
+select = "選択"
+close = "閉じる"
+refresh = "更新"
+noResultsFound = "結果が見つかりません"
+copyToClipboard = "クリップボードにコピー"
+copyText = "コピー"
+copiedText = "コピー済み"
+toggleLineNumbers = "行番号の切り替え"
+toggleLineWrap = "自動折り返しの切り替え"
+toggleCodeEditable = "コードブロックの編集切り替え"
+downloadCode = "コードをダウンロード"
+expandCode = "コードブロックの展開/折りたたみ"
+fullscreen = "全画面"
+exitFullscreen = "全画面を終了"
+cookieconsentMessage = "このウェブサイトはクッキーを使用して体験を向上させます。"
+cookieconsentDismiss = "同意する"
+cookieconsentLink = "詳細はこちら"
+toggleSortOrder = "並べ替え順序の切り替え"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "共有先"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "目次"
+navigation = "ナビゲーション"
+disclaimer = "著者声明："
+pin = "ピン留め"
+repost = "再投稿"
+publishedOnDate = "公開日 {{ .Date }}"
+views = "閲覧数"
+comments = "コメント数"
+author = "著者"
+updatedOnDate = "更新日 {{ .Date }}"
+readMarkdown = "原文を読む"
+viewSource = "ソースを表示"
+editThisPage = "このページを編集"
+reportIssue = "問題を報告"
+openInEditor = "エディタで開く"
+back = "戻る"
+home = "ホーム"
+readMore = "続きを読む"
+expirationReminder = "この記事は {{ .Date }} に最終更新されました。内容が古くなっている可能性があります。"
+encryptedAbstract = "この記事は暗号化されているため、元の内容は表示できません！"
+print = "印刷"
+encryptedMessage = "パスワードを入力してください"
+password = "パスワード"
+enterBtn = "入る"
+encryptyAgain = "再度暗号化"
+encryptionWarning = "コンテンツの暗号化が検出されましたが、まだ平文です！"
+encryptionCommand = "実際に暗号化するには、ビルド後に `npx @hugo-fixit/encrypt` を実行してください。"
+relatedContent = "関連コンテンツ"
+
+[single.disclaimerMessage]
+ai = "この記事はAIによって生成されました。情報を独自に確認してください。"
+repost = "この記事は転載です。詳細は元のソースをご覧ください。"
+original = "この記事は作者のオリジナルコンテンツです。"
+
+[single.includedIn]
+categories = "カテゴリに収録：{{ .Categories }}"
+collections = "コレクションに収録：{{ .Collections }}"
+both = "カテゴリとコレクションの両方に収録：{{ .Categories }} と {{ .Collections }}"
+
+[single.wordCount]
+other = "{{ .Count }} 字"
+
+[single.fuzzyWordCount]
+other = "約 {{ .Count }} 字"
+
+[single.readingTime]
+other = "約 {{ .Count }} 分で読めます"
+
+[single.reward]
+donate = "寄付"
+wechatpay = "WeChat"
+alipay = "アリペイ"
+paypal = "ペイパル"
+bitcoin = "ビットコイン"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "ページが見つかりません"
+
+[pageNotFoundText]
+other = "申し訳ありませんが、お探しのページは存在しません。"
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "オフライン"
+
+[offlineText]
+other = "インターネットに接続されていません。キャッシュされたページのみが利用可能です。"
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "アップデートがあります"
+updateText = "このサイトの新しいバージョンが利用可能です。"
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "リダイレクト通知"
+message = "{{ .Title }} から離れようとしています。アカウントと資産の安全にご注意ください。"
+confirm = "閲覧を続ける"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "注意"
+tip = "ヒント"
+important = "重要"
+warning = "警告"
+caution = "慎重"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "完了"
+" " = "未完了"
+"/" = "進行中"
+"-" = "キャンセル"
+"<" = "予定"
+">" = "再予定"
+"!" = "重要"
+"!x" = "重要・確認済み"
+"?" = "問題"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "注意"
+abstract = "要約"
+info = "情報"
+todo = "やること"
+tip = "ヒント"
+success = "成功"
+question = "質問"
+warning = "警告"
+failure = "失敗"
+danger = "危険"
+bug = "バグ"
+example = "例"
+quote = "引用"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "新規"
+changed = "変更"
+deleted = "削除"
+deprecated = "非推奨"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "拡大"
+zoomOut = "縮小"
+reset = "リセット"
+download = "SVG をダウンロード"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "図"
+code = "コード"
+# === Tabs ===

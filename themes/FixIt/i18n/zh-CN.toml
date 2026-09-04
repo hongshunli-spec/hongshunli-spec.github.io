@@ -1,0 +1,269 @@
+# Translations for Simplified Chinese
+# 简体中文的翻译
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "Hugo 版本过低。\n\n目前使用的 Hugo 版本为 {{ .Current }}，FixIt 支持的最低的 Hugo 版本为 {{ .Minimal }}。\n\n如果你正在自己的计算机上运行 Hugo，请访问 https://gohugo.io/getting-started/installing/#upgrade-hugo 以查阅升级指南。\n\n如果你正在第三方平台上部署，请按照相应文档配置 Hugo 版本。"
+configurationError = "配置文件错误\n你还没有正确配置 FixIt 的版本参数。参考 https://fixit.lruihao.cn/zh-cn/docs/getting-started/configuration/params/"
+compatibilityError = "兼容性错误 ({{ .From }} -> {{ .To }}):\n你进行了一次不兼容的更新。参考 https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "你正在使用开发版的 FixIt，请考虑使用稳定版。\n见 https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "当前运行环境是“development”。“评论系统”、“PWA”、“CDN”、“fingerprint”和“统计”不会启用。"
+quicklyUpgrade = "使用命令快速升级："
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "回到顶部"
+viewComments = "查看评论"
+noscript = "该网站在启用 JavaScript 的情况下效果最佳。"
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "归档"
+
+[allSome]
+other = "所有{{ .Some }}"
+
+[category]
+other = "分类"
+
+[categories]
+other = "分类"
+
+[collection]
+other = "合集"
+
+[collections]
+other = "合集"
+
+[tag]
+other = "标签"
+
+[tags]
+other = "标签"
+
+[posts]
+other = "文章"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "最近更新"
+
+[section.totalWordCount]
+other = "总计约 {{ .Count }} 字"
+
+[section.archiveCounter]
+other = "共计 {{ .Count }} 篇文章"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "更多"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "选择语言"
+noTranslations = "无翻译"
+switchTheme = "切换主题"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "由 {{ .Hugo }} 强力驱动 | 主题 - {{ .Theme }}"
+siteUV = "总访客数"
+sitePV = "总访问量"
+siteRunning = "网站运行中……"
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "你的评论……"
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "表"
+search = "搜索"
+searchPlaceholder = "搜索文章标题或内容……"
+searchIn = "在 {{ . }} 中搜索"
+searchBy = "搜索引擎"
+gotoResultsPage = "前往搜索结果页面……"
+clear = "清空"
+cancel = "取消"
+navigate = "切换"
+select = "选择"
+close = "关闭"
+refresh = "刷新"
+noResultsFound = "没有找到结果"
+copyToClipboard = "复制到剪贴板"
+copyText = "复制"
+copiedText = "已复制"
+toggleLineNumbers = "切换行号"
+toggleLineWrap = "切换自动换行"
+toggleCodeEditable = "切换可编辑代码块"
+downloadCode = "下载代码"
+expandCode = "展开或折叠代码块"
+fullscreen = "全屏"
+exitFullscreen = "退出全屏"
+cookieconsentMessage = "本网站使用 Cookies 来改善你的浏览体验。"
+cookieconsentDismiss = "同意"
+cookieconsentLink = "了解更多"
+toggleSortOrder = "切换排序方式"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "分享到"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "目录"
+navigation = "导航"
+disclaimer = "作者声明："
+pin = "置顶"
+repost = "转载"
+publishedOnDate = "发布于 {{ .Date }}"
+views = "次阅读"
+comments = "条评论"
+author = "作者"
+updatedOnDate = "更新于 {{ .Date }}"
+readMarkdown = "阅读原始文档"
+viewSource = "查看源码"
+editThisPage = "编辑此页"
+reportIssue = "报告问题"
+openInEditor = "在编辑器中打开"
+back = "返回"
+home = "主页"
+readMore = "阅读全文"
+expirationReminder = "本文最后更新于 {{ .Date }}，文中内容可能已过时。"
+encryptedAbstract = "本文已加密，因此其原始内容不可见！"
+print = "打印"
+encryptedMessage = "请输入密码"
+password = "密码"
+enterBtn = "进入"
+encryptyAgain = "重新加密"
+encryptionWarning = "检测到内容加密，但仍为明文状态！"
+encryptionCommand = "请在构建后执行 `npx @hugo-fixit/encrypt` 以实际加密内容。"
+relatedContent = "相关内容"
+
+[single.disclaimerMessage]
+ai = "本文由 AI 生成，请注意甄别内容真实性。"
+repost = "本文为转载内容，请访问原文了解更多信息。"
+original = "本文为作者原创内容。"
+
+[single.includedIn]
+categories = "收录于 {{ .Categories }}"
+collections = "收录于 {{ .Collections }}"
+both = "收录于 {{ .Categories }} 和 {{ .Collections }}"
+
+[single.wordCount]
+other = "{{ .Count }} 字"
+
+[single.fuzzyWordCount]
+other = "约 {{ .Count }} 字"
+
+[single.readingTime]
+other = "预计阅读 {{ .Count }} 分钟"
+
+[single.reward]
+donate = "赞赏"
+wechatpay = "微信"
+alipay = "支付宝"
+paypal = "贝宝"
+bitcoin = "比特币"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "页面没找到"
+
+[pageNotFoundText]
+other = "抱歉，你要查找的页面不存在。"
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "离线"
+
+[offlineText]
+other = "你没有连接到 Internet，只有缓存的页面可用。"
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "发现新版本"
+updateText = "当前站点有新版本可用。"
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "跳转提示"
+message = "即将离开{{ .Title }}，请注意账号财产安全。"
+confirm = "继续访问"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "注意"
+tip = "提示"
+important = "重要"
+warning = "警告"
+caution = "小心"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "已完成"
+" " = "未完成"
+"/" = "进行中"
+"-" = "已取消"
+"<" = "已计划"
+">" = "已重新计划"
+"!" = "重要"
+"!x" = "重要已核验"
+"?" = "问题"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "注意"
+abstract = "摘要"
+info = "信息"
+todo = "待办"
+tip = "技巧"
+success = "成功"
+question = "问题"
+warning = "警告"
+failure = "失败"
+danger = "危险"
+bug = "Bug"
+example = "示例"
+quote = "引用"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "新增"
+changed = "更改"
+deleted = "删除"
+deprecated = "弃用"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "放大"
+zoomOut = "缩小"
+reset = "重置"
+download = "下载 SVG"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "图表"
+code = "代码"
+# === Tabs ===

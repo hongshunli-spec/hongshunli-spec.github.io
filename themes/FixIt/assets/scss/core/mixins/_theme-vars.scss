@@ -1,0 +1,84 @@
+/// ========================================
+/// Theme Variable Mixins and Functions
+/// ========================================
+@use "sass:color";
+@use "sass:map";
+@use "variables" as *;
+
+/// Set a single CSS variable
+/// @param {String} $name - CSS variable name (without prefix)
+/// @param {*} $value - Variable value
+/// @example
+///   @include set-fi-var(custom-color, #ff0000);
+@mixin set-fi-var($name, $value) {
+  #{$rootPrefix}#{$name}: $value;
+}
+
+/// Batch set CSS variables
+/// @param {Map} $vars - Variable map, key is CSS variable name (without prefix), value is variable value
+/// @example
+///   @include set-fi-vars((
+///     custom-color: #ff0000,
+///     custom-bg: #00ff00,
+///   ));
+@mixin set-fi-vars($vars) {
+  @each $name, $value in $vars {
+    #{$rootPrefix}#{$name}: $value;
+  }
+}
+
+/// Light mode content wrapper
+/// - Explicit light mode: [data-theme-mode='light']
+/// - Auto mode with system light preference: [data-theme-mode='auto'] + prefers-color-scheme
+@mixin light-mode {
+  [data-theme-mode='light'] & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: light) {
+    [data-theme-mode='auto'] & {
+      @content;
+    }
+  }
+}
+
+/// Dark mode content wrapper
+/// - Explicit dark mode: [data-theme-mode='dark']
+/// - Auto mode with system dark preference: [data-theme-mode='auto'] + prefers-color-scheme
+@mixin dark-mode {
+  [data-theme-mode='dark'] & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme-mode='auto'] & {
+      @content;
+    }
+  }
+}
+
+/// Batch set theme color variables using global $theme-colors
+/// Values are emitted via light-dark() and switched by CSS color-scheme.
+@mixin set-theme-colors() {
+  // Light/Dark in one declaration (driven by color-scheme)
+  @at-root :root {
+    @each $name, $value in $theme-colors {
+      #{$rootPrefix}#{$name}: light-dark(#{$value}, #{color.adjust($value, $lightness: -5%)});
+    }
+  }
+}
+
+/// Define dual-theme variables with light-dark()
+/// @param {Map} $vars - Variable map, key is CSS variable name, value is Map(light: $light-val, dark: $dark-val)
+/// @example
+///   @include define-theme-vars((
+///     global-background-color: (light: $global-background-color, dark: $global-background-color-dark)
+///   ));
+@mixin define-theme-vars($vars) {
+  // Light/Dark in one declaration (driven by color-scheme)
+  @at-root :root {
+    @each $name, $values in $vars {
+      #{$rootPrefix}#{$name}: light-dark(#{map.get($values, light)}, #{map.get($values, dark)});
+    }
+  }
+}

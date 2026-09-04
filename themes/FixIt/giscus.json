@@ -1,0 +1,14 @@
+{
+  "origins": [
+    "https://fixit.lruihao.cn",
+    "https://pre.fixit.lruihao.cn",
+    "https://hugofixit.vercel.app",
+    "https://docs-cell-x.vercel.app"
+  ],
+  "originsRegex": [
+    "https://docs-git-([A-z0-9]|-)*cell-x\\.vercel\\.app",
+    "https://docs-[A-z0-9]{9}-cell-x\\.vercel\\.app",
+    "http://localhost:[0-9]+"
+  ],
+  "defaultCommentOrder": "newest"
+}

@@ -1,0 +1,118 @@
+@use "sass:color";
+@use "sass:map";
+@use "core/functions" as *;
+@use "core/mixins" as *;
+@use "core/maps" as maps;
+
+.single .admonition {
+  position: relative;
+  margin: 1rem 0;
+  padding: 0 0.75rem;
+  border-inline-start: .25rem solid;
+  overflow: hidden;
+  background-color: fi-var(admonition-bg-color);
+  border-inline-start-color: fi-var(admonition-color);
+  @include border-radius;
+
+  .admonition-title {
+    font-weight: fi-var(admonition-title-font-weight, bold);
+    margin: 0 -0.75rem;
+    padding: 0.25rem 1.8rem;
+    border-bottom: 1px solid;
+    position: relative;
+    @include border-radius(0);
+
+    strong {
+      font-weight: bolder;
+      text-shadow: light-dark(0 0.05rem 0.05rem rgba(0, 0, 0, 0.2), 0 0.05rem 0.05rem rgba(255, 255, 255, 0.2));
+    }
+
+    // title-only admonition without content
+    &:not(:has(+ .details-content)) {
+      @include set-fi-var(admonition-title-font-weight, normal);
+      padding-inline: 2.2rem 1rem;
+      padding-block: 0.75rem;
+      border: 0;
+
+      i.icon {
+        inset-inline-start: 1.1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  > .admonition-title {
+    border-bottom-color: fi-var(admonition-bg-color);
+    background-color: fi-var(admonition-bg-color-collapsed);
+    transition: all 0.2s ease;
+
+    i.icon {
+      color: fi-var(admonition-color);
+    }
+  }
+
+  &.open > .admonition-title {
+    background-color: fi-var(admonition-bg-color);
+  }
+
+  .admonition-content {
+    padding: 0.5rem 0;
+
+    // for extended alert syntax
+    > p {
+      margin: 0;
+    }
+
+    // reset sticky header position in code block when inside admonition
+    .code-block .code-header,
+    .code-tabs .tabs-header {
+      top: initial !important;
+    }
+  }
+
+  i.icon {
+    font-size: 0.85rem;
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 0.9rem;
+    translate: -50% -50%;
+
+    [dir="rtl"] & {
+      translate: 50% -50%;
+    }
+  }
+
+  i.details-icon {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: 0.9rem;
+    translate: 50% -50%;
+
+    [dir="rtl"] & {
+      translate: -50% -50%;
+    }
+  }
+
+  // set color for each admonition type
+  $default-type: note;
+  @each $type, $item in maps.$admonition-color-map {
+    $admonition-type: $type;
+    @if $type == $default-type {
+      $admonition-type: '';
+    }
+    @include admonition($admonition-type, map.get($item, color), map.get($item, bg-color));
+  }
+
+  &:last-child {
+    margin-bottom: 0.75rem;
+  }
+
+  // content-only admonition without title
+  &:not(:has(.admonition-title)) {
+    border: 1px solid fi-var(admonition-bg-color);
+
+    .admonition-content {
+      padding: 0.75rem 0.25rem;
+    }
+  }
+}

@@ -1,0 +1,273 @@
+# Translations for French
+# Traductions pour le français
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "La version de Hugo est trop ancienne.\n\nLa version actuelle de Hugo est {{ .Current }}, la version minimale requise pour FixIt est {{ .Minimal }}.\n\nSi vous utilisez Hugo sur votre ordinateur, consultez le guide de mise à niveau à l'adresse https://gohugo.io/getting-started/installing/#upgrade-hugo.\n\nSi vous déployez sur une plateforme tierce, veuillez configurer la version de Hugo en conséquence."
+configurationError = "Erreur de configuration\nVous n'avez pas configuré la version de FixIt correctement. Voir https://fixit.lruihao.cn/docs/getting-started/configuration/params/?lang=french"
+compatibilityError = "Erreur de compatibilité ({{ .From }} -> {{ .To }}):\nVous avez une mise à jour incompatible. Voir https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "Vous utilisez une version de développement de FixIt. Veuillez considérer l'utilisation d'une version stable.\nVoir https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "L'environnement actuel est \"développement\". Le \"système de commentaires\", le \"PWA\", le \"CDN\", le \"prise d'empreinte\" et la \"analyses\" seront désactivés."
+quicklyUpgrade = "La mise à jour rapide utilise la commande: "
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "Retour en Haut"
+viewComments = "Afficher les Commentaires"
+noscript = "Ce site Web fonctionne mieux quand JavaScript est activé."
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "Archives"
+
+[allSome]
+other = "Tous les {{ .Some }}"
+
+[category]
+other = "Catégorie"
+
+[categories]
+other = "Catégories"
+
+[collection]
+other = "Collection"
+
+[collections]
+other = "Collections"
+
+[tag]
+other = "Tag"
+
+[tags]
+other = "Tags"
+
+[posts]
+other = "Posts"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "Récemment Modifié"
+
+[section.totalWordCount]
+one = "Nombre de mots: 1"
+other = "Nombre de mots: {{ .Count }}"
+
+[section.archiveCounter]
+one = "Seulement un article"
+other = "{{ .Count }} articles au total"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "Plus"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "Choisir la langue"
+noTranslations = "Aucune traduction"
+switchTheme = "Changer de Thème"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "Propulsé par {{ .Hugo }} | Thème - {{ .Theme }}"
+siteUV = "Total de visiteurs"
+sitePV = "Total de visites"
+siteRunning = "Site en cours d'exécution ..."
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "Votre commentaire ..."
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "Tableau"
+search = "Chercher"
+searchPlaceholder = "Rechercher des titres, des contenus..."
+searchIn = "Rechercher dans {{ . }}"
+searchBy = "Recherche par"
+gotoResultsPage = "Aller à la page de résultats de recherche ..."
+clear = "Effacer"
+cancel = "Annuler"
+navigate = "Naviguer"
+select = "Sélectionner"
+close = "Fermer"
+refresh = "Actualiser"
+noResultsFound = "Aucun résultat trouvé"
+copyToClipboard = "Copier dans le presse-papiers"
+copyText = "Copier"
+copiedText = "Copié"
+toggleLineNumbers = "Basculer les numéros de ligne"
+toggleLineWrap = "Basculer le retour à la ligne"
+toggleCodeEditable = "Basculer le bloc de code modifiable"
+downloadCode = "Télécharger le code"
+expandCode = "Développer ou réduire le bloc de code"
+fullscreen = "Plein écran"
+exitFullscreen = "Quitter le plein écran"
+cookieconsentMessage = "Ce site Web utilise des Cookies pour améliorer votre expérience."
+cookieconsentDismiss = "J'ai compris !"
+cookieconsentLink = "En apprendre plus"
+toggleSortOrder = "Changer l'ordre de tri"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "Partager via"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "Contenus"
+navigation = "Navigation"
+disclaimer = "Avertissement : "
+pin = "Épingler en haut"
+repost = "Reposter"
+publishedOnDate = "publié le {{ .Date }}"
+views = "vues"
+comments = "commentaires"
+author = "Auteur"
+updatedOnDate = "Mis à jour le {{ .Date }}"
+readMarkdown = "Ouvrir le Markdown"
+viewSource = "Voir la source"
+editThisPage = "Modifier cette page"
+reportIssue = "Signaler un problème"
+openInEditor = "Ouvrir dans l'éditeur"
+back = "Retour"
+home = "Accueil"
+readMore = "En savoir plus"
+expirationReminder = "Cet article a été mis à jour pour la dernière fois le {{ .Date }}, son contenu est peut-être obsolète."
+encryptedAbstract = "Cet article a été chiffré, son contenu n'est donc pas lisible!"
+print = "Imprimer"
+encryptedMessage = "Entrer le mot de passe"
+password = "Mot de passe"
+enterBtn = "Entrer"
+encryptyAgain = "Chiffrer à nouveau"
+encryptionWarning = "Chiffrement de contenu détecté, mais ils sont toujours en texte clair !"
+encryptionCommand = "Exécutez `npx @hugo-fixit/encrypt` après la compilation pour les chiffrer réellement."
+
+[single.disclaimerMessage]
+ai = "Cet article a été généré par une IA. Veuillez vérifier les informations de manière indépendante."
+repost = "Cet article est un repost. Veuillez visiter la source originale pour plus d'informations."
+original = "Ceci est le contenu original de l'auteur."
+relatedContent = "Contenu lié"
+
+[single.includedIn]
+categories = "inclus dans {{ .Categories }}"
+collections = "inclus dans {{ .Collections }}"
+both = "inclus dans {{ .Categories }} et {{ .Collections }}"
+
+[single.wordCount]
+one = "1 mot"
+other = "{{ .Count }} mots"
+
+[single.fuzzyWordCount]
+other = "environ {{ .Count }} mots"
+
+[single.readingTime]
+one = "1 minute"
+other = "{{ .Count }} minutes"
+
+[single.reward]
+donate = "Faire un don"
+wechatpay = "WeChat Pay"
+alipay = "Alipay"
+paypal = "PayPal"
+bitcoin = "Bitcoin"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "Page introuvable"
+
+[pageNotFoundText]
+other = "Désolé, la page recherchée n'existe pas."
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "Hors ligne"
+
+[offlineText]
+other = "Vous n'êtes pas connecté à Internet, seules les pages mises en cache seront disponibles."
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "Mise à jour disponible"
+updateText = "Une nouvelle version de ce site est disponible."
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "Avis de redirection"
+message = "Vous êtes sur le point de quitter {{ .Title }}. Veuillez protéger la sécurité de votre compte et de vos biens."
+confirm = "Continuer la visite"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "Remarque"
+tip = "Astuce"
+important = "Important"
+warning = "Avertissement"
+caution = "Attention"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "Vérifié"
+" " = "Non vérifié"
+"/" = "En cours"
+"-" = "Annulé"
+"<" = "Planifié"
+">" = "Replanifié"
+"!" = "Important"
+"!x" = "Important Vérifié"
+"?" = "Question"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "Remarque"
+abstract = "Résumé"
+info = "Info"
+todo = "À faire"
+tip = "Astuce"
+success = "Succès"
+question = "Question"
+warning = "Avertissement"
+failure = "Échec"
+danger = "Danger"
+bug = "Bug"
+example = "Exemple"
+quote = "Citation"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "NOUVEAU"
+changed = "MODIFIÉ"
+deleted = "SUPPRIMÉ"
+deprecated = "OBSOLÈTE"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "Zoom avant"
+zoomOut = "Zoom arrière"
+reset = "Réinitialiser"
+download = "Télécharger le SVG"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "Diagramme"
+code = "Code"
+# === Tabs ===

@@ -1,0 +1,32 @@
+{{- /*
+  Build and minify a JS resource with unified behavior.
+  @param {resource.Resource} .Resource - Hugo resource to process
+  @param {Object|Boolean} [.Build] - True for defaults, dict for custom options, false/omit to skip js.Build
+  @param {Boolean} [.Minify] - Extra minify flag; final minify is Minify OR Build.minify
+  @param {String} [.Fingerprint] - Fingerprint algorithm (e.g. "sha256")
+  @return {resource.Resource}
+*/ -}}
+
+{{- $resource := .Resource -}}
+{{- $minify := .Minify -}}
+{{- with .Build -}}
+  {{- $defaultOptions := dict
+    "targetPath" (replaceRE `\.(template\.)?ts$` ".js" $resource.Name)
+    "sourceMap" (cond hugo.IsDevelopment "linked" "none")
+    "minify" hugo.IsProduction
+  -}}
+  {{- $options := . -}}
+  {{- if eq . true -}}
+    {{- $options = dict -}}
+  {{- end -}}
+  {{- $options = $options | merge $defaultOptions -}}
+  {{- $resource = $resource | js.Build $options -}}
+  {{- $minify = $minify | or (index $options "minify") -}}
+{{- end -}}
+{{- if $minify -}}
+  {{- $resource = $resource | minify -}}
+{{- end -}}
+{{- with .Fingerprint -}}
+  {{- $resource = $resource | fingerprint . -}}
+{{- end -}}
+{{- return $resource -}}

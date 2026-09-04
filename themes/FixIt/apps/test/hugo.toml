@@ -1,0 +1,78 @@
+# -------------------------------------------------------------------------------------
+# Hugo Configuration
+# See: https://gohugo.io/configuration/all/
+# -------------------------------------------------------------------------------------
+
+title = "FixIt TEST"
+baseURL = "https://demo.fixit.lruihao.cn/test/"
+ignoreLogs = [
+  "warning-file-tree",
+  "warning-encryption"
+]
+defaultContentLanguage = "en"
+
+# test for multilingual support
+[languages]
+
+[languages.en]
+locale = "en"
+label = "English"
+
+# [todo] 优化中文排版
+# [languages.zh-cn]
+# locale = "zh-CN"
+# label = "简体中文"
+
+[languages.ar]
+direction = "rtl"
+locale = "ar"
+label = "العربية"
+
+[permalinks]
+
+[permalinks.page]
+posts = "/units/:slugorcontentbasename"
+
+[permalinks.section]
+posts = "/units/"
+
+[markup]
+_merge = "shallow"
+
+[outputs]
+_merge = "shallow"
+
+[taxonomies]
+_merge = "shallow"
+
+# -------------------------------------------------------------------------------------
+# Theme Core Configuration
+# See: https://fixit.lruihao.cn/docs/getting-started/configuration/params/
+# -------------------------------------------------------------------------------------
+
+[params]
+version = "1.0.X"
+collection_list = true
+collection_navigation = true
+
+[params.home.profile]
+enable = true
+avatar_url = "/images/fixit-test.png"
+
+[params.social]
+
+[params.social.github]
+id = "hugo-fixit"
+weight = 2
+
+[params.social.twitter]
+id = "lruihao"
+weight = 1
+# for twitter cards
+# site = "hugo-fixit"
+
+[params.author]
+name = "Lruihao"
+email = ""
+link = "https://lruihao.cn"
+avatar = "https://lruihao.cn/images/avatar.jpg"

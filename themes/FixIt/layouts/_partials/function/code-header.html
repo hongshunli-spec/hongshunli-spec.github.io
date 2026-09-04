@@ -1,0 +1,49 @@
+{{- /* Code header for classic mode code blocks */ -}}
+{{- $config := .Config -}}
+{{- $wrapper := .Wrapper -}}
+{{- $lang := cond (transform.CanHighlight .Type) (lower .Type) "fallback" -}}
+{{- $name := $config.name -}}
+{{- $lineNosBtn := "" -}}
+{{- $lineWrapBtn := "" -}}
+{{- $editBtn := "" -}}
+{{- $copyBtn := "" -}}
+{{- $downloadBtn := "" -}}
+{{- $fullscreenBtn := "" -}}
+{{- $foldIcon := dict "Class" "arrow fa-solid fa-chevron-down" | partial "plugin/icon.html" -}}
+{{- $titleEl := printf `<span class="code-title">%s</span>` $foldIcon -}}
+{{- $ellipsisBtn := printf `<button type="button" class="ellipses-btn" aria-label="Show more options">%s</button>` (dict "Class" "fa-solid fa-ellipsis-h" | partial "plugin/icon.html") -}}
+
+{{- if $config.title -}}
+  {{- $titleEl = printf `<span class="code-title">%s<span class="title-inner">%s</span></span>` $foldIcon $config.title -}}
+{{- end -}}
+{{- if $config.line_nos_toggler -}}
+  {{- $lineNosIcon := dict "Class" "fa-solid fa-list-ol" | partial "plugin/icon.html" -}}
+  {{- $lineNosBtn = printf `<button type="button" class="action-btn line-nos-btn" aria-label="%s" title="%s">%s</button>` (T "assets.toggleLineNumbers") (T "assets.toggleLineNumbers") $lineNosIcon -}}
+{{- end -}}
+{{- if $config.line_wrap_toggler -}}
+  {{- $lineWrapIcon := dict "Class" "fa-solid fa-right-left" | partial "plugin/icon.html" -}}
+  {{- $lineWrapBtn = printf `<button type="button" class="action-btn line-wrap-btn" aria-label="%s" title="%s">%s</button>` (T "assets.toggleLineWrap") (T "assets.toggleLineWrap") $lineWrapIcon -}}
+{{- end -}}
+{{- if $config.editable -}}
+  {{- $editIcon := dict "Class" "fa-solid fa-pen-to-square" | partial "plugin/icon.html" -}}
+  {{- $editBtn = printf `<button type="button" class="action-btn edit-btn" aria-label="%s" title="%s">%s</button>` (T "assets.toggleCodeEditable") (T "assets.toggleCodeEditable") $editIcon -}}
+{{- end -}}
+{{- if $config.copyable -}}
+  {{- $copyIcon := dict "Class" "fa-regular fa-clone" | partial "plugin/icon.html" -}}
+  {{- $copyBtn = printf `<button type="button" class="action-btn copy-btn" aria-label="%s" title="%s" data-copied-text="%s">%s</button>` (T "assets.copyToClipboard") (T "assets.copyToClipboard") (T "assets.copiedText") $copyIcon -}}
+{{- end -}}
+{{- if $config.downloadable -}}
+  {{- $downloadIcon := dict "Class" "fa-solid fa-download" | partial "plugin/icon.html" -}}
+  {{- $downloadBtn = printf `<button type="button" class="action-btn download-btn" aria-label="%s" title="%s">%s</button>` (T "assets.downloadCode") (T "assets.downloadCode") $downloadIcon -}}
+{{- end -}}
+{{- if $config.fullscreen -}}
+  {{- $fullscreenIcon := dict "Class" "fa-solid fa-expand" | partial "plugin/icon.html" -}}
+  {{- $fullscreenBtn = printf `<button type="button" class="action-btn fullscreen-btn" aria-label="%s" title="%s" data-exit-title="%s">%s</button>` (T "assets.fullscreen") (T "assets.fullscreen") (T "assets.exitFullscreen") $fullscreenIcon -}}
+{{- end -}}
+{{- with $config.name -}}
+  {{- $titleEl = replace $titleEl `<span class="code-title">` (printf `<span class="code-title" data-name="%s">` .) -}}
+{{- end -}}
+{{- $codeHeader := printf `<div class="code-header language-%s">%s%s%s%s%s%s%s%s</div>` $lang $titleEl $ellipsisBtn $lineNosBtn $lineWrapBtn $editBtn $copyBtn $downloadBtn $fullscreenBtn -}}
+{{- $wrapper = replaceRE `(<div class="code-wrapper">)` (printf "%s$1" $codeHeader) $wrapper -}}
+
+{{- return $wrapper -}}

@@ -1,23 +1,39 @@
 baseURL = "https://hongshunli-blog.pages.dev/"
-relativeURLs = false
-canonifyURLs = false
-theme = "PaperMod"
+title = "池州老橡的博客"
+theme = ["FixIt"]
+defaultContentLanguage = "zh-cn"
 locale = "zh-CN"
-
-[pagination]
-pagerSize = 5
+hasCJKLanguage = true
+enableRobotsTXT = true
+enableEmoji = true
 
 [params]
-title = "池州老橡的博客"
-description = "技术笔记博客"
-author = "池州老橡"
-homePostsCount = 5
-paginationShowPageNumbers = true
-disableSpecial1stPost = true
+  version = "1.0.X"
+  description = "技术笔记博客"
+  default_theme = "auto"
+  date_format = "2006-01-02"
+  with_site_title = true
+  word_count = true
+  reading_time = true
 
-[params.appearance]
-theme = "auto"
-darkMode = true
+  [params.author]
+    name = "池州老橡"
+    email = "hongshunli@hotmail.com"
 
-[markup.goldmark.renderer]
-hardWraps = true
+  [params.header]
+    [params.header.title]
+      name = "池州老橡的博客"
+
+  [params.footer]
+    since = "2026"
+    [params.footer.powered]
+      enable = true
+
+  [params.home]
+    [params.home.posts]
+      enable = true
+      paginate = 6
+
+  [params.search]
+    enable = true
+    type = "fuse"

@@ -1,0 +1,74 @@
+# Tips: remove sourceMappingURL of local libraries to avoid source map 404 error.
+# See https://github.com/hugo-fixit/FixIt/issues/67
+
+prefix:
+  libFiles: https://unpkg.com/
+  # simple-icons@16.29.0 https://github.com/simple-icons/simple-icons
+  simpleIcons: https://unpkg.com/simple-icons@16.29.0/icons/
+libFiles:
+  # algoliasearch@5.57.0 https://github.com/algolia/algoliasearch-client-javascript
+  algoliasearchJS: algoliasearch@5.57.0/dist/lite/builds/browser.umd.js
+  # animate.css@4.1.1 https://github.com/daneden/animate.css
+  animateCSS: animate.css@4.1.1/animate.min.css
+  # aplayer@1.10.1 https://github.com/MoePlayer/APlayer
+  aplayerCSS: aplayer@1.10.1/dist/APlayer.min.css
+  aplayerJS: aplayer@1.10.1/dist/APlayer.min.js
+  # artalk@latest https://github.com/ArtalkJS/Artalk
+  artalkCSS: artalk@latest/dist/Artalk.css
+  artalkJS: artalk@latest/dist/Artalk.js
+  # @algolia/autocomplete-js@1.19.9 https://github.com/algolia/autocomplete
+  autocompleteJS: '@algolia/autocomplete-js@1.19.9/dist/umd/index.production.js'
+  # cell-tooltip@0.4.1 https://github.com/Lruihao/cell-tooltip
+  cellTooltipJS: cell-tooltip@0.4.1/dist/cell-tooltip.umd.js
+  # cell-watermark@1.0.4 https://github.com/Lruihao/watermark
+  cellWatermarkJS: cell-watermark@1.0.4/src/watermark.js
+  # cookieconsent@3.1.1 https://github.com/osano/cookieconsent
+  cookieconsentCSS: cookieconsent@3.1.1/build/cookieconsent.min.css
+  cookieconsentJS: cookieconsent@3.1.1/build/cookieconsent.min.js
+  # echarts@6.1.0 https://github.com/apache/echarts
+  echartsJS: echarts@6.1.0/dist/echarts.min.js
+  # @fortawesome/fontawesome-free@7.3.1 https://github.com/FortAwesome/Font-Awesome
+  fontawesomeFreeCSS: '@fortawesome/fontawesome-free@7.3.1/css/all.min.css'
+  # gitalk@1.8.0 https://github.com/gitalk/gitalk
+  gitalkCSS: gitalk@1.8.0/dist/gitalk.min.css
+  gitalkJS: gitalk@1.8.0/dist/gitalk.min.js
+  # instant.page@5.2.0 https://github.com/instantpage/instant.page
+  instantPage: instant.page@5.2.0/instantpage.js
+  # json-viewer-element@1.0.6 https://github.com/Lruihao/json-viewer-element
+  jsonViewerElementJS: json-viewer-element@1.0.6/dist/json-viewer-element.umd.js
+  # katex@0.18.5 https://github.com/KaTeX/KaTeX
+  katexCopyTexJS: katex@0.18.5/dist/contrib/copy-tex.min.js
+  katexCSS: katex@0.18.5/dist/katex.min.css
+  # lightgallery@2.9.0 https://github.com/sachinchoolur/lightgallery
+  lightgalleryCSS: lightgallery@2.9.0/css/lightgallery-bundle.min.css
+  lightgalleryJS: lightgallery@2.9.0/lightgallery.min.js
+  lightgalleryThumbnailJS: lightgallery@2.9.0/plugins/thumbnail/lg-thumbnail.min.js
+  lightgalleryZoomJS: lightgallery@2.9.0/plugins/zoom/lg-zoom.min.js
+  # mapbox-gl@3.30.0 https://docs.mapbox.com/mapbox-gl-js
+  mapboxGLCSS: mapbox-gl@3.30.0/dist/mapbox-gl.css
+  mapboxGLJS: mapbox-gl@3.30.0/dist/mapbox-gl.js
+  # meting@2.0.2 https://github.com/metowolf/MetingJS
+  metingJS: meting@2.0.2/dist/Meting.min.js
+  # object-fit-images@3.2.4 https://github.com/fregante/object-fit-images
+  objectFitImagesJS: object-fit-images@3.2.4/dist/ofi.min.js
+  # pace-js@1.2.4 https://github.com/CodeByZach/pace
+  paceJS: pace-js@1.2.4
+  # pangu@9.1.1 https://github.com/vinta/pangu.js
+  panguJS: pangu@9.1.1/dist/browser/pangu.min.js
+  # @panzoom/panzoom@4.6.2 https://github.com/timmywil/panzoom
+  panzoomJS: '@panzoom/panzoom@4.6.2/dist/panzoom.min.js'
+  # sharer.js@0.5.4 https://github.com/ellisonleao/sharer.js
+  sharerJS: sharer.js@0.5.4/sharer.min.js
+  # @github/tab-container-element@4.9.0 https://github.com/github/tab-container-element
+  tabContainerElementJS: '@github/tab-container-element@4.9.0/dist/bundle.js'
+  # twemoji@14.0.2 https://github.com/twitter/twemoji
+  twemojiJS: twemoji@14.0.2/dist/twemoji.min.js
+  # twikoo@1.7.20 https://github.com/imaegoo/twikoo
+  twikooJS: twikoo@1.7.20/dist/twikoo.all.min.js
+  # typeit@8.8.7 https://github.com/alexmacarthur/typeit
+  typeitJS: typeit@8.8.7/dist/index.umd.js
+  # valine@1.5.3 https://github.com/xCss/Valine
+  valineJS: valine@1.5.3/dist/Valine.min.js
+  # @waline/client@3.15.2 https://github.com/walinejs/waline
+  walineCSS: '@waline/client@3.15.2/dist/waline.css'
+  walineJS: '@waline/client@3.15.2/dist/waline.umd.js'

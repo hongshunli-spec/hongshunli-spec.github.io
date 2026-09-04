@@ -1,0 +1,161 @@
+/// ================================================================================
+/// CSS Custom Properties (CSS Variables)
+///
+/// This file defines all CSS custom properties for the FixIt theme.
+/// Variables are organized into three main categories:
+/// 1. Internal config: theme system values (base URL etc.) via hugo:vars/internal
+/// 2. Theme-independent variables: fixed values (fonts, sizes, etc.)
+/// 3. Theme-dependent variables: color values that support light/dark themes
+///
+/// Theme-dependent variables are further categorized into:
+/// - Core: Global layout and navigation colors
+/// - Page Content: Article and post content colors
+/// - Third-party: Extension and plugin colors
+///
+/// These CSS variables enable runtime theme switching and customization.
+/// ================================================================================
+@use "sass:color";
+@use "functions" as *;
+@use "mixins" as *;
+@use "variables" as *;
+
+:root {
+  interpolate-size: allow-keywords;
+  color-scheme: light dark;
+
+  &[data-theme-mode='light'] {
+    color-scheme: light;
+  }
+
+  &[data-theme-mode='dark'] {
+    color-scheme: dark;
+  }
+
+  // ----------------------------------------
+  // Theme-Independent Variables
+  // ----------------------------------------
+  @include set-fi-vars((
+    // Internal config
+    base-url: "#{$base-url}",
+    logo-img: url("#{$logo-img}"),
+    loading-img: url("#{$loading-img}"),
+
+    // Global Typography
+    global-font-family: $global-font-family,
+    global-font-size: $global-font-size,
+    global-font-weight: $global-font-weight,
+    global-line-height: $global-line-height,
+    global-border-radius: $global-border-radius,
+
+    // Header
+    header-height: $header-height,
+    header-title-font-family: $header-title-font-family,
+    header-title-font-size: $header-title-font-size,
+    submenu-height: $header-height * 0.5,
+
+    // Single Content
+    toc-title-font-size: $toc-title-font-size,
+    toc-content-font-size: $toc-content-font-size,
+    collection-title-font-size: $collection-title-font-size,
+    collection-list-font-size: $collection-list-font-size,
+    related-title-font-size: $related-title-font-size,
+    related-list-font-size: $related-list-font-size,
+    reward-img-width: $reward-img-width,
+
+    // Code
+    code-font-size: $code-font-size,
+    code-block-font-size: $code-block-font-size,
+    code-font-family: $code-font-family,
+    code-error-color: $code-error-color,
+
+    // Scrollbar
+    scrollbar-track-color: transparent,
+    scrollbar-width: thin,
+    scrollbar-width-legacy: 12px,
+
+    // Animations
+    bezier: cubic-bezier(.4, 0, .2, 1),
+
+    // Other utilities
+    divider-edge-weak: linear-gradient(to right, transparent, fi-var(divider-bg, #d0d0d5), transparent),
+  ));
+
+  &:has(.breadcrumb-container.sticky) {
+    @include set-fi-var(breadcrumb-height, 2.5rem);
+  }
+}
+
+// ----------------------------------------
+// Theme-Dependent Color Variables
+// ----------------------------------------
+
+// Theme colors variables
+@include set-theme-colors;
+
+// Core theme colors (global layout)
+@include define-theme-vars((
+  // Global
+  global-background-color: (light: $global-background-color, dark: $global-background-color-dark),
+  global-font-color: (light: $global-font-color, dark: $global-font-color-dark),
+  global-font-secondary-color: (light: $global-font-secondary-color, dark: $global-font-secondary-color-dark),
+  global-font-tertiary-color: (light: color.adjust($global-font-secondary-color, $lightness: 12%), dark: color.adjust($global-font-secondary-color-dark, $lightness: -12%)),
+  global-font-quaternary-color: (light: color.adjust($global-font-secondary-color, $lightness: 20%), dark: color.adjust($global-font-secondary-color-dark, $lightness: -20%)),
+  global-link-color: (light: $global-link-color, dark: $global-link-color-dark),
+  global-link-hover-color: (light: $global-link-hover-color, dark: $global-link-hover-color-dark),
+  global-border-color: (light: $global-border-color, dark: $global-border-color-dark),
+  global-border-color-light: (light: color.adjust($global-border-color, $lightness: 5%), dark: color.adjust($global-border-color-dark, $lightness: -5%)),
+  global-border-color-weight: (light: color.adjust($global-border-color, $lightness: -5%), dark: color.adjust($global-border-color-dark, $lightness: 5%)),
+
+  // Header
+  header-background-color: (light: $header-background-color, dark: $header-background-color-dark),
+  menu-active-color: (light: $menu-active-color, dark: $menu-active-color-dark),
+  menu-border-color: (light: $menu-border-color, dark: $menu-border-color-dark),
+  search-background-color: (light: $search-background-color, dark: $search-background-color-dark),
+
+  // Selection
+  selection-color: (light: $selection-color, dark: $selection-color-dark),
+
+  // Scrollbar
+  scrollbar-color: (light: $scrollbar-color, dark: $scrollbar-color),
+  scrollbar-hover-color: (light: $scrollbar-hover-color, dark: $scrollbar-hover-color),
+  scrollbar-thumb-color: (light: $scrollbar-color, dark: $scrollbar-color),
+  scrollbar-thumb-hover-color: (light: $scrollbar-hover-color, dark: $scrollbar-hover-color),
+
+  // Tag Cloud
+  tag-cloud-start: (light: $tag-cloud-start, dark: $tag-cloud-start-dark),
+  tag-cloud-end: (light: $tag-cloud-end, dark: $tag-cloud-end-dark),
+
+  // Pagination
+  pagination-link-color: (light: $pagination-link-color, dark: $pagination-link-color-dark),
+  pagination-link-hover-color: (light: $pagination-link-hover-color, dark: $pagination-link-hover-color-dark),
+));
+
+// Page content theme colors
+@include define-theme-vars((
+  // Single Content
+  single-link-color: (light: $single-link-color, dark: $single-link-color-dark),
+  single-link-hover-color: (light: $single-link-hover-color, dark: $single-link-hover-color-dark),
+  table-background-color: (light: $table-background-color, dark: $table-background-color-dark),
+  table-thead-color: (light: $table-thead-color, dark: $table-thead-color-dark),
+  table-border-color: (light: $table-border-color, dark: $table-border-color-dark),
+  blockquote-color: (light: $blockquote-color, dark: $blockquote-color-dark),
+  reward-color: (light: $reward-color, dark: $reward-color-dark),
+
+  // Divider
+  hr-active-color: (light: color.adjust($single-link-hover-color, $lightness: 4%), dark: color.adjust($global-link-hover-color-dark, $lightness: -4%)),
+
+  // Code
+  code-color: (light: $code-color, dark: $code-color-dark),
+  code-inline-background-color: (light: rgba(175, 184, 193, 0.2), dark: rgba(99, 110, 123, 0.4)),
+  code-block-background-color: (light: $code-background-color, dark: $code-background-color-dark),
+  code-header-color: (light: $code-header-color, dark: $code-header-color-dark),
+  code-header-background-color: (light: $code-header-background-color, dark: $code-header-background-color-dark),
+  code-highlight-color: (light: $code-highlight-color, dark: $code-highlight-color-dark),
+));
+
+// Third-party component theme colors (extensions and plugins)
+@include define-theme-vars((
+  // GitHub Corners
+  github-corner-color: (light: $github-corner-color, dark: $github-corner-color-dark),
+  github-corner-fill: (light: $github-corner-fill, dark: $github-corner-fill-dark),
+));

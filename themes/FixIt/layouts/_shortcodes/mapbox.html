@@ -1,0 +1,41 @@
+{{- if ne hugo.Context.MarkupScope "home" -}}
+
+{{- $mapbox := dict "Page" .Page "Key" "mapbox" | partial "function/param.html" | default dict -}}
+
+{{- $lng := cond .IsNamedParams (.Get "lng") (.Get 0) -}}
+{{- $lat := cond .IsNamedParams (.Get "lat") (.Get 1) -}}
+{{- $zoom := cond .IsNamedParams (.Get "zoom") (.Get 2) | default 10 -}}
+{{- $marked := cond .IsNamedParams (.Get "marked") (.Get 3) | ne false -}}
+{{- $markers := cond .IsNamedParams (.Get "markers") (.Get 6) | default "[]" -}}
+{{- $lightStyle := $mapbox.light_style -}}
+{{- $darkStyle := $mapbox.dark_style -}}
+{{- $navigation := $mapbox.navigation -}}
+{{- $geolocate := $mapbox.geolocate -}}
+{{- $scale := $mapbox.scale -}}
+{{- $fullscreen := $mapbox.fullscreen -}}
+{{- $width := "100%" -}}
+{{- $height := "20rem" -}}
+
+{{- if .IsNamedParams -}}
+  {{- $lightStyle = .Get "light-style" | default $lightStyle -}}
+  {{- $darkStyle = .Get "dark-style" | default $darkStyle -}}
+  {{- $navigation = .Get "navigation" | ne false | and $navigation -}}
+  {{- $geolocate = .Get "geolocate" | ne false | and $geolocate -}}
+  {{- $scale = .Get "scale" | ne false | and $scale -}}
+  {{- $fullscreen = .Get "fullscreen" | ne false | and $fullscreen -}}
+  {{- $width = .Get "width" | default $width -}}
+  {{- $height = .Get "height" | default $height -}}
+{{- else -}}
+  {{- $lightStyle = .Get 4 | default $lightStyle -}}
+  {{- $darkStyle = .Get 5 | default $darkStyle -}}
+{{- end -}}
+
+{{- $darkStyle = $darkStyle | default $lightStyle -}}
+{{- $options := dict "lng" $lng "lat" $lat "zoom" $zoom "marked" $marked "markers" $markers "lightStyle" $lightStyle "darkStyle" $darkStyle "geolocate" $geolocate "navigation" $navigation "scale" $scale "fullscreen" $fullscreen -}}
+
+{{- $attrs := printf `style="width: %v; height: %v;"` $width $height -}}
+<div class="mapbox" data-options="{{ $options | jsonify }}" {{ $attrs | safeHTMLAttr }}></div>
+
+{{- .Page.Store.Set "hasMapbox" true -}}
+
+{{- end -}}

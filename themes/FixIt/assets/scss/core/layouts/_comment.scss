@@ -1,0 +1,31 @@
+@use "core/mixins" as *;
+
+.wrapper > #comments {
+  padding: 2rem 0.5rem;
+  display: flex;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    padding-inline: 0.5rem;
+
+    @include media('sm', 'down') {
+      display: none;
+    }
+  }
+
+  .comment {
+    margin: 0 auto;
+    padding-inline: 0.5rem;
+    box-sizing: border-box;
+
+    iframe {
+      width: 100%;
+    }
+  }
+
+  @include media('print') {
+    display: none !important;
+  }
+}

@@ -1,0 +1,12 @@
+{{- $type := cond .IsNamedParams (.Get "type") (.Get 0) -}}
+{{- $title := cond .IsNamedParams (.Get "title") (.Get 1) | .Page.RenderString -}}
+{{- $open := cond .IsNamedParams (.Get "open") (.Get 2) -}}
+{{- $inner := .Inner | .Page.RenderString -}}
+
+{{- dict
+  "Type" $type
+  "Title" $title
+  "Open" $open
+  "Text" $inner
+  | partial "plugin/admonition.html"
+-}}

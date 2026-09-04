@@ -1,0 +1,73 @@
+{{- /*
+  Convert snake_case config keys to camelCase recursively.
+
+  This is mainly used to avoid problems caused by Hugo's case-insensitive config key parsing.
+  Keep config keys in snake_case, then convert them here for stable access in templates and JS.
+
+  @param {Map|Slice} . - The input with snake_case keys
+  @return {Map|Slice} A new value with camelCase keys
+
+  @example
+  // Simple Map conversion
+  Input: dict "code_block" true "max_shown_lines" 10 "line_nos" false
+  Output: dict "codeBlock" true "maxShownLines" 10 "lineNos" false
+
+  @example
+  // Nested Map conversion
+  Input: dict "code_block" (dict "enable_wrapper" true)
+  Output: dict "codeBlock" (dict "enableWrapper" true)
+
+  @example
+  // Array of Maps conversion
+  Input: slice (dict "user_name" "John") (dict "user_age" 30)
+  Output: slice (dict "userName" "John") (dict "userAge" 30)
+
+  @example
+  // Practical usage in templates
+  {{- $siteParams := partial "function/camel-case-keys.html" .Site.Params -}}
+*/ -}}
+{{- $input := . | default dict -}}
+{{- $output := dict -}}
+
+{{- if reflect.IsMap $input -}}
+  {{- /* Process map: iterate through all key-value pairs */ -}}
+  {{- range $key, $value := $input -}}
+    {{- $newKey := partial "function/camel-case.html" $key -}}
+    {{- /*
+      Recursively process value based on its type
+      - For nested maps: recursively convert all nested keys
+      - For arrays: process each map element in the array
+      - For scalar values: keep as-is
+    */ -}}
+    {{- $newValue := $value -}}
+    {{- if reflect.IsMap $value -}}
+      {{- $newValue = partial "function/camel-case-keys.html" $value -}}
+    {{- else if reflect.IsSlice $value -}}
+      {{- $newValue = slice -}}
+      {{- range $item := $value -}}
+        {{- if reflect.IsMap $item -}}
+          {{- $newValue = $newValue | append (partial "function/camel-case-keys.html" $item) -}}
+        {{- else -}}
+          {{- $newValue = $newValue | append $item -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- /* Add the converted key-value pair to output */ -}}
+    {{- $output = merge $output (dict $newKey $newValue) -}}
+  {{- end -}}
+  {{- return $output -}}
+{{- else if reflect.IsSlice $input -}}
+  {{- /* Process array: recursively convert each map element */ -}}
+  {{- $output := slice -}}
+  {{- range $item := $input -}}
+    {{- if reflect.IsMap $item -}}
+      {{- $output = $output | append (partial "function/camel-case-keys.html" $item) -}}
+    {{- else -}}
+      {{- $output = $output | append $item -}}
+    {{- end -}}
+  {{- end -}}
+  {{- return $output -}}
+{{- else -}}
+  {{- return $input -}}
+{{- end -}}

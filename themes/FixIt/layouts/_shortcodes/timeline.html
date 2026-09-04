@@ -1,0 +1,19 @@
+{{- $options := .Get "reverse" | default (.Get 0) | dict "reverse" -}}
+{{- $options = .Get "placement" | default (.Get 1) | dict "placement" | merge $options -}}
+{{- $options = .Get "animation" | default (.Get 2) | dict "animation" | merge $options -}}
+{{- $options = .Get "size" | default (.Get 3) | dict "size" | merge $options -}}
+{{- $options = .Get "node" | default (.Get 4) | dict "node" | merge $options -}}
+{{- if .IsNamedParams -}}
+  {{- $options = .Get "width" | dict "width" | merge $options -}}
+  {{- $options = .Get "height" | dict "height" | merge $options -}}
+  {{- $options = .Get "class" | dict "class" | merge $options -}}
+  {{- $options = .Get "data" | dict "data" | merge $options -}}
+  {{- $options = .Get "file" | dict "file" | merge $options -}}
+{{- end -}}
+{{- dict
+  "Options" $options
+  "Inner" .Inner
+  "Resources" .Page.Resources
+  "Position" .Position
+  | partial "plugin/timeline.html"
+-}}

@@ -2,3 +2,7 @@ public/
 resources/
 .hugo_build.lock
 .obsidian/
+node_modules/
+dart-sass/
+themes_bak_*/
+*.bak_*

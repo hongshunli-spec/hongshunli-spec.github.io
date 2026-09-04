@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions
+    url: https://github.com/hugo-fixit/FixIt/discussions/new
+    about: Please ask questions in Discussion.
+  - name: Theme Documentation
+    url: https://fixit.lruihao.cn/
+    about: Please read the documentation carefully.
