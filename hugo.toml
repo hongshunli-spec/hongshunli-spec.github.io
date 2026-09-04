@@ -1,5 +1,5 @@
 baseURL = "https://hongshunli-blog.pages.dev/"
-title = "池州老橡的博客"
+title = "SunnyHorn的博客"
 theme = ["FixIt"]
 defaultContentLanguage = "zh-cn"
 locale = "zh-CN"
@@ -17,12 +17,12 @@ enableEmoji = true
   reading_time = true
 
   [params.author]
-    name = "池州老橡"
+    name = "SunnyHorn"
     email = "hongshunli@hotmail.com"
 
   [params.header]
     [params.header.title]
-      name = "池州老橡的博客"
+      name = "SunnyHorn的博客"
 
   [params.footer]
     since = "2026"
