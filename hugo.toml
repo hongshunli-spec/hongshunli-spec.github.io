@@ -37,3 +37,9 @@ enableEmoji = true
   [params.search]
     enable = true
     type = "fuse"
+
+[menu]
+  [[menu.main]]
+    name = "📷 相册"
+    url = "/albums/"
+    weight = 10
