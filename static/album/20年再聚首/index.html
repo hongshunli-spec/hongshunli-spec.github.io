@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20年再聚首 - 同学聚会相册</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh}
+.header{text-align:center;padding:40px 20px 20px;background:linear-gradient(135deg,#16213e,#0f3460)}
+.header h1{font-size:2em;color:#e94560;margin-bottom:8px;letter-spacing:4px}
+.header p{color:#a0a0c0;font-size:0.95em}
+.music-bar{position:sticky;top:0;z-index:100;background:rgba(15,52,96,0.95);backdrop-filter:blur(10px);padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(233,69,96,0.3)}
+.music-bar label{font-size:0.85em;color:#a0a0c0;white-space:nowrap}
+.music-bar select{background:#16213e;color:#e0e0e0;border:1px solid #0f3460;border-radius:6px;padding:6px 10px;font-size:0.85em;flex:1;min-width:120px;max-width:300px}
+.music-bar audio{flex:1;min-width:200px;height:36px}
+.music-bar .play-btn{background:#e94560;color:#fff;border:none;border-radius:6px;padding:8px 16px;cursor:pointer;font-size:0.85em;white-space:nowrap}
+.music-bar .play-btn:hover{background:#c73e54}
+.gallery{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;max-width:1400px;margin:0 auto}
+.photo-card{background:#16213e;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;border:1px solid rgba(255,255,255,0.05)}
+.photo-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(233,69,96,0.2)}
+.photo-card img{width:100%;height:180px;object-fit:cover;display:block}
+.photo-card .caption{padding:8px 10px;font-size:0.8em;color:#a0a0c0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:1000;justify-content:center;align-items:center;flex-direction:column}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:6px;box-shadow:0 0 40px rgba(233,69,96,0.3)}
+.lightbox .lb-caption{color:#e0e0e0;margin-top:16px;font-size:1em;text-align:center;padding:0 20px}
+.lightbox .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(233,69,96,0.8);color:#fff;border:none;width:50px;height:50px;border-radius:50%;font-size:1.5em;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lightbox .lb-nav:hover{background:#e94560}
+.lightbox .lb-prev{left:20px}
+.lightbox .lb-next{right:20px}
+.lightbox .lb-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.1);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:1.3em;cursor:pointer}
+.lightbox .lb-close:hover{background:rgba(255,255,255,0.2)}
+.lightbox .lb-counter{position:absolute;top:25px;left:50%;transform:translateX(-50%);color:#a0a0c0;font-size:0.9em}
+.footer{text-align:center;padding:30px 20px;color:#666;font-size:0.8em}
+@media(max-width:600px){.gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:10px}.photo-card img{height:130px}.header h1{font-size:1.5em}.lightbox .lb-nav{width:40px;height:40px;font-size:1.2em}.lightbox .lb-prev{left:8px}.lightbox .lb-next{right:8px}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>20年再聚首</h1>
+  <p>同学聚会相册 · 共 106 张珍贵回忆</p>
+</div>
+<div class="music-bar">
+  <label>背景音乐：</label>
+  <select id="musicSelect"></select>
+  <button class="play-btn" id="playBtn">播放</button>
+  <audio id="audioPlayer" controls></audio>
+</div>
+<div class="gallery" id="gallery"></div>
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">&times;</button>
+  <div class="lb-counter" id="lbCounter"></div>
+  <button class="lb-nav lb-prev" id="lbPrev">&#10094;</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-caption" id="lbCaption"></div>
+  <button class="lb-nav lb-next" id="lbNext">&#10095;</button>
+</div>
+<div class="footer">由老相册 EXE 提取制作 · 2026</div>
+<script>
+var photos=[{name:'15女生合影',src:'pic/15女生合影.jpg'},{name:'22班入学',src:'pic/22班入学.jpg'},{name:'403宿舍 ',src:'pic/403宿舍 .jpg'},{name:'404宿舍',src:'pic/404宿舍.jpg'},{name:'405男生',src:'pic/405男生.jpg'},{name:'410宿舍合影1',src:'pic/410宿舍合影1.jpg'},{name:'411女生',src:'pic/411女生.jpg'},{name:'411宿舍合影',src:'pic/411宿舍合影.jpg'},{name:'毕业1',src:'pic/毕业1.jpg'},{name:'毕业10 ',src:'pic/毕业10 .jpg'},{name:'毕业11',src:'pic/毕业11.jpg'},{name:'毕业12',src:'pic/毕业12.jpg'},{name:'毕业13 ',src:'pic/毕业13 .jpg'},{name:'毕业14 ',src:'pic/毕业14 .jpg'},{name:'毕业15',src:'pic/毕业15.jpg'},{name:'毕业16 ',src:'pic/毕业16 .jpg'},{name:'毕业17',src:'pic/毕业17.jpg'},{name:'毕业18 ',src:'pic/毕业18 .jpg'},{name:'毕业19',src:'pic/毕业19.jpg'},{name:'毕业2',src:'pic/毕业2.jpg'},{name:'毕业20',src:'pic/毕业20.jpg'},{name:'毕业21',src:'pic/毕业21.jpg'},{name:'毕业22',src:'pic/毕业22.jpg'},{name:'毕业23',src:'pic/毕业23.jpg'},{name:'毕业24',src:'pic/毕业24.jpg'},{name:'毕业25',src:'pic/毕业25.jpg'},{name:'毕业26',src:'pic/毕业26.jpg'},{name:'毕业27',src:'pic/毕业27.jpg'},{name:'毕业28',src:'pic/毕业28.jpg'},{name:'毕业29',src:'pic/毕业29.jpg'},{name:'毕业3',src:'pic/毕业3.jpg'},{name:'毕业30 ',src:'pic/毕业30 .jpg'},{name:'毕业31',src:'pic/毕业31.jpg'},{name:'毕业32',src:'pic/毕业32.jpg'},{name:'毕业33',src:'pic/毕业33.jpg'},{name:'毕业34',src:'pic/毕业34.jpg'},{name:'毕业35',src:'pic/毕业35.jpg'},{name:'毕业36',src:'pic/毕业36.jpg'},{name:'毕业37',src:'pic/毕业37.jpg'},{name:'毕业38',src:'pic/毕业38.jpg'},{name:'毕业39',src:'pic/毕业39.jpg'},{name:'毕业4 ',src:'pic/毕业4 .jpg'},{name:'毕业40',src:'pic/毕业40.jpg'},{name:'毕业41',src:'pic/毕业41.jpg'},{name:'毕业42',src:'pic/毕业42.jpg'},{name:'毕业43',src:'pic/毕业43.jpg'},{name:'毕业44',src:'pic/毕业44.jpg'},{name:'毕业45',src:'pic/毕业45.jpg'},{name:'毕业5 ',src:'pic/毕业5 .jpg'},{name:'毕业6',src:'pic/毕业6.jpg'},{name:'毕业7 ',src:'pic/毕业7 .jpg'},{name:'毕业8 ',src:'pic/毕业8 .jpg'},{name:'毕业9 ',src:'pic/毕业9 .jpg'},{name:'毕业合影',src:'pic/毕业合影.jpg'},{name:'陈继保',src:'pic/陈继保.jpg'},{name:'储教斌',src:'pic/储教斌.jpg'},{name:'储教斌1',src:'pic/储教斌1.jpg'},{name:'邓从文（全家福）',src:'pic/邓从文（全家福）.jpg'},{name:'邓从文1',src:'pic/邓从文1.jpg'},{name:'丁美萍',src:'pic/丁美萍.jpg'},{name:'丁美萍1',src:'pic/丁美萍1.jpg'},{name:'樊剑峰',src:'pic/樊剑峰.jpg'},{name:'何素琴',src:'pic/何素琴.jpg'},{name:'何玉兰',src:'pic/何玉兰.jpg'},{name:'何玉兰1',src:'pic/何玉兰1.jpg'},{name:'洪顺利',src:'pic/洪顺利.jpg'},{name:'胡敏',src:'pic/胡敏.jpg'},{name:'雷超',src:'pic/雷超.jpg'},{name:'李长军',src:'pic/李长军.jpg'},{name:'梁杰',src:'pic/梁杰.jpg'},{name:'林如玉',src:'pic/林如玉.jpg'},{name:'刘亚萍',src:'pic/刘亚萍.jpg'},{name:'刘亚萍1',src:'pic/刘亚萍1.jpg'},{name:'鲁征',src:'pic/鲁征.jpg'},{name:'聂广习',src:'pic/聂广习.jpg'},{name:'潘孝春',src:'pic/潘孝春.jpg'},{name:'钱颖',src:'pic/钱颖.jpg'},{name:'乔多厚',src:'pic/乔多厚.jpg'},{name:'沈珺',src:'pic/沈珺.jpg'},{name:'谭献军',src:'pic/谭献军.jpg'},{name:'唐慧芝',src:'pic/唐慧芝.jpg'},{name:'汪洪1',src:'pic/汪洪1.jpg'},{name:'汪洪2',src:'pic/汪洪2.jpg'},{name:'王炳志',src:'pic/王炳志.jpg'},{name:'王春生',src:'pic/王春生.jpg'},{name:'王春生1',src:'pic/王春生1.jpg'},{name:'王燕1',src:'pic/王燕1.jpg'},{name:'王燕2',src:'pic/王燕2.jpg'},{name:'王永红',src:'pic/王永红.jpg'},{name:'王永红1',src:'pic/王永红1.jpg'},{name:'王长梅',src:'pic/王长梅.jpg'},{name:'邢万里',src:'pic/邢万里.jpg'},{name:'邢万里1',src:'pic/邢万里1.jpg'},{name:'徐寿康',src:'pic/徐寿康.jpg'},{name:'徐寿康1',src:'pic/徐寿康1.jpg'},{name:'余海安',src:'pic/余海安.jpg'},{name:'袁发喜',src:'pic/袁发喜.jpg'},{name:'张丽',src:'pic/张丽.jpg'},{name:'张丽1',src:'pic/张丽1.jpg'},{name:'张艳',src:'pic/张艳.jpg'},{name:'张瑛',src:'pic/张瑛.jpg'},{name:'张瑛1',src:'pic/张瑛1.jpg'},{name:'赵静',src:'pic/赵静.jpg'},{name:'赵艳侠',src:'pic/赵艳侠.jpg'},{name:'赵艳侠1',src:'pic/赵艳侠1.jpg'},{name:'周军',src:'pic/周军.jpg'}];
+var musicList=[{name:'刘德华 - 一起走过的日子',src:'music/刘德华 - 一起走过的日子.mp3'},{name:'难舍难分',src:'music/难舍难分.mp3'},{name:'苏慧伦&成龙-在我生命中的每一天',src:'music/苏慧伦&成龙-在我生命中的每一天.mp3'},{name:'小虎队-爱',src:'music/小虎队-爱.mp3'},{name:'昨日重现.',src:'music/昨日重现..mp3'}];
+var currentIndex=0;
+var gallery=document.getElementById('gallery');
+photos.forEach(function(p,i){
+  var card=document.createElement('div');
+  card.className='photo-card';
+  card.innerHTML='<img src="'+p.src+'" alt="'+p.name+'" loading="lazy"><div class="caption">'+p.name+'</div>';
+  card.onclick=function(){openLightbox(i)};
+  gallery.appendChild(card);
+});
+var musicSelect=document.getElementById('musicSelect');
+musicList.forEach(function(m,i){
+  var opt=document.createElement('option');
+  opt.value=i;opt.textContent=m.name;
+  musicSelect.appendChild(opt);
+});
+var audio=document.getElementById('audioPlayer');
+var playBtn=document.getElementById('playBtn');
+function playMusic(){var idx=parseInt(musicSelect.value);audio.src=musicList[idx].src;audio.play().catch(function(){})}
+playBtn.onclick=playMusic;
+musicSelect.onchange=playMusic;
+var lightbox=document.getElementById('lightbox');
+var lbImg=document.getElementById('lbImg');
+var lbCaption=document.getElementById('lbCaption');
+var lbCounter=document.getElementById('lbCounter');
+function openLightbox(i){currentIndex=i;updateLightbox();lightbox.classList.add('active');document.body.style.overflow='hidden'}
+function closeLightbox(){lightbox.classList.remove('active');document.body.style.overflow=''}
+function updateLightbox(){lbImg.src=photos[currentIndex].src;lbCaption.textContent=photos[currentIndex].name;lbCounter.textContent=(currentIndex+1)+' / '+photos.length}
+function prevPhoto(){currentIndex=(currentIndex-1+photos.length)%photos.length;updateLightbox()}
+function nextPhoto(){currentIndex=(currentIndex+1)%photos.length;updateLightbox()}
+document.getElementById('lbClose').onclick=closeLightbox;
+document.getElementById('lbPrev').onclick=prevPhoto;
+document.getElementById('lbNext').onclick=nextPhoto;
+lightbox.onclick=function(e){if(e.target===lightbox)closeLightbox()};
+document.addEventListener('keydown',function(e){if(!lightbox.classList.contains('active'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')prevPhoto();if(e.key==='ArrowRight')nextPhoto()});
+</script>
+</body>
+</html>
