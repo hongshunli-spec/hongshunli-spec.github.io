@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20240211北京</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#1a1a1a;color:#fff;padding:20px}
+h1{text-align:center;margin-bottom:20px;font-size:1.4em;word-break:break-all}
+.back{display:inline-block;margin-bottom:15px;color:#4a9eff;text-decoration:none;font-size:.9em}
+.back:hover{text-decoration:underline}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;max-width:1200px;margin:0 auto}
+.gallery img{width:100%;height:180px;object-fit:cover;border-radius:6px;cursor:pointer;transition:transform .2s}
+.gallery img:hover{transform:scale(1.03)}
+.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:9999;justify-content:center;align-items:center}
+.lightbox.active{display:flex}
+.lightbox img{max-width:95%;max-height:95%;object-fit:contain;border-radius:4px}
+.lightbox .close{position:absolute;top:20px;right:30px;font-size:40px;color:#fff;cursor:pointer;background:none;border:none}
+.lightbox .nav{position:absolute;top:50%;transform:translateY(-50%);font-size:40px;color:#fff;cursor:pointer;background:rgba(0,0,0,.5);border:none;padding:10px 18px;border-radius:50%}
+.lightbox .prev{left:15px}
+.lightbox .next{right:15px}
+.count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#ccc;font-size:1.1em}
+@media(max-width:600px){.gallery{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:5px}.gallery img{height:140px}h1{font-size:1.2em}}
+</style>
+</head>
+<body>
+<a href="/albums/" class="back">&larr; 返回相册列表</a>
+<h1>20240211北京</h1>
+<div class="gallery">
+  <img src="IMG_20240214_110844.jpg" alt="IMG_20240214_110844.jpg" loading="lazy">
+  <img src="IMG_20240214_111649.jpg" alt="IMG_20240214_111649.jpg" loading="lazy">
+  <img src="IMG_20240214_111900.jpg" alt="IMG_20240214_111900.jpg" loading="lazy">
+  <img src="IMG_20240214_111921.jpg" alt="IMG_20240214_111921.jpg" loading="lazy">
+  <img src="IMG_20240214_112924.jpg" alt="IMG_20240214_112924.jpg" loading="lazy">
+  <img src="IMG_20240214_113025.jpg" alt="IMG_20240214_113025.jpg" loading="lazy">
+  <img src="IMG_20240214_113043.jpg" alt="IMG_20240214_113043.jpg" loading="lazy">
+  <img src="IMG_20240214_113558.jpg" alt="IMG_20240214_113558.jpg" loading="lazy">
+  <img src="IMG_20240214_113628.jpg" alt="IMG_20240214_113628.jpg" loading="lazy">
+  <img src="IMG_20240214_113643.jpg" alt="IMG_20240214_113643.jpg" loading="lazy">
+  <img src="IMG_20240214_113750.jpg" alt="IMG_20240214_113750.jpg" loading="lazy">
+  <img src="IMG_20240214_113755.jpg" alt="IMG_20240214_113755.jpg" loading="lazy">
+  <img src="IMG_20240214_113805.jpg" alt="IMG_20240214_113805.jpg" loading="lazy">
+  <img src="IMG_20240214_113813.jpg" alt="IMG_20240214_113813.jpg" loading="lazy">
+  <img src="IMG_20240214_114602.jpg" alt="IMG_20240214_114602.jpg" loading="lazy">
+  <img src="IMG_20240214_115449.jpg" alt="IMG_20240214_115449.jpg" loading="lazy">
+  <img src="IMG_20240214_115518.jpg" alt="IMG_20240214_115518.jpg" loading="lazy">
+  <img src="IMG_20240214_151123.jpg" alt="IMG_20240214_151123.jpg" loading="lazy">
+  <img src="IMG_20240214_155409.jpg" alt="IMG_20240214_155409.jpg" loading="lazy">
+  <img src="IMG_20240214_161527.jpg" alt="IMG_20240214_161527.jpg" loading="lazy">
+  <img src="IMG_20240214_162750.jpg" alt="IMG_20240214_162750.jpg" loading="lazy">
+  <img src="IMG_20240215_165929.jpg" alt="IMG_20240215_165929.jpg" loading="lazy">
+  <img src="IMG_20240215_165953.jpg" alt="IMG_20240215_165953.jpg" loading="lazy">
+  <img src="IMG_20240215_171239.jpg" alt="IMG_20240215_171239.jpg" loading="lazy">
+  <img src="IMG_20240215_173256.jpg" alt="IMG_20240215_173256.jpg" loading="lazy">
+  <img src="IMG_20240215_173344.jpg" alt="IMG_20240215_173344.jpg" loading="lazy">
+  <img src="IMG_20240215_174607.jpg" alt="IMG_20240215_174607.jpg" loading="lazy">
+  <img src="IMG_20240215_174822.jpg" alt="IMG_20240215_174822.jpg" loading="lazy">
+  <img src="IMG_20240215_174904.jpg" alt="IMG_20240215_174904.jpg" loading="lazy">
+  <img src="IMG_20240215_194035.jpg" alt="IMG_20240215_194035.jpg" loading="lazy">
+  <img src="IMG_20240215_194106.jpg" alt="IMG_20240215_194106.jpg" loading="lazy">
+</div>
+<div class="lightbox" id="lb">
+<button class="close" onclick="cl()">&times;</button>
+<button class="nav prev" onclick="pv()">&#10094;</button>
+<img id="lbimg" src="" alt="">
+<button class="nav next" onclick="nx()">&#10095;</button>
+<div class="count" id="cnt"></div>
+</div>
+<script>
+const imgs=document.querySelectorAll('.gallery img');
+const lb=document.getElementById('lb');
+const lbimg=document.getElementById('lbimg');
+const cnt=document.getElementById('cnt');
+let ci=0;
+imgs.forEach((m,i)=>m.addEventListener('click',()=>{ci=i;op()}));
+function op(){lbimg.src=imgs[ci].src;cnt.textContent=(ci+1)+' / '+imgs.length;lb.classList.add('active')}
+function cl(){lb.classList.remove('active')}
+function pv(){ci=(ci-1+imgs.length)%imgs.length;op()}
+function nx(){ci=(ci+1)%imgs.length;op()}
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('active'))return;if(e.key==='Escape')cl();if(e.key==='ArrowLeft')pv();if(e.key==='ArrowRight')nx()});
+lb.addEventListener('click',e=>{if(e.target===lb)cl()});
+</script>
+</body>
+</html>
