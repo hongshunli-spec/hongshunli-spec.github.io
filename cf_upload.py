@@ -18,7 +18,10 @@ def cf_hash(data: bytes, rel: str) -> str:
     return blake3.blake3(b64 + ext.encode("ascii")).hexdigest()[:32]
 
 def get_jwt():
-    r = requests.get(f"{CLIENT}/accounts/{ACC}/pages/projects/{PROJ}/upload-token", headers=H, timeout=60)
+    try:
+        r = requests.get(f"{CLIENT}/accounts/{ACC}/pages/projects/{PROJ}/upload-token", headers=H, timeout=60)
+    except Exception as e:
+        raise RuntimeError(f"get_jwt NETWORK: {e}")
     r.raise_for_status()
     d = r.json()
     if not d.get("success"):
@@ -26,9 +29,12 @@ def get_jwt():
     return d["result"]["jwt"]
 
 def check_missing(jwt, hashes):
-    r = requests.post(f"{CLIENT}/pages/assets/check-missing",
-                      headers={"Authorization": f"Bearer {jwt}"},
-                      json={"hashes": hashes}, timeout=120)
+    try:
+        r = requests.post(f"{CLIENT}/pages/assets/check-missing",
+                          headers={"Authorization": f"Bearer {jwt}"},
+                          json={"hashes": hashes}, timeout=120)
+    except Exception as e:
+        return False, f"NETWORK: {e}", []
     if r.status_code >= 400:
         return False, f"HTTP {r.status_code}: {r.text[:300]}", []
     d = r.json()
@@ -45,9 +51,12 @@ def upload_batch(jwt, batch):
         b64 = base64.b64encode(content).decode("ascii")
         ct = mimetypes.guess_type(rel)[0] or "application/octet-stream"
         payload.append({"key": h, "value": b64, "metadata": {"contentType": ct}, "base64": True})
-    r = requests.post(f"{CLIENT}/pages/assets/upload",
-                      headers={"Authorization": f"Bearer {jwt}", "Content-Type": "application/json"},
-                      json=payload, timeout=900)
+    try:
+        r = requests.post(f"{CLIENT}/pages/assets/upload",
+                          headers={"Authorization": f"Bearer {jwt}", "Content-Type": "application/json"},
+                          json=payload, timeout=900)
+    except Exception as e:
+        return False, f"NETWORK_ABORT: {e}"
     if r.status_code >= 400:
         return False, f"HTTP {r.status_code}: {r.text[:300]}"
     d = r.json()
@@ -56,9 +65,12 @@ def upload_batch(jwt, batch):
     return True, None
 
 def upsert_hashes(jwt, hashes):
-    r = requests.post(f"{CLIENT}/pages/assets/upsert-hashes",
-                      headers={"Authorization": f"Bearer {jwt}"},
-                      json={"hashes": hashes}, timeout=120)
+    try:
+        r = requests.post(f"{CLIENT}/pages/assets/upsert-hashes",
+                          headers={"Authorization": f"Bearer {jwt}"},
+                          json={"hashes": hashes}, timeout=120)
+    except Exception as e:
+        return False, f"NETWORK: {e}"
     if r.status_code >= 400:
         return False, f"HTTP {r.status_code}: {r.text[:300]}"
     d = r.json()

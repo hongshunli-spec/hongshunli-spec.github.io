@@ -53,6 +53,10 @@ mainSections = ["posts"]
     url = "/pyq/"
     weight = 20
   [[menu.main]]
-    name = "QQ 空间"
-    url = "/qqzone/"
+    name = "QQ空间说说"
+    url = "/qqzone/shuoshuo/"
     weight = 30
+  [[menu.main]]
+    name = "QQ空间日志"
+    url = "/qqzone/rizhi/"
+    weight = 40
