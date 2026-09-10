@@ -6,4 +6,9 @@ node_modules/
 dart-sass/
 themes_bak_*/
 *.bak_*
-static/
+# static 图片纳入git(除album个人相册过大1.58GB)
+static/*
+!static/qqzone/
+!static/images/
+!static/admin/
+!static/uploads/
