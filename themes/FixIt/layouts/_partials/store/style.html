@@ -1,0 +1,13 @@
+{{- /*
+  Style accumulation store partial.
+
+  Appends a style resource entry to the page's accumulated style list.
+  Used by other partials to register CSS assets that are rendered together
+  in the head section via base/assets.html.
+*/ -}}
+
+{{- $noop := .Page.WordCount -}}
+{{- $this := .Page.Store.Get "this" -}}
+{{- $style := $this.style | default slice -}}
+{{- $style = $style | append (slice .Data) -}}
+{{- .Page.Store.SetInMap "this" "style" $style -}}

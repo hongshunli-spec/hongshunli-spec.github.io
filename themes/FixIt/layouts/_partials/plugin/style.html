@@ -1,0 +1,77 @@
+{{- /*
+  Stylesheet tag renderer.
+  - Accepts direct `<link>` HTML, a pre-built resource, or builds from source path.
+  - Supports template execution, optional toCSS, minify/fingerprint, and preload mode.
+  @param {String} [.Source] - Stylesheet URL/path; if starts with "<link" it's treated as raw HTML
+  @param {resource.Resource} [.Resource] - Pre-built resource (skips build pipeline)
+  @param {String} [.Content] - Inline style content to write as generated resource
+  @param {String} [.Path] - Target path for resource created from Content
+  @param {Object} [.Template] - Target path for resource created from template execution
+  @param {Object} [.Context] - Template context for ExecuteAsTemplate
+  @param {Object|Boolean} [.ToCSS] - True for defaults, dict for custom toCSS options, false/omit to skip toCSS
+  @param {Boolean} [.Minify] - Whether to minify resource
+  @param {String} [.Fingerprint] - Fingerprint algorithm
+  @param {Boolean} [.Crossorigin] - Whether to add crossorigin=anonymous
+  @param {Boolean} [.Preload] - Whether to output preload + noscript fallback
+  @param {String} [.Integrity] - SRI hash value
+  @param {String} [.Attr] - Additional attributes
+*/ -}}
+
+{{- if strings.HasPrefix (.Source | default "") "<link" -}}
+  {{- safeHTML .Source -}}
+{{- else -}}
+  {{- $href := "" -}}
+  {{- $integrity := .Integrity -}}
+
+  {{- /* Resource (pre-built) */ -}}
+  {{- with .Resource -}}
+    {{- $href = .RelPermalink -}}
+    {{- with .Data.Integrity -}}
+      {{- $integrity = . -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* Source build */ -}}
+  {{- if .Source | and (not .Resource) | and (not (urls.Parse .Source).Host) -}}
+    {{- $resource := resources.Get .Source -}}
+    {{- with .Template -}}
+      {{- $resource = resources.ExecuteAsTemplate . $.Context $resource -}}
+    {{- end -}}
+    {{- $resource = dict "Resource" $resource "ToCSS" .ToCSS "Minify" .Minify "Fingerprint" .Fingerprint | partial "function/to-css.html" -}}
+    {{- with .Fingerprint -}}
+      {{- $integrity = $resource.Data.Integrity -}}
+    {{- end -}}
+    {{- $href = $resource.RelPermalink -}}
+  {{- end -}}
+
+  {{- /* Style from string */ -}}
+  {{- if .Content | and .Path -}}
+    {{- $contentResource := resources.FromString .Path .Content -}}
+    {{- $contentResource = dict "Resource" $contentResource "ToCSS" .ToCSS "Minify" .Minify "Fingerprint" .Fingerprint | partial "function/to-css.html" -}}
+    {{- with .Fingerprint -}}
+      {{- $integrity = $contentResource.Data.Integrity -}}
+    {{- end -}}
+    {{- $href = $contentResource.RelPermalink -}}
+  {{- end -}}
+
+  {{- /* Fallback to source */ -}}
+  {{- $href = $href | default .Source -}}
+
+  {{- /* Style attributes */ -}}
+  {{- $attrs := printf `href="%v"` $href -}}
+  {{- if .Crossorigin -}}
+    {{- $attrs = ` crossorigin="anonymous"` | add $attrs -}}
+  {{- end -}}
+  {{- with $integrity -}}
+    {{- $attrs = printf ` integrity="%v"` . | add $attrs -}}
+  {{- end -}}
+  {{- with .Attr -}}
+    {{- $attrs = add " " . | add $attrs -}}
+  {{- end -}}
+  {{- if .Preload -}}
+    <link rel="preload" {{ $attrs | safeHTMLAttr }} as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" {{ $attrs | safeHTMLAttr }}></noscript>
+  {{- else -}}
+    <link rel="stylesheet" {{ $attrs | safeHTMLAttr }}>
+  {{- end -}}
+{{- end -}}

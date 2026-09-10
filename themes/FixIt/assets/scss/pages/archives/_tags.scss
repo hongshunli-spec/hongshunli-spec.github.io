@@ -1,0 +1,67 @@
+@use "sass:color";
+@use "core/functions" as *;
+@use "core/mixins" as *;
+@use "variables" as *;
+
+.tags {
+  margin: 10px 0;
+
+  .tag-item {
+    display: inline-block;
+    position: relative;
+    margin: 5px 10px;
+    transition: all ease-out 0.3s;
+    @include overflow-wrap(break-word);
+
+    &:active,
+    &:focus,
+    &:hover {
+      scale: 1.2;
+
+      sup {
+        color: fi-var(global-font-color);
+        transition: all ease-out 0.3s;
+      }
+    }
+
+    sup {
+      color: fi-var(global-font-secondary-color);
+    }
+  }
+}
+
+.tag-cloud-tags {
+  text-align: center;
+
+  .tag-item {
+    color: fi-var(tag-cloud-color);
+    font-size: fi-var(tag-cloud-font);
+    margin: 10px;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: fi-var(global-link-hover-color);
+
+      sup {
+        opacity: 1;
+      }
+    }
+
+    sup {
+      opacity: 0;
+    }
+
+    @for $grade from 0 through 10 {
+      &[data-grade="#{$grade}"] {
+        @include set-fi-var(
+          tag-cloud-color,
+          light-dark(
+            color.mix($tag-cloud-end, $tag-cloud-start, $grade * 10%),
+            color.mix($tag-cloud-end-dark, $tag-cloud-start-dark, $grade * 10%)
+          )
+        );
+      }
+    }
+  }
+}

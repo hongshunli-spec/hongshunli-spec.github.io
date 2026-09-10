@@ -1,0 +1,61 @@
+{{- /*
+  CSS Partial - Base and page-specific CSS loading
+
+  Loads the main stylesheet (every page) and conditionally loads
+  page-specific CSS based on .Kind, .Layout, and .RelPermalink.
+
+  Called from: `base/head/index.html`
+*/ -}}
+
+{{- $scssVars := partialCached "function/scss-vars.html" . -}}
+{{- $fingerprint := .Site.Store.Get "fingerprint" -}}
+
+{{- /* UnoCSS utility classes (pre-built) */ -}}
+{{- dict "Source" "css/unocss.css" "Minify" hugo.IsProduction "Fingerprint" $fingerprint | partial "plugin/style.html" -}}
+
+{{- /* Main CSS */ -}}
+{{- $mainCSS := dict
+  "Resource" (resources.Get "scss/main.scss")
+  "ToCSS" (dict "vars" $scssVars)
+  "Fingerprint" $fingerprint
+  | partial "function/to-css.html"
+-}}
+{{- .Site.Store.Set "mainCSS" $mainCSS -}}
+{{- dict "Resource" $mainCSS | partial "plugin/style.html" -}}
+
+{{- /* Page-specific CSS */ -}}
+{{- $pageName := "" -}}
+{{- $kindsMap := dict
+  "section" "archives"
+  "taxonomy" "archives"
+  "term" "archives"
+  "home" (
+    cond (in .RelPermalink "archives") "archives" (
+      cond (in .RelPermalink "link") "link" (
+        cond (in .RelPermalink "offline") "" "home"
+      )
+    )
+  )
+  "page" (
+    cond (in (slice "search" "friends") .Layout) .Layout (
+      cond (eq .Type "posts") "posts" ""
+    )
+  )
+-}}
+{{- with (index $kindsMap .Kind) -}}
+  {{- $pageName = . -}}
+{{- end -}}
+{{- with $pageName -}}
+  {{- dict
+    "Content" (printf `@use "pages/%s";` .)
+    "Path" (printf "scss/%s.scss" .)
+    "ToCSS" (dict "vars" $scssVars "targetPath" (printf "css/pages/%s.css" .))
+    "Fingerprint" $fingerprint
+    | partial "plugin/style.html"
+  -}}
+{{- end -}}
+
+{{- /* Custom CSS (highest priority) */ -}}
+{{- with resources.Get "scss/custom.scss" -}}
+  {{- dict "Source" "scss/custom.scss" "ToCSS" (dict "vars" $scssVars) "Fingerprint" $fingerprint | partial "plugin/style.html" -}}
+{{- end -}}

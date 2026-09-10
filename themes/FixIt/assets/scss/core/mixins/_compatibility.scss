@@ -1,0 +1,68 @@
+@use "core/functions" as *;
+
+/// Apply word-wrap and overflow-wrap for cross-browser compatibility.
+/// TODO Superseded by `text-wrap: wrap;` in modern browsers.
+/// @param {String} $value - Wrap value (e.g. `break-word`)
+@mixin overflow-wrap($value) {
+  word-wrap: $value;
+  overflow-wrap: $value;
+}
+
+/// Apply styles only when scroll-state container queries are supported.
+/// Unsupported browsers skip the container branch, and can optionally reuse
+/// the same styles through a fallback selector.
+/// @param {String|null} $container-name - Optional container name
+/// @param {String} $container-condition - Container query condition (without outer parentheses)
+/// @param {String|null} $fallback-selector - Optional selector used as a fallback
+/// @example
+///   @include scroll-state-query('scroller', 'scroll-state(scrollable: top)') {
+///     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+///   }
+///   @include scroll-state-query('scroller', 'scroll-state(scrollable: top)', '&') {
+///     backdrop-filter: saturate(1.2) blur(10px);
+///   }
+@mixin scroll-state-query($container-name, $container-condition, $fallback-selector: null) {
+  @supports (container-type: scroll-state) {
+    @if $container-name != null {
+      @container #{$container-name} (#{$container-condition}) {
+        @content;
+      }
+    } @else {
+      @container (#{$container-condition}) {
+        @content;
+      }
+    }
+  }
+
+  // Fallback for browsers that do not support scroll-state container queries, such as Safari and Firefox.
+  // https://caniuse.com/mdn-css_properties_container-type_scroll-state
+  @if $fallback-selector != null {
+    @supports not (container-type: scroll-state) {
+      #{$fallback-selector} {
+        @content;
+      }
+    }
+  }
+}
+
+/// Apply a focus-visible ring outline using a pseudo-element.
+/// @param {Length} $size [$size: 1.3em] - Size of the focus ring
+/// @param {Length} $offset [$offset: 0.2rem] - Offset from the element
+@mixin focus-visible-ring($size: 1.3em, $offset: 0.2rem) {
+  &:focus-visible {
+    outline: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $size;
+      height: $size;
+      translate: -50% -50%;
+      outline: -webkit-focus-ring-color auto 1px;
+      outline-offset: $offset;
+      pointer-events: none;
+    }
+  }
+}

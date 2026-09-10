@@ -1,0 +1,71 @@
+{{- /*
+  Admonition box rendering partial.
+
+  The extended syntax of alert is compatible with Obsidian and FixIt admonition shortcode.
+  @param {String} .Text - The content of the admonition box
+  @param {String} [.Type] - The type of the admonition box
+  @param {String} [.Title] - The title of the admonition box
+  @param {Boolean} [.Open] - Whether the admonition box is open, default is true
+  @param {Boolean} [.Foldable] - Whether the admonition box is foldable, default is true
+  For custom admonitions, see https://fixit.lruihao.cn/docs/content-management/shortcodes/extended/admonition/#customize-admonitions
+*/ -}}
+
+{{- $iconMap := dict
+  "note" "fa-solid fa-pencil"
+  "abstract" "fa-solid fa-clipboard-list"
+  "info" "fa-solid fa-circle-info"
+  "todo" "fa-solid fa-list-check"
+  "tip" "fa-regular fa-lightbulb"
+  "success" "fa-solid fa-check"
+  "question" "fa-regular fa-circle-question"
+  "warning" "fa-solid fa-exclamation-triangle"
+  "failure" "fa-solid fa-xmark"
+  "danger" "fa-solid fa-bolt"
+  "bug" "fa-solid fa-bug"
+  "example" "fa-solid fa-list-ul"
+  "quote" "fa-solid fa-quote-right"
+-}}
+{{- /* Custom admonitions */ -}}
+{{- $iconMap = site.Params.admonition | merge $iconMap -}}
+{{- $aliasMap := dict
+  "summary" "abstract"
+  "tldr" "abstract"
+  "hint" "tip"
+  "important" "tip"
+  "check" "success"
+  "done" "success"
+  "help" "question"
+  "faq" "question"
+  "caution" "warning"
+  "attention" "warning"
+  "fail" "failure"
+  "missing" "failure"
+  "error" "danger"
+  "cite" "quote"
+-}}
+{{- $type := .Type | lower -}}
+{{- $type = index $aliasMap $type | default $type | default "note" -}}
+{{- $icon := index $iconMap $type | default "fa-solid fa-pencil" -}}
+{{- $title := .Title | default (T (printf "admonition.%v" $type)) | default (title $type) -}}
+{{- $titleless := eq .Title "~" -}}
+{{- $foldable := ne .Foldable false -}}
+
+<div class="details admonition {{ $type }}{{ if .Open | ne false }} open{{ end }}{{ if not $foldable }} disabled{{ end }}">
+  {{- if not $titleless }}
+    <div class="details-summary admonition-title">
+      {{- dict "Class" (add "icon " $icon) | partial "plugin/icon.html" -}}
+      {{- $title | safeHTML -}}
+      {{- if $foldable -}}
+        {{- dict "Class" "details-icon fa-solid fa-angle-right" | partial "plugin/icon.html" -}}
+      {{- end -}}
+    </div>
+  {{- end }}
+  {{- with .Text -}}
+    <div class="details-content">
+      <div class="admonition-content">
+        {{- . | safeHTML -}}
+      </div>
+    </div>
+  {{- end }}
+</div>
+{{- /* EOF */ -}}

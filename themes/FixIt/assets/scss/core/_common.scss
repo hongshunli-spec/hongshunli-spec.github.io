@@ -1,0 +1,28 @@
+/// ==========================================================================
+/// Common Styles
+/// ==========================================================================
+@use "functions" as *;
+@use "mixins" as *;
+
+.is-fullscreen {
+  .fa-expand {
+    --fa: "\f066";
+    font-weight: 900;
+    color: fi-var(global-link-hover-color);
+  }
+}
+
+// auto adapt to dark mode by inverting the color and hue
+.auto-dark-mode {
+  @include dark-mode {
+    filter: invert(1) hue-rotate(0.5turn);
+  }
+}
+
+// print styles
+@include media('print') {
+  @page {
+    size: A4 portrait;
+    margin: 1.27cm;
+  }
+}

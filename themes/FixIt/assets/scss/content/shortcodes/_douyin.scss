@@ -1,0 +1,25 @@
+@use "core/mixins" as *;
+
+.single .douyin {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 60.725%;
+  margin: 1rem auto;
+  text-align: center;
+
+  iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset-inline-start: 0;
+    top: 0;
+  }
+
+  // [todo] get width and height from api
+  @include media('xs') {
+    width: 92%;
+    margin-inline: 4%;
+    padding-bottom: 190%;
+  }
+}

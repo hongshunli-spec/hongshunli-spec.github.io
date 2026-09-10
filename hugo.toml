@@ -1,0 +1,58 @@
+baseURL = "https://hongshunli-blog.pages.dev/"
+title = "SunnyHorn的博客"
+theme = ["FixIt"]
+defaultContentLanguage = "zh-cn"
+locale = "zh-CN"
+hasCJKLanguage = true
+enableRobotsTXT = true
+enableEmoji = true
+mainSections = ["posts"]
+
+[params]
+  version = "1.0.X"
+  description = "技术笔记博客"
+  default_theme = "auto"
+  date_format = "2006-01-02"
+  with_site_title = true
+  word_count = true
+  reading_time = true
+
+  [params.author]
+    name = "SunnyHorn"
+    email = "hongshunli@hotmail.com"
+
+  [params.header]
+    [params.header.title]
+      name = "SunnyHorn的博客"
+
+  [params.footer]
+    since = "2026"
+    [params.footer.powered]
+      enable = true
+
+  [params.home]
+    [params.home.posts]
+      enable = true
+      paginate = 6
+
+  [params.search]
+    enable = true
+    type = "fuse"
+
+[menu]
+  [[menu.main]]
+    name = "🏠 主页"
+    url = "/"
+    weight = 5
+  [[menu.main]]
+    name = "📷 个人相册"
+    url = "/albums/"
+    weight = 10
+  [[menu.main]]
+    name = "💬 微信朋友圈"
+    url = "/pyq/"
+    weight = 20
+  [[menu.main]]
+    name = "QQ 空间"
+    url = "/qqzone/"
+    weight = 30

@@ -1,0 +1,49 @@
+/**
+ * Custom TypeScript for FixIt site.
+ *
+ * Copy this file to your project's assets/js/ directory
+ * and rename it to custom.ts to activate it.
+ * Access the FixIt public API via `window.fixit`.
+ * @see https://fixit.lruihao.cn
+ */
+
+const { fixit } = window as any
+
+class CustomScript {
+  constructor() {
+    this.init()
+  }
+
+  init() {
+    console.log('hello from custom.ts!')
+    console.log('FixIt API:', fixit)
+
+    // Top-level properties
+    console.log('version:', fixit.version)
+    console.log('themeMode:', fixit.themeMode)
+    console.log('isDark:', fixit.isDark)
+    console.log('config:', fixit.config)
+
+    // Theme control
+    // fixit.setThemeMode('dark')
+    // fixit.setThemeMode('auto', true) // persist to localStorage
+
+    // Mask overlay (via core module)
+    // fixit.core.registerMaskOverlay('my-overlay', {
+    //   isActive: () => boolean,
+    //   onOpen: () => void,
+    //   onClose: () => void,
+    // })
+
+    // Typed event bus
+    fixit.eventBus.on('fixit:switch-theme', ({ detail }: { detail: { mode: string, isDark: boolean, isChanged: boolean } }) => {
+      console.log('Theme switched:', detail.mode, 'isDark:', detail.isDark, 'isChanged:', detail.isChanged)
+    })
+
+    return this
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  void new CustomScript()
+})

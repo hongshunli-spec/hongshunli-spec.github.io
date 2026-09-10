@@ -1,0 +1,272 @@
+# Translations for Vietnamese
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "Phiên bản Hugo quá thấp.\n\nPhiên bản Hugo hiện tại là {{ .Current }}, phiên bản tối thiểu được hỗ trợ cho FixIt là {{ .Minimal }}.\n\nNếu bạn đang chạy Hugo trên máy tính của mình, hãy xem https://gohugo.io/getting-started/installing/#upgrade-hugo để biết hướng dẫn nâng cấp.\n\nNếu bạn đang triển khai trên nền tảng của bên thứ ba, vui lòng cấu hình phiên bản Hugo cho phù hợp."
+configurationError = "Lỗi cấu hình\nBạn chưa cấu hình tham số phiên bản FixIt đúng cách. Xem https://fixit.lruihao.cn/docs/getting-started/configuration/params/"
+compatibilityError = "Lỗi tương thích ({{ .From }} -> {{ .To }}):\nBạn có một bản cập nhật không tương thích. Xem https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "Bạn đang sử dụng một phiên bản phát triển của FixIt. Vui lòng xem xét sử dụng một phiên bản ổn định.\nXem https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "Môi trường hiện tại là \"development\". \"Hệ thống bình luận\", \"PWA\", \"CDN\", \"vân tay\" và \"thống kê\" sẽ bị vô hiệu hóa."
+quicklyUpgrade = "Nâng cấp nhanh bằng lệnh: "
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "Lên trên"
+viewComments = "Xem bình luận"
+noscript = "Trang web này hoạt động tốt nhất khi JavaScript được kích hoạt."
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "Bài viết cũ"
+
+[allSome]
+other = "Tất cả {{ .Some }}"
+
+[category]
+other = "Danh mục"
+
+[categories]
+other = "Danh mục"
+
+[collection]
+other = "Collection"
+
+[collections]
+other = "Collections"
+
+[tag]
+other = "Nhãn"
+
+[tags]
+other = "Nhãn"
+
+[posts]
+other = "Bài viết"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "Mới nhất"
+
+[section.totalWordCount]
+one = "Chỉ một từ"
+other = "Tổng cộng {{ .Count }} từ"
+
+[section.archiveCounter]
+one = "Chỉ một bài viết"
+other = "{{ .Count }} bài viết"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "Thêm"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "Chọn Ngôn ngữ"
+noTranslations = "Không có bản dịch"
+switchTheme = "Đổi chủ đề"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "Cung cấp bởi {{ .Hugo }} | Chủ đề - {{ .Theme }}"
+siteUV = "Tổng khách truy cập"
+sitePV = "Tổng lượt truy cập"
+siteRunning = "Trang web đang chạy ..."
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "Bình luận của bạn ..."
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "Bảng"
+search = "Tìm kiếm"
+searchPlaceholder = "Tìm tiêu đề hoặc nội dung..."
+searchIn = "Tìm kiếm trong {{ . }}"
+searchBy = "Tìm kiếm bằng"
+gotoResultsPage = "Đi đến trang kết quả tìm kiếm ..."
+clear = "Xoá"
+cancel = "Huỷ"
+navigate = "Điều hướng"
+select = "Chọn"
+close = "Đóng"
+refresh = "Làm mới"
+noResultsFound = "Không tìm thấy kết quả"
+copyToClipboard = "Sao chép vào bộ nhớ tạm"
+copyText = "Sao chép"
+copiedText = "Đã sao chép"
+toggleLineNumbers = "Chuyển đổi số dòng"
+toggleLineWrap = "Chuyển đổi xuống dòng"
+toggleCodeEditable = "Chuyển đổi khối mã có thể chỉnh sửa"
+downloadCode = "Tải mã"
+expandCode = "Mở rộng hoặc thu gọn khối mã"
+fullscreen = "Toàn màn hình"
+exitFullscreen = "Thoát toàn màn hình"
+cookieconsentMessage = "Trang web này sử dụng Cookies để cải thiện trải nghiệm của bạn."
+cookieconsentDismiss = "Đã hiểu!"
+cookieconsentLink = "Tìm hiểu thêm"
+toggleSortOrder = "Đổi thứ tự sắp xếp"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "Chia sẻ trên"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "Nội dung"
+navigation = "Điều hướng"
+disclaimer = "Tuyên bố của tác giả: "
+pin = "Ghim ở đầu trang"
+repost = "Đăng lại"
+publishedOnDate = "đăng ngày {{ .Date }}"
+views = "lượt xem"
+comments = "bình luận"
+author = "Tác giả"
+updatedOnDate = "Cập nhật ngày {{ .Date }}"
+readMarkdown = "Đọc với định dạng Markdown"
+viewSource = "Xem mã nguồn"
+editThisPage = "Chỉnh sửa trang này"
+reportIssue = "Báo cáo lỗi"
+openInEditor = "Mở trong trình chỉnh sửa"
+back = "Quay lại"
+home = "Trang chủ"
+readMore = "Đọc thêm"
+expirationReminder = "Bài viết này được cập nhật lần cuối vào {{ .Date }}, nội dung có thể đã lỗi thời."
+encryptedAbstract = "Bài viết này đã được mã hóa, nên nội dung gốc không thể nhìn thấy!"
+print = "In"
+encryptedMessage = "Vui lòng nhập mật khẩu"
+password = "Mật khẩu"
+enterBtn = "Nhập"
+encryptyAgain = "Mã hóa lại"
+encryptionWarning = "Phát hiện mã hóa nội dung, nhưng chúng vẫn ở dạng văn bản thuần!"
+encryptionCommand = "Chạy `npx @hugo-fixit/encrypt` sau khi build để thực sự mã hóa chúng."
+relatedContent = "Nội dung liên quan"
+
+[single.disclaimerMessage]
+ai = "Bài viết này được tạo bởi AI. Vui lòng xác minh thông tin một cách độc lập."
+repost = "Bài viết này là nội dung được đăng lại. Vui lòng truy cập nguồn gốc để biết thêm thông tin."
+original = "Đây là nội dung gốc của tác giả."
+
+[single.includedIn]
+categories = "trong {{ .Categories }}"
+collections = "trong {{ .Collections }}"
+both = "trong {{ .Categories }} và {{ .Collections }}"
+
+[single.wordCount]
+one = "One word"
+other = "{{ .Count }} từ"
+
+[single.fuzzyWordCount]
+other = "Khoảng {{ .Count }} từ"
+
+[single.readingTime]
+one = "One minute"
+other = "{{ .Count }} phút"
+
+[single.reward]
+donate = "Ủng hộ"
+wechatpay = "WeChat Pay"
+alipay = "Alipay"
+paypal = "PayPal"
+bitcoin = "Bitcoin"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "Không tìm thấy trang"
+
+[pageNotFoundText]
+other = "Trang bạn đang tìm kiếm không tồn tại. Xin lỗi."
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "ngoại tuyến"
+
+[offlineText]
+other = "Bạn chưa kết nối với Internet, chỉ các trang được lưu trong bộ nhớ cache sẽ khả dụng."
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "Có bản cập nhật"
+updateText = "Một phiên bản mới của trang web này đã sẵn sàng."
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "Thông báo chuyển hướng"
+message = "Bạn sắp rời khỏi {{ .Title }}, vui lòng chú ý an toàn cho tài khoản và tài sản của mình."
+confirm = "Tiếp tục truy cập"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "Ghi chú"
+tip = "Mẹo"
+important = "Quan trọng"
+warning = "Cảnh báo"
+caution = "Chú ý"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "Đã kiểm tra"
+" " = "Chưa kiểm tra"
+"/" = "Đang tiến hành"
+"-" = "Đã hủy"
+"<" = "Đã lên lịch"
+">" = "Đã lên lịch lại"
+"!" = "Quan trọng"
+"!x" = "Quan trọng Đã kiểm tra"
+"?" = "Câu hỏi"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "Ghi chú"
+abstract = "Tóm tắt"
+info = "Thông tin"
+todo = "Cần làm"
+tip = "Mẹo"
+success = "Thành công"
+question = "Câu hỏi"
+warning = "Cảnh báo"
+failure = "Thất bại"
+danger = "Nguy hiểm"
+bug = "Lỗi"
+example = "Ví dụ"
+quote = "Trích dẫn"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "MỚI"
+changed = "THAY ĐỔI"
+deleted = "XOÁ"
+deprecated = "KHÔNG CÒN SỬ DỤNG"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "Phóng to"
+zoomOut = "Thu nhỏ"
+reset = "Đặt lại"
+download = "Tải SVG"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "Sơ đồ"
+code = "Mã"
+# === Tabs ===

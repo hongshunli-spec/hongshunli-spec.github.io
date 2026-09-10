@@ -1,0 +1,148 @@
+{{- /*  Git info  */ -}}
+{{- $gitRepo := "" -}}
+{{- $blobURL := "" -}}
+{{- $sourceURL := "" -}}
+{{- $editURL := "" -}}
+{{- $reportURL := "" -}}
+{{- with .Site.Params.git_info -}}
+  {{- if .repo -}}
+    {{- $gitRepo = strings.TrimSuffix "/" .repo -}}
+    {{- $blobURL = printf "%v/blob/%v/%v/{path}" $gitRepo .branch .dir -}}
+    {{- $editURL = printf "%v/edit/%v/%v/{path}" $gitRepo .branch .dir -}}
+    {{- $reportURL = printf "%v/issues/new?%v" $gitRepo .issue_tpl -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $linkOptions := slice -}}
+{{- $postLink := .Param "post_link" | default dict -}}
+{{- if not .Params.password -}}
+  {{- if $postLink.markdown -}}
+    {{- with .OutputFormats.Get "markdown" -}}
+      {{- $options := dict "Class" "link-to-markdown" "Destination" .RelPermalink "Title" (T "single.readMarkdown") "Content" (T "single.readMarkdown") -}}
+      {{- $linkOptions = $linkOptions | append $options -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $postLink.source | and $gitRepo -}}
+    {{- $link := replace $blobURL "{path}" $.File.Path -}}
+    {{- $sourceURL = .Param "source_url" | default (add $link "?plain=1") -}}
+    {{- $options := dict "Class" "link-to-source" "Destination" $sourceURL "Title" (T "single.viewSource") "Content" (T "single.viewSource") -}}
+    {{- $linkOptions = $linkOptions | append $options -}}
+  {{- end -}}
+  {{- if $postLink.edit | and $gitRepo -}}
+    {{- $link := replace $editURL "{path}" $.File.Path -}}
+    {{- $editURL = .Param "edit_url" | default $link -}}
+    {{- $options := dict "Class" "link-to-edit" "Destination" $editURL "Title" (T "single.editThisPage") "Content" (T "single.editThisPage") -}}
+    {{- $linkOptions = $linkOptions | append $options -}}
+  {{- end -}}
+  {{- if $postLink.report | and $gitRepo -}}
+    {{- $link := replace $reportURL "{title}" ($.Title | urlquery) -}}
+    {{- $link = replace $link "{URL}" $.Permalink -}}
+    {{- $link = replace $link "{sourceURL}" $sourceURL -}}
+    {{- $options := dict "Class" "link-to-report" "Destination" $link "Title" (T "single.reportIssue") "Content" (T "single.reportIssue") -}}
+    {{- $linkOptions = $linkOptions | append $options -}}
+  {{- end -}}
+{{- end -}}
+{{- with $postLink.editor -}}
+  {{- if hugo.IsServer | and (not $.File.IsContentAdapter) -}}
+    {{- $link := printf "%s://file/%v" . $.File.Filename -}}
+    {{- $options := dict "Class" "link-to-editor" "Destination" $link "Title" (T "single.openInEditor") "Content" (T "single.openInEditor") -}}
+    {{- $linkOptions = $linkOptions | append $options -}}
+  {{- end -}}
+{{- end -}}
+<div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        {{- $updateTitle := dict "Date" ("2006-01-02 15:04:05" | .Lastmod.Format) | T "single.updatedOnDate" -}}
+        <span title="{{ $updateTitle }}">
+          {{- with .Lastmod | dateFormat (.Site.Params.date_format | default "2006-01-02") -}}
+            {{- dict "Date" . | T "single.updatedOnDate" -}}&nbsp;
+            {{- if $gitRepo -}}
+              {{- with $.GitInfo -}}
+                {{- $title := printf "%v&#10%v&#10Commit: %v [%v]&#10Author: %v<%v>&#10Date: %v" .Subject .Body .Hash .AbbreviatedHash .AuthorName .AuthorEmail (.AuthorDate | dateFormat "2006-01-02 15:04:05") -}}
+                {{- if ne .AuthorDate .CommitDate -}}
+                  {{- $title = printf "%s&#10Commit Date: %v" $title (.CommitDate | dateFormat "2006-01-02 15:04:05") -}}
+                {{- end -}}
+                <a class="git-hash" href="{{ printf `%v/commit/%v` $gitRepo .Hash }}" rel="external nofollow noopener noreferrer" target="_blank" title="{{ $title | safeHTML }}">
+                  {{- dict "Class" "fa-solid fa-hashtag" | partial "plugin/icon.html" -}}
+                  {{- .AbbreviatedHash -}}
+                </a>
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        </span>
+      </div>
+      {{- if not .Params.password -}}
+        {{- with (.Param "license") | string -}}
+          <div class="post-info-license">
+            <span>{{ . | safeHTML }}</span>
+          </div>
+        {{- end -}}
+      {{- end -}}
+    </div>
+    <div class="post-info-line">
+      <div class="post-info-md">
+        {{- range $linkOptions -}}
+          {{- $commonOptions := dict "ExternalIcon" false -}}
+          <span>{{ partial "plugin/link.html" (. | merge $commonOptions) }}</span>
+        {{- end -}}
+      </div>
+      {{- if not .Params.password -}}
+        <div class="post-info-share">
+          <span>
+            {{- partial "plugin/share.html" . -}}
+          </span>
+        </div>
+      {{- end -}}
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags">
+      {{- $tagTerms := .GetTerms "tags" -}}
+      {{- if $tagTerms -}}
+        {{- dict "Class" "fa-solid fa-tags me-1" | partial "plugin/icon.html" -}}
+        {{- range $tagTerms -}}
+          {{- $href := partial "function/escapeurl.html" .RelPermalink -}}
+          {{- $title := printf "%v - %v" (T "tags") .LinkTitle -}}
+          <a href="{{ $href }}" class="post-tag" title="{{ $title }}">{{ .LinkTitle }}</a>
+        {{- end -}}
+      {{- end -}}
+    </section>
+    <section>
+      {{- $relLangURL := relLangURL "" -}}
+      <span><a href="javascript:void(0);" onclick="window.history.back();">{{ T "single.back" }}</a></span>&nbsp;|&nbsp;<span><a href="{{ $relLangURL }}">{{ T "single.home" }}</a></span>
+    </section>
+  </div>
+
+  {{- $navigation := .Site.Params.navigation -}}
+  <div class="post-nav">
+    {{- $pages := .Site.Store.Get "mainSectionPages" -}}
+    {{- $prev := $pages.Prev . -}}
+    {{- $next := $pages.Next . -}}
+    {{- /* Show the post navigation in section pages */ -}}
+    {{- if $navigation.in_section -}}
+      {{- $prev = .PrevInSection -}}
+      {{- $next = .NextInSection -}}
+    {{- end -}}
+    {{- /* Reverse the next/previous post navigation order */ -}}
+    {{- if $navigation.reverse -}}
+      {{- $prev = $pages.Next . -}}
+      {{- $next = $pages.Prev . -}}
+    {{- end -}}
+    {{- with $prev -}}
+      {{- $capitalizeTitles := .Param "capitalize_titles" -}}
+      <a href="{{ .RelPermalink }}" class="post-nav-item" rel="prev" title="{{ cond $capitalizeTitles (title .LinkTitle) .LinkTitle }}">
+        {{- dict "Class" "fa-solid fa-angle-left" | partial "plugin/icon.html" -}}
+        {{- cond $capitalizeTitles (title .LinkTitle) .LinkTitle -}}
+      </a>
+    {{- end -}}
+    {{ with $next }}
+      {{- $capitalizeTitles := .Param "capitalize_titles" -}}
+      <a href="{{ .RelPermalink }}" class="post-nav-item" rel="next" title="{{ cond $capitalizeTitles (title .LinkTitle) .LinkTitle }}">
+        {{- cond $capitalizeTitles (title .LinkTitle) .LinkTitle -}}
+        {{- dict "Class" "fa-solid fa-angle-right" | partial "plugin/icon.html" -}}
+      </a>
+    {{- end -}}
+  </div>
+</div>

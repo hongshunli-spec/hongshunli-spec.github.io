@@ -1,0 +1,45 @@
+@use "core/functions" as *;
+
+.single blockquote.blockquote-center {
+  border-inline-start: none;
+  margin: 40px 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  color: inherit;
+
+  &::after,
+  &::before {
+    inset-inline-start: 0;
+    line-height: 1;
+    opacity: 0.6;
+    position: absolute;
+    width: 100%;
+  }
+
+  &::before {
+    border-top: 1px solid fi-var(global-border-color);
+    text-align: start;
+    top: -20px;
+    font-family: var(--fa-family-classic);
+    font-weight: 900;
+    content: '\f10d';
+
+    [dir="rtl"] & {
+      content: '\f10e';
+    }
+  }
+
+  &::after {
+    border-bottom: 1px solid fi-var(global-border-color);
+    bottom: -20px;
+    text-align: end;
+    font-family: var(--fa-family-classic);
+    font-weight: 900;
+    content: '\f10e';
+
+    [dir="rtl"] & {
+      content: '\f10d';
+    }
+  }
+}

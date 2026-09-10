@@ -1,0 +1,31 @@
+# =====================================================================================
+# The following is a necessary configuration for the FixIt theme.
+# =====================================================================================
+
+# -------------------------------------------------------------------------------------
+# Hugo Configuration
+# See: https://gohugo.io/getting-started/configuration/
+# -------------------------------------------------------------------------------------
+
+title = "FixIt Demo"
+baseURL = "https://demo.fixit.lruihao.cn/"
+# theme = "FixIt"
+
+[markup]
+_merge = "shallow"
+
+[outputs]
+_merge = "shallow"
+
+[taxonomies]
+_merge = "shallow"
+
+# -------------------------------------------------------------------------------------
+# Theme Core Configuration
+# See: https://fixit.lruihao.cn/docs/getting-started/configuration/params/
+# -------------------------------------------------------------------------------------
+
+[params]
+# FixIt theme version
+version = "1.0.X"
+# ...

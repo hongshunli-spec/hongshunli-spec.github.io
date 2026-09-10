@@ -1,0 +1,165 @@
+
+ â›…ï¸ wrangler 4.129.0
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+[33mâ–² [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+Uploading... (276/4704)
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+'wrangler' ²»ÊÇÄÚ²¿»òÍâ²¿ÃüÁî£¬Ò²²»ÊÇ¿ÉÔËĞĞµÄ³ÌĞò
+»òÅú´¦ÀíÎÄ¼ş¡£
+
+=== 2026-09-07 23:46:41 manual restart (full path) ===
+
+ â›…ï¸ wrangler 4.129.0
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+[33mâ–² [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+
+ â›…ï¸ wrangler 4.129.0
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+[33mâ–² [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+Uploading... (276/4704)
+Uploading... (324/4704)
+Uploading... (373/4704)
+Uploading... (431/4704)
+Uploading... (480/4704)
+Uploading... (546/4704)
+Uploading... (609/4704)
+Uploading... (676/4704)
+Uploading... (746/4704)
+Uploading... (818/4704)
+Uploading... (892/4704)
+Uploading... (969/4704)
+Uploading... (1048/4704)
+Uploading... (1133/4704)
+Uploading... (1215/4704)
+Uploading... (1302/4704)
+Uploading... (1392/4704)
+Uploading... (1486/4704)
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mFailed to upload files. Please try again. Error: {})[0m
+
+
+ğŸªµ  Logs were written to "C:\Users\hongshunli\.wrangler\logs\wrangler-2026-09-07_15-48-05_793.log"
+
+ â›…ï¸ wrangler 4.129.0
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+[33mâ–² [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+Uploading... (276/4704)
+Uploading... (325/4704)
+Uploading... (373/4704)
+Uploading... (422/4704)
+Uploading... (480/4704)
+Uploading... (543/4704)
+Uploading... (610/4704)
+Uploading... (676/4704)
+Uploading... (746/4704)
+Uploading... (820/4704)
+Uploading... (897/4704)
+Uploading... (969/4704)
+Uploading... (1048/4704)
+Uploading... (1130/4704)
+Uploading... (1215/4704)
+Uploading... (1305/4704)
+Uploading... (1392/4704)
+Uploading... (1487/4704)
+Uploading... (1581/4704)
+Uploading... (1679/4704)
+Uploading... (1781/4704)
+Uploading... (1886/4704)
+Uploading... (1995/4704)
+Uploading... (2108/4704)
+Uploading... (2225/4704)
+Uploading... (2351/4704)
+Uploading... (2471/4704)
+Uploading... (2600/4704)
+Uploading... (2737/4704)
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mFailed to upload files. Please try again. Error: {})[0m
+
+
+ğŸªµ  Logs were written to "C:\Users\hongshunli\.wrangler\logs\wrangler-2026-09-07_15-58-02_813.log"
+
+ â›…ï¸ wrangler 4.129.0
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+[33mâ–² [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+Uploading... (276/4704)
+
+=== 2026-09-08 00:16:53 restart concurrency=8 ===
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mUnknown argument: concurrency[0m
+
+
+wrangler pages deploy [directory]
+
+Deploy a directory of static assets as a Pages deployment
+
+POSITIONALS
+  directory  The directory of static files to upload  [string]
+
+GLOBAL FLAGS
+      --cwd             Run as if Wrangler was started in the specified directory instead of the current working directory  [string]
+      --env-file        Path to an .env file to load - can be specified multiple times - values from earlier files are overridden by values in later files  [array]
+  -h, --help            Show help  [boolean]
+      --install-skills  Install Cloudflare skills for detected AI coding agents before running the command  [boolean] [default: false]
+      --profile         Use a specific auth profile  [string]
+  -v, --version         Show version number  [boolean]
+
+OPTIONS
+      --project-name        The name of the project you want to deploy to  [string]
+      --branch              The name of the branch you want to deploy to  [string]
+      --commit-hash         The SHA to attach to this deployment  [string]
+      --commit-message      The commit message to attach to this deployment  [string]
+      --commit-dirty        Whether or not the workspace should be considered dirty for this deployment  [boolean]
+      --skip-caching        Skip asset caching which speeds up builds  [boolean]
+      --no-bundle           Whether to run bundling on `_worker.js` before deploying  [boolean]
+      --upload-source-maps  Whether to upload any server-side sourcemaps with this deployment  [boolean] [default: false]
+ğŸªµ  Logs were written to "C:\Users\hongshunli\.wrangler\logs\wrangler-2026-09-07_16-16-55_285.log"
+
+=== 2026-09-08 00:17:56 restart (no concurrency) ===
+
+ â›…ï¸ wrangler 4.129.0
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+[33mâ–² [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+Uploading... (276/4704)

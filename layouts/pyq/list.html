@@ -1,0 +1,75 @@
+{{- define "title" -}}
+  微信朋友圈{{- if .Site.Params.with_site_title }} - {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+{{- $count := len .RegularPages -}}
+<style>
+.pyq-page { padding-bottom: 2rem; }
+.pyq-month { margin: 2.2rem 0 1rem; font-size: 1.15rem; font-weight: 700; color: var(--primary-color, #4a4a4a); border-left: 4px solid #07c160; padding-left: .6rem; }
+.pyq-item { margin: 0 0 1.6rem; padding: .8rem .9rem; border: 1px solid var(--border-color, #e5e5e5); border-radius: 10px; background: var(--card-background-color, transparent); }
+.pyq-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .35rem; }
+.pyq-date { font-size: .9rem; font-weight: 600; color: #888; }
+.pyq-loc { font-size: .78rem; color: #07c160; }
+.pyq-text { font-size: .98rem; line-height: 1.55; margin-bottom: .6rem; word-break: break-word; }
+.pyq-text p { margin: 0 0 .35rem; }
+.pyq-text h1 { display: none; }
+.pyq-text h2 { display: none; }
+.pyq-text hr { display: none; }
+.pyq-text blockquote { margin: .4rem 0; padding: .4rem .6rem; background: #f7f7f7; border-left: none; border-radius: 6px; font-size: 13px; line-height: 1.5; }
+.pyq-text blockquote p { margin: .1rem 0; font-size: 12px; color: #999; }
+.pyq-text blockquote ul { margin: .15rem 0; padding: 0; list-style: none; }
+.pyq-text blockquote li { margin: .1rem 0; color: #333; }
+.pyq-nick { color: #576b95; font-weight: 400; }
+.pyq-grid { display: grid; gap: 4px; border-radius: 6px; overflow: hidden; }
+.pyq-grid a { display: block; line-height: 0; }
+.pyq-grid img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; display: block; cursor: zoom-in; transition: opacity .15s; }
+.pyq-grid img:hover { opacity: .85; }
+.grid-1 { grid-template-columns: 1fr; }
+.grid-1 img { aspect-ratio: 16/10; border-radius: 6px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.pyq-comment { margin-top: .55rem; padding: .45rem .7rem; background: rgba(128,128,128,.07); border-radius: 6px; font-size: .9rem; color: #666; }
+.pyq-comment p { margin: .12rem 0; }
+.pyq-comment .c-name { color: #576b95; font-weight: 600; margin-right: .3rem; }
+</style>
+
+<div class="page archive pyq-page">
+  <div class="header">
+    <h1 class="single-title animate__animated animate__pulse animate__faster">📱 微信朋友圈</h1>
+    <p class="single-subtitle">共 {{ $count }} 个月份记录 · 点击图片查看大图 · 按年月分组</p>
+  </div>
+
+  {{- range (.RegularPages.GroupByDate "2006-01") -}}
+    <h2 class="group-title pyq-month">{{ .Key }}</h2>
+    {{- range .Pages -}}
+      {{- $content := .Content -}}
+      {{- $imgs := findRE "<img[^>]*src=['\"][^'\"]+['\"]" $content -}}
+      {{- $text := replaceRE "<img[^>]*>" "" $content -}}
+      {{- $text = replaceRE "<h1[^>]*>.*?</h1>" "" $text -}}
+      {{- $text = replaceRE "<p></p>\\s*" "" $text -}}
+      {{- $text = replaceRE "<hr>" "" $text -}}
+      {{- $text = replaceRE "<li>([^<]*?)\\s*回复\\s*([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span> 回复 <span class=\"pyq-nick\">$2</span>：$3</li>" $text -}}
+      {{- $text = replaceRE "<li>([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span>：$2</li>" $text -}}
+      {{- $n := len $imgs -}}
+      <article class="pyq-item">
+        <div class="pyq-head">
+          <span class="pyq-date">{{ .Date | dateFormat "01-02" }}</span>
+          {{- with .Params.location -}}<span class="pyq-loc">📍 {{ . }}</span>{{- end -}}
+        </div>
+        {{- if $text -}}
+          <div class="pyq-text">{{ $text | safeHTML }}</div>
+        {{- end -}}
+        {{- if gt $n 0 -}}
+          <div class="pyq-grid grid-{{ cond (eq $n 1) 1 (cond (le $n 4) 2 3) }}">
+            {{- range $imgs -}}
+              {{- $src := replaceRE "<img[^>]*src=['\"]" "" . | replaceRE "['\"][^>]*$" "" -}}
+              <a href="{{ $src }}" target="_blank" rel="noopener"><img src="{{ $src }}" loading="lazy" alt="朋友圈图片"></a>
+            {{- end -}}
+          </div>
+        {{- end -}}
+      </article>
+    {{- end -}}
+  {{- end -}}
+</div>
+{{- end -}}

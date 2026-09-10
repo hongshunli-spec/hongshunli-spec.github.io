@@ -1,0 +1,92 @@
+{{- $raw := strings.TrimSpace .Inner -}}
+{{- $parsed := dict -}}
+{{- $ok := false -}}
+{{- $activeFormat := "" -}}
+{{- /* Try auto-detect first, then explicit format detection */ -}}
+{{- with try (transform.Unmarshal $raw) -}}
+  {{- with .Err -}}
+    {{- /* Auto-detect failed, try each format explicitly */ -}}
+    {{- range $candidate := slice "json" "toml" "yaml" -}}
+      {{- if not $ok -}}
+        {{- with try (transform.Unmarshal (dict "format" $candidate) $raw) -}}
+          {{- if not .Err -}}
+            {{- $parsed = .Value -}}
+            {{- $ok = true -}}
+            {{- $activeFormat = $candidate -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not $ok -}}
+      {{- warnf "Toggle code block: unable to parse content at %s" $.Position -}}
+    {{- end -}}
+  {{- else with .Value -}}
+    {{- $parsed = . -}}
+    {{- $ok = true -}}
+    {{- /* Detect the active format for tab highlighting */ -}}
+    {{- range $candidate := slice "json" "toml" "yaml" -}}
+      {{- if not $activeFormat -}}
+        {{- with try (transform.Unmarshal (dict "format" $candidate) $raw) -}}
+          {{- if not .Err -}}
+            {{- $activeFormat = $candidate -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $ok -}}
+  {{- $groupId := printf "tab-%s" (md5 (dict "Page" .Page | partial "function/id.html")) -}}
+  {{- $commonAttrsStr := printf ", group=%q" $groupId -}}
+  {{- if ne .Attributes.copyable nil -}}
+    {{- $commonAttrsStr = printf "%s, copyable=%v" $commonAttrsStr .Attributes.copyable -}}
+  {{- end -}}
+  {{- if ne .Attributes.downloadable nil -}}
+    {{- $commonAttrsStr = printf "%s, downloadable=%v" $commonAttrsStr .Attributes.downloadable -}}
+  {{- end -}}
+  {{- if ne .Attributes.fullscreen nil -}}
+    {{- $commonAttrsStr = printf "%s, fullscreen=%v" $commonAttrsStr .Attributes.fullscreen -}}
+  {{- end -}}
+  {{- if ne (.Attributes.line_nos_toggler | default .Attributes.linenostoggler) nil -}}
+    {{- $commonAttrsStr = printf "%s, line_nos_toggler=%v" $commonAttrsStr (.Attributes.line_nos_toggler | default .Attributes.linenostoggler) -}}
+    {{- if isset .Attributes "linenostoggler" | and (not (isset .Attributes "line_nos_toggler")) -}}
+      {{- warnidf "v1-deprecated-toggle-attr" "The attribute `lineNosToggler` is deprecated since v1.0.0, use `line_nos_toggler` instead. See %s" $.Position -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if ne (.Attributes.line_wrap_toggler | default .Attributes.linewraptoggler) nil -}}
+    {{- $commonAttrsStr = printf "%s, line_wrap_toggler=%v" $commonAttrsStr (.Attributes.line_wrap_toggler | default .Attributes.linewraptoggler) -}}
+    {{- if isset .Attributes "linewraptoggler" | and (not (isset .Attributes "line_wrap_toggler")) -}}
+      {{- warnidf "v1-deprecated-toggle-attr" "The attribute `lineWrapToggler` is deprecated since v1.0.0, use `line_wrap_toggler` instead. See %s" $.Position -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if ne .Attributes.editable nil -}}
+    {{- $commonAttrsStr = printf "%s, editable=%v" $commonAttrsStr .Attributes.editable -}}
+  {{- end -}}
+  {{- with .Attributes.before_tabs -}}
+    {{- $commonAttrsStr = printf "%s, before_tabs=%q" $commonAttrsStr . -}}
+  {{- end -}}
+  {{- $renderText := "" -}}
+  {{- range $format := slice "toml" "yaml" "json" -}}
+    {{- $content := "" -}}
+    {{- if eq $format "toml" -}}
+      {{- $content = transform.Remarshal $format $parsed -}}
+      {{- $content = replaceRE `(?m)^[\t ]+` "" $content -}}
+    {{- else if eq $format "yaml" -}}
+      {{- $content = transform.Remarshal $format $parsed -}}
+      {{- /* Strip YAML anchors/aliases created for identical values (e.g. empty arrays) */ -}}
+      {{- $content = replaceRE `(?m)(\w[\w\s]*:\s+)&(\w+)\n(\S+)` "$1$3" $content -}}
+      {{- $content = replaceRE `(?m)^(\s*\w[\w\s]*:\s+)&\w+\s+\*\w+$` "${1}[]" $content -}}
+    {{- else if eq $format "json" -}}
+      {{- $content = $parsed | jsonify (dict "indent" "  ") -}}
+    {{- end -}}
+    {{- $active := cond (eq $format $activeFormat) ", .active" "" -}}
+    {{- $jsonViewer := cond (eq $format "json") ", enable=false" "" -}}
+    {{- $labelName := cond (ne $.Attributes.before_tabs nil) $format (upper $format) -}}
+    {{- $block := printf "```%s {data-code-toggle=true, name=%q%s%s%s}\n%s\n```\n\n" $format $labelName $active $jsonViewer $commonAttrsStr $content -}}
+    {{- $renderText = add $renderText $block -}}
+  {{- end -}}
+  {{- $renderText | .Page.RenderString -}}
+{{- else -}}
+  {{- partial "plugin/code-block-wrapper.html" . -}}
+{{- end -}}

@@ -1,0 +1,368 @@
+@use "sass:color";
+@use "core/functions" as *;
+@use "core/mixins" as *;
+@use "variables" as *;
+
+// Common styles for all TOC types
+.toc {
+  .toc-title {
+    font-size: fi-var(toc-title-font-size);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .toc-content {
+    font-size: fi-var(toc-content-font-size);
+
+    code {
+      @include inline-code;
+    }
+
+    ul {
+      margin: 0;
+      text-indent: -0.8em;
+      padding-inline-start: 0.8em;
+      list-style: none;
+
+      a:first-child::before {
+        content: '|';
+        font-weight: bolder;
+        margin-inline-end: 0.5em;
+        position: relative;
+        bottom: 2px;
+        color: fi-var(single-link-color);
+      }
+
+      ul {
+        padding-inline-start: 1em;
+      }
+    }
+
+    ol {
+      margin: 0;
+      padding-inline-start: 3ch;
+      list-style: none;
+      counter-reset: toc-counter;
+
+      // 10+ items → 2-digit marker
+      &:has(> :nth-child(10)) {
+        padding-inline-start: 4ch;
+      }
+
+      // 100+ items → 3-digit marker
+      &:has(> :nth-child(100)) {
+        padding-inline-start: 5ch;
+      }
+
+      > li {
+        counter-increment: toc-counter;
+
+        &::marker {
+          content: counters(toc-counter, ".") ". ";
+          color: fi-var(global-font-secondary-color);
+        }
+      }
+
+      li:has(> a:hover)::marker {
+        color: fi-var(single-link-color);
+      }
+    }
+  }
+
+  ruby {
+    background-color: fi-var(code-block-background-color);
+
+    rt {
+      color: fi-var(global-font-secondary-color);
+    }
+  }
+}
+
+// Common active state styles for auto and dialog TOC
+#toc-auto,
+#nav-dialog {
+  .toc-content {
+    li.has-active {
+      &::marker {
+        color: fi-var(single-link-color);
+      }
+
+      &:has(> .active)::marker {
+        font-weight: bold;
+      }
+
+      > a {
+        color: fi-var(single-link-color);
+      }
+    }
+
+    ul {
+      a.active::before {
+        color: fi-var(single-link-hover-color);
+      }
+    }
+
+    a.active {
+      font-weight: bold;
+    }
+  }
+}
+
+#toc-auto {
+  display: block;
+  position: sticky;
+  box-sizing: border-box;
+  margin-bottom: 8rem;
+  @include overflow-wrap(break-word);
+  @include sticky-top-offset;
+
+  .toc-title {
+    display: flex;
+    align-items: center;
+    margin-block: 0 0.5em;
+    cursor: pointer;
+    user-select: none;
+
+    &::before {
+      content: '|';
+      font-weight: bolder;
+      margin-inline-end: 0.5em;
+      position: relative;
+      bottom: 2px;
+      color: fi-var(global-border-color);
+    }
+
+    i.toc-icon {
+      transition: rotate 0.2s ease;
+    }
+
+    .toc-print-btn {
+      padding: 0;
+      border: none;
+      background: none;
+      color: fi-var(global-font-secondary-color);
+      cursor: pointer;
+      margin-inline-start: auto;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: fi-var(global-font-color);
+      }
+    }
+  }
+
+  &.toc-hidden i.toc-icon {
+    rotate: -90deg;
+    transition: rotate 0.2s ease;
+
+    [dir="rtl"] & {
+      rotate: 90deg;
+    }
+  }
+
+  .toc-content {
+    overflow-y: auto;
+    max-height: fi-var(toc-content-max-height, 90dvh);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 2%, black 98%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 2%, black 98%, transparent 100%);
+    @include scrollbar-width(none, 0);
+
+    &.always-active ul,
+    &.always-active ol {
+      display: block;
+    }
+
+    // for unordered list automatically collapsed
+    ul {
+      ul {
+        display: none;
+      }
+
+      .has-active > ul {
+        display: block;
+      }
+    }
+
+    // for ordered list automatically collapsed
+    ol {
+      ol {
+        display: none;
+      }
+
+      .has-active > ol {
+        display: block;
+      }
+    }
+  }
+
+  @include media('print') {
+    display: none !important;
+  }
+}
+
+#toc-static {
+  display: none;
+  margin: 0.8em 0;
+
+  &[data-kept='true'] {
+    display: block;
+  }
+
+  .toc-title {
+    display: flex;
+    justify-content: space-between;
+    line-height: 2em;
+    padding: 0 0.75em;
+    background-color: fi-var(code-header-background-color);
+  }
+
+  .toc-content {
+    background-color: fi-var(code-block-background-color);
+
+    > nav {
+      > ul {
+        padding: 0.4em 1em 0.4em 1.8em;
+
+        a:hover {
+          font-weight: bold;
+
+          &::before {
+            color: fi-var(single-link-hover-color);
+          }
+        }
+      }
+
+      > ol {
+        padding-block: 0.4em;
+        padding-inline-end: 1em;
+
+        li:has(> a:hover)::marker,
+        a:hover {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &:not(.open) {
+    .toc-title {
+      @include set-fi-var(
+        code-header-background-color,
+        light-dark(color.adjust($code-header-background-color, $lightness: -1%), color.adjust($code-header-background-color-dark, $lightness: -1%))
+      );
+    }
+  }
+
+  @include media('sm', 'down') {
+    display: block;
+  }
+}
+
+#nav-dialog {
+  opacity: 0;
+  translate: 100vw 0;
+  width: MIN(calc(100% - 4rem), 460px);
+  height: 100dvh;
+  max-width: 100%;
+  max-height: 100%;
+  margin-inline-end: 0;
+  border: none;
+  border-inline-start: 1px solid fi-var(global-border-color-light);
+  background-color: fi-var(global-background-color);
+  transition:
+    display 0.2s allow-discrete,
+    overlay 0.2s allow-discrete,
+    translate 0.2s,
+    opacity 0.2s 0.4s;
+
+  [dir="rtl"] & {
+    translate: -100vw 0;
+  }
+
+  .nav-close-btn {
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1rem;
+    padding: 0.25rem;
+    color: fi-var(global-font-secondary-color);
+    transition: color 0.2s ease;
+    @include border-radius;
+
+    &:hover,
+    &:focus-visible {
+      color: fi-var(global-font-color);
+    }
+  }
+
+  .toc {
+    max-width: 100%;
+    margin-inline: 1rem;
+
+    .toc-title {
+      font-size: 1.25rem;
+      line-height: 2rem;
+      margin-block: 1rem 0.75rem;
+    }
+
+    // toc and collection tabs in dialog
+    > tab-container {
+      flex-direction: column;
+      margin-block: 0;
+
+      > .tab-button {
+        padding: 0.5rem;
+      }
+
+      > .tab-panel {
+        max-height: calc(100dvh - 8rem);
+        overflow: auto;
+      }
+    }
+
+    // only toc-content or collection-content in dialog
+    > .toc-content,
+    > .collection-content {
+      max-height: calc(100dvh - 5rem);
+      overflow: auto;
+    }
+  }
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition:
+      display 0.5s allow-discrete,
+      overlay 0.5s allow-discrete,
+      opacity 0.2s 0.4s;
+  }
+
+  &[open],
+  &[open]::backdrop {
+    opacity: 1;
+    transition:
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete,
+      translate 0.2s,
+      opacity 0.2s;
+  }
+
+  &[open] {
+    translate: 0 0;
+  }
+
+  @starting-style {
+    &[open],
+    &[open]::backdrop {
+      opacity: 0;
+    }
+
+    &[open] {
+      translate: 100vw 0;
+
+      [dir="rtl"] & {
+        translate: -100vw 0;
+      }
+    }
+  }
+}

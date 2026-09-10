@@ -1,0 +1,12 @@
+{{- $password := cond .IsNamedParams (.Get "password") (.Get 0) | default "" -}}
+{{- $message := cond .IsNamedParams (.Get "message") (.Get 1) | default (T "single.encryptedMessage") -}}
+
+{{- if $password -}}
+  {{- /* Content */ -}}
+  {{- $content := .Inner | strings.TrimSpace | .Page.RenderString -}}
+  {{- /* Content Encryption */ -}}
+  {{- dict "Content" $content "Password" $password "Message" $message "IsPartial" true "Page" .Page | partial "plugin/fixit-encryptor.html" -}}
+  {{- .Page.Store.Set "hasEncryptor" true -}}
+{{- else -}}
+  {{- .Inner -}}
+{{- end -}}

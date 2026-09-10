@@ -1,0 +1,20 @@
+{{- /*
+  Theme initialization entry point partial.
+
+  Sets the theme version and orchestrates all init sub-partials:
+  environment detection, version checking, deprecated param detection,
+  Pagefind index check, encryption warnings, global setup, and browser compatibility.
+
+  Called from: layouts/baseof.html.
+*/ -}}
+
+{{- hugo.Store.Set "version" "v1.0.0-alpha.2-mtmrzvot" -}}
+{{- .Store.Set "this" dict -}}
+
+{{- partial "init/detection-env.html" . -}}
+{{- partial "init/detection-version.html" . -}}
+{{- partial "init/detection-deprecated.html" . -}}
+{{- partial "init/detection-pagefind.html" . -}}
+{{- partial "init/detection-encryption.html" . -}}
+{{- partial "init/global.html" . -}}
+{{- partial "init/compatibility.html" . -}}

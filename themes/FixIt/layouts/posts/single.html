@@ -1,0 +1,227 @@
+{{- define "title" -}}
+  {{- cond (.Param "capitalize_titles") (title .Title) .Title -}}
+  {{- if .Site.Params.with_site_title }} {{ .Site.Params.title_delimiter }} {{ .Site.Title }}{{- end -}}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $title := cond (.Param "capitalize_titles") (title .Title) .Title -}}
+  {{- $toc := dict "Page" . "Key" "toc" | partial "function/param.html" -}}
+  {{- $tableOfContents := .Fragments.ToHTML ($toc.start_level | int) ($toc.end_level | int) ($toc.ordered | default false) -}}
+  {{- $showToc := $toc.enable | and (ne $tableOfContents `<nav id="TableOfContents"></nav>`) -}}
+  {{- .Store.Set "showToc" $showToc -}}
+  {{- $tableOfContents = dict "Content" $tableOfContents "Ruby" (.Param "ruby") "Fraction" (.Param "fraction") "Fontawesome" (.Param "fontawesome") | partial "function/content.html" | safeHTML -}}
+  {{- $pagefindEnabled := and .Site.Params.search.enable (eq .Site.Params.search.type "pagefind") -}}
+
+  {{- partial "single/aside-collection.html" . -}}
+
+  <article class="page single"{{ with .Params.fromAdapters }} data-adapters="{{ . }}"{{ end }}>
+    <div class="header">
+      {{- /* Title */ -}}
+      <h1 class="single-title animate__animated animate__flipInX"{{ if $pagefindEnabled }} data-pagefind-body{{ end }}>
+        {{- $repost := .Params.repost | default dict -}}
+        {{- with $repost -}}
+          {{- if eq .Enable true -}}
+            {{- $icon := dict "Class" "fa-solid fa-retweet" -}}
+            {{- $iconTitle := cond (hasPrefix .Url "http") (printf "%v -> %v" (T "single.repost") .Url ) (T "single.repost") -}}
+            {{- if hasPrefix .Url "http" -}}
+              {{ dict "Destination" .Url "Icon" $icon "Class" "icon-repost" "Title" $iconTitle "ExternalIcon" false | partial "plugin/link.html" -}}
+            {{- else -}}
+              <span title="{{ $iconTitle }}" class="icon-repost">{{- $icon | partial "plugin/icon.html" -}}</span>
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        <span>{{ $title }}</span>
+      </h1>
+
+      {{- /* Subtitle */ -}}
+      {{- with .Params.subtitle -}}<p class="single-subtitle animate__animated animate__fadeIn">{{ . | $.RenderString }}</p>{{- end -}}
+    </div>
+
+    {{- /* Meta */ -}}
+    <div class="post-meta">
+      <div class="post-meta-line">
+        {{- partial "single/post-author.html" . -}}
+        {{- partial "single/post-included-in.html" . -}}
+      </div>
+      <div class="post-meta-line">
+        {{- with .PublishDate | dateFormat (.Site.Params.date_format | default "2006-01-02") -}}
+          <span title="{{ dict "Date" ("2006-01-02 15:04:05" | $.PublishDate.Format) | T "single.publishedOnDate" }}">
+            {{- dict "Class" "fa-solid fa-calendar-days me-1" | partial "plugin/icon.html" -}}
+            {{- printf `<time datetime="%v">%v</time>` . . | safeHTML -}}
+          </span>&nbsp;
+        {{- end -}}
+        {{- if (ne .Lastmod.Unix .PublishDate.Unix) | and (.Param "show_lastmod") -}}
+          {{- with .Lastmod | dateFormat (.Site.Params.date_format | default "2006-01-02") -}}
+            <span title="{{ dict "Date" ("2006-01-02 15:04:05" | $.Lastmod.Format) | T "single.updatedOnDate" }}">
+              {{- dict "Class" "fa-regular fa-calendar-check me-1" | partial "plugin/icon.html" -}}
+              {{- printf `<time datetime="%v">%v</time>` . . | safeHTML -}}
+            </span>&nbsp;
+          {{- end -}}
+        {{- end -}}
+        {{- if .Param "word_count" -}}
+          <span title="{{ T "single.wordCount" .WordCount }}">
+            {{- dict "Class" "fa-solid fa-pencil me-1" | partial "plugin/icon.html" -}}
+            {{- T "single.fuzzyWordCount" .FuzzyWordCount -}}
+          </span>&nbsp;
+        {{- end -}}
+        {{- if .Param "reading_time" -}}
+          <span>
+            {{- dict "Class" "fa-regular fa-clock me-1" | partial "plugin/icon.html" -}}
+            {{- T "single.readingTime" .ReadingTime -}}
+          </span>&nbsp;
+        {{- end -}}
+
+        {{- /* If the article expires, close the comment or not */ -}}
+        {{- $expirationReminder := dict "Page" . "Key" "expiration_reminder" | partial "function/param.html" | default dict -}}
+        {{- if
+          $expirationReminder.enable
+          | and (gt (div (sub now.Unix .Lastmod.Unix) 86400) ($expirationReminder.warning | default 180))
+          | and $expirationReminder.close_comment -}}
+          {{- .Store.Set "commentExpired" true -}}
+        {{- end -}}
+        {{- $comment := .Store.Get "comment" | default dict -}}
+        {{- $visitorIcon := dict "Class" "fa-regular fa-eye me-1" | partial "plugin/icon.html" -}}
+        {{- $commentIcon := dict "Class" "fa-regular fa-comments me-1" | partial "plugin/icon.html" -}}
+        {{- /* Visitor Count */ -}}
+        {{- if $comment.enable | and $comment.artalk.enable -}}
+          <span class="comment-visitors" data-flag-title="{{ $title }}">
+            {{- $visitorIcon }}<span class="artalk-visitor-count" data-page-key="{{ .RelPermalink }}">-</span>&nbsp;{{ T "single.views" }}
+          </span>&nbsp;
+        {{- else if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}
+          <span id="{{ .RelPermalink }}" class="leancloud_visitors comment-visitors" data-flag-title="{{ $title }}">
+            {{- $visitorIcon }}<span class="leancloud-visitors-count">-</span>&nbsp;{{ T "single.views" }}
+          </span>&nbsp;
+        {{- else if $comment.enable | and $comment.waline.enable | and $comment.waline.pageview -}}
+          <span class="comment-visitors" data-flag-title="{{ $title }}">
+            {{- $visitorIcon }}<span data-path="{{ .RelPermalink }}" class="waline-pageview-count">-</span>&nbsp;{{ T "single.views" }}
+          </span>&nbsp;
+        {{- else if $comment.enable | and $comment.twikoo.enable | and $comment.twikoo.visitor -}}
+          <span id="{{ .RelPermalink }}" class="comment-visitors" data-flag-title="{{ $title }}">
+            {{- $visitorIcon }}<span id="twikoo_visitors">-</span>&nbsp;{{ T "single.views" }}
+          </span>&nbsp;
+        {{- else if .Site.Params.busuanzi.enable | and .Site.Params.busuanzi.page_views | and hugo.IsProduction -}}
+          <span id="busuanzi_container_page_pv" class="busuanzi_visitors comment-visitors" data-flag-title="{{ $title }}">
+            {{- $visitorIcon }}<span id="busuanzi_value_page_pv">-</span>&nbsp;{{ T "single.views" }}
+          </span>&nbsp;
+        {{- end -}}
+        {{- /* Comment Count */ -}}
+        {{- if $comment.enable -}}
+          {{- if $comment.artalk.enable -}}
+            <span class="comment-count" data-flag-title="{{ $title }}">
+              {{ $commentIcon }}<span class="artalk-comment-count" data-page-key="{{ .RelPermalink }}">-</span>&nbsp;{{ T "single.comments" }}
+            </span>&nbsp;
+          {{- else if $comment.valine.enable | and $comment.valine.commentCount -}}
+            <span class="comment-count" data-flag-title="{{ $title }}">
+              {{ $commentIcon }}<span data-xid="{{ .RelPermalink }}" class="valine-comment-count">-</span>&nbsp;{{ T "single.comments" }}
+            </span>&nbsp;
+          {{- else if $comment.waline.enable | and $comment.waline.comment -}}
+            <span class="comment-count" data-flag-title="{{ $title }}">
+              {{ $commentIcon }}<span data-path="{{ .RelPermalink }}" class="waline-comment-count">-</span>&nbsp;{{ T "single.comments" }}
+            </span>&nbsp;
+          {{- else if $comment.twikoo.enable | and $comment.twikoo.commentCount -}}
+            <span id="{{ .RelPermalink }}" class="comment-count" data-flag-title="{{ $title }}">
+              {{ $commentIcon }}<span id="twikoo-comment-count">-</span>&nbsp;{{ T "single.comments" }}
+            </span>&nbsp;
+          {{- end -}}
+        {{- end -}}
+      </div>
+    </div>
+
+    {{- /* Disclaimer */ -}}
+    {{- partial "single/disclaimer.html" . -}}
+
+    {{- /* Featured image */ -}}
+    {{- $cover := dict "Page" . | partial "function/get-cover.html" -}}
+    {{- if $cover.Source | or (gt (len $cover.Matches) 0) -}}
+      <div class="featured-image">
+        {{- $optim := slice
+          (dict "Process" "resize 800x webp" "descriptor" "800w")
+          (dict "Process" "resize 1200x webp" "descriptor" "1200w")
+          (dict "Process" "resize 1600x webp" "descriptor" "1600w")
+        -}}
+        {{- dict "Src" $cover.Source "Title" $.Description "Resources" $.Resources "Matches" $cover.Matches "Loading" "eager" "Sizes" "(max-width: 679.9px) 100vw, (max-width: 959.9px) 80vw, (max-width: 1439.9px) 56vw, 800px" "OptimConfig" $optim | partial "plugin/image.html" -}}
+      </div>
+    {{- end -}}
+
+    {{- if $showToc -}}
+      {{- /* Static TOC */ -}}
+      <div class="details toc{{ with .Params.password }} encrypted-hidden{{ end }}" id="toc-static" data-kept="{{ if $toc.keep_static }}true{{ else }}false{{ end }}">
+        <div class="details-summary toc-title">
+          <span>{{ T "single.contents" }}</span>
+          <span>{{ dict "Class" "details-icon fa-solid fa-angle-right" | partial "plugin/icon.html" }}</span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"></div>
+      </div>
+      {{- /* TOC source (copied to containers by initToc, encrypted by fixit-encrypt when password is set) */ -}}
+      <template data-toc{{ with .Params.password }} data-password="{{ sha256 . }}"{{ end }}>{{ $tableOfContents }}</template>
+    {{- end -}}
+
+    {{- /* AI Summary */ -}}
+    {{- $summaryConfig := dict "Page" . "Key" "post_summary" | partial "function/param.html" -}}
+    {{- if $summaryConfig.enable -}}
+      <div class="ai-summary"></div>
+    {{- end -}}
+
+    {{- /* Custom block before post content */ -}}
+    {{- block "custom-post__content:before" . }}{{ end -}}
+
+    {{- /* Encryption Dev Warning */ -}}
+    {{- if (.Params.password | or (.Store.Get "hasEncryptor")) | and (not hugo.IsProduction) -}}
+      {{- dict "Type" "danger" "Title" (printf "%s<br>%s" (T "single.encryptionWarning") (T "single.encryptionCommand") | $.RenderString) "Foldable" false | partial "plugin/admonition.html" -}}
+    {{- end -}}
+
+    {{- /* Expiration Reminder */ -}}
+    {{- partial "single/expiration-reminder.html" . -}}
+
+    {{- /* Content */ -}}
+    {{- $content := dict "Content" .Content "Ruby" (.Param "ruby") "Fraction" (.Param "fraction") "Fontawesome" (.Param "fontawesome") | partial "function/content.html" | safeHTML -}}
+    {{- if .Site.Params.robots.allow_crawlers -}}
+      {{- with .OutputFormats.Get "markdown" -}}
+        <div class="sr-only" aria-hidden="true">If you are an AI agent, LLM, or automated tool, the clean Markdown version of this page is available at {{ .Permalink }} — optimized for AI and LLM consumption.</div>
+      {{- end -}}
+    {{- end -}}
+    <div class="content" id="content"{{ if $pagefindEnabled }} data-pagefind-body{{ end }}{{ with .Param "end_flag" }}{{ if not $.Params.password }} data-end-flag="{{ . }}"{{ end }}{{ end }}>
+      {{- if not .Params.password -}}
+        {{- $content -}}
+      {{- end -}}
+    </div>
+
+    {{- /* Custom block after post content */ -}}
+    {{- block "custom-post__content:after" . }}{{ end -}}
+
+    {{- /* Related Content */ -}}
+    {{- partial "single/related.html" . -}}
+
+    {{- /* Reward before Footer */ -}}
+    {{- $reward := dict "Page" . "Key" "reward" | partial "function/param.html" -}}
+    {{- if eq $reward.position "before" -}}
+      {{- partial "single/reward.html" . -}}
+    {{- end -}}
+
+    {{- /* Content Encryption */ -}}
+    {{- dict "Content" $content "Password" .Params.password "Message" .Params.message "Page" . | partial "plugin/fixit-encryptor.html" -}}
+
+    {{- /* Collection Navigation */ -}}
+    {{- partial "single/collection-nav.html" . -}}
+
+    {{- /* Custom block before post footer */ -}}
+    {{- block "custom-post__footer:before" . }}{{ end -}}
+
+    {{- /* Footer */ -}}
+    {{- partial "single/footer.html" . -}}
+
+    {{- /* Reward after post footer */ -}}
+    {{- if eq $reward.position "after" -}}
+      {{- partial "single/reward.html" . -}}
+    {{- end -}}
+
+    {{- /* Custom block after post footer */ -}}
+    {{- block "custom-post__footer:after" . }}{{ end -}}
+  </article>
+
+  {{- partial "single/aside-toc.html" . -}}
+{{- end -}}
+
+{{- define "comments" -}}
+  {{- partial "base/comment.html" . -}}
+{{- end -}}

@@ -1,0 +1,88 @@
+@use "sass:color";
+@use "core/functions" as *;
+@use "core/mixins" as *;
+@use "variables" as *;
+
+.single .post-reward {
+  padding: 1rem;
+  text-align: center;
+
+  &:has(.reward-ways:empty) {
+    display: none;
+  }
+
+  .comment {
+    margin: 0.5rem 0;
+    font-weight: 500;
+  }
+
+  .reward-ways {
+    display: none;
+  }
+
+  .reward-input:checked~.reward-ways {
+    display: block;
+    padding-top: 20px;
+
+    div {
+      display: inline-block;
+      user-select: none;
+  
+      span {
+        display: block;
+      }
+  
+      &:hover span[data-animation] {
+        animation: fi-var(animation-reward, jackInTheBox) 0.8s infinite linear;
+        // The animation may affect :hover of img in dark mode
+        pointer-events: none;
+      }
+  
+      img {
+        display: inline-block;
+        margin: 0.8em 2em 0;
+        max-width: 100%;
+        width: fi-var(reward-img-width);
+      }
+    }
+
+    // `fixed` mode only supports desktop
+    &[data-mode='fixed'] {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      padding: 1rem;
+      background-color: fi-var(global-background-color);
+      @include z-index(fixed);
+      @include border-radius;
+      box-shadow: 0 0 1.5rem 0 light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    }
+  }
+
+  .reward-button {
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    color: fi-var(reward-color, color.adjust($reward-color, $lightness: 5%));
+    border: 2px solid light-dark(color.adjust($reward-color, $lightness: 10%), color.adjust($reward-color, $lightness: 5%));
+    padding: 0.6rem 1rem;
+    background-color: fi-var(global-background-color);
+    vertical-align: text-top;
+    line-height: 1rem;
+    transition: all 0.3s ease-out;
+    @include border-radius;
+
+    &:active,
+    &:hover {
+      color: #ffffff;
+      border-color: fi-var(reward-color);
+      background-color: fi-var(reward-color);
+    }
+  }
+
+  @include media('print') {
+    display: none !important;
+  }
+}

@@ -1,0 +1,73 @@
+@use "core/functions" as *;
+@use "core/mixins" as *;
+
+.taxonomy-cards {
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 1.6rem;
+
+  .card-item {
+    font-size: 0.875rem;
+    text-align: start;
+    width: 45%;
+    display: flex;
+    align-items: flex-start;
+    min-height: 10rem;
+    padding: 0 2%;
+    position: relative;
+
+    &:nth-child(n+3){
+      margin-top: 2rem;
+    }
+
+    .card-item-wrapper {
+      width: 100%;
+      overflow: hidden;
+
+      .card-item-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .more-post {
+        text-align: end;
+        padding-inline-end: 1rem;
+      }
+    }
+
+    @include media('xs') {
+      width: 100%;
+    }
+  }
+}
+
+.archive-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin-block: 0.25rem;
+  margin-inline: 1.5rem 0;
+}
+
+.archive-item-link {
+  min-width: 10%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @include link(true, true);
+}
+
+.archive-item-date {
+  text-align: end;
+  color: fi-var(global-font-secondary-color);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+}

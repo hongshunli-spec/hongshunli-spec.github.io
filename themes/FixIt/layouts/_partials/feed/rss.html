@@ -1,0 +1,68 @@
+{{- /*
+  RSS feed generation partial.
+
+  Renders an RSS 2.0 XML feed for the current section or home page.
+  Supports full-text or summary mode, filters out password-protected and hidden pages,
+  and includes cover images, author info, and follow challenge tags.
+*/ -}}
+
+{{- $pages := .Pages -}}
+{{- /* Front matter: password */ -}}
+{{- $pages = where $pages "Params.password" "eq" nil -}}
+{{- /* Front matter: hidden_from_feed */ -}}
+{{- if .Site.Params.hidden_from_feed -}}
+  {{- $pages = where $pages "Params.hidden_from_feed" false -}}
+{{- else -}}
+  {{- $pages = where $pages "Params.hidden_from_feed" "!=" true -}}
+{{- end -}}
+{{- if ge .Config.limit 1 -}}
+  {{- $pages = $pages | first .Config.limit -}}
+{{- end -}}
+
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ .Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ .Site.Params.description | default .Site.Title }}</description>
+    {{- if and (.Site.Params.feed.follow.feed_id) (.Site.Params.feed.follow.user_id) }}
+    <follow_challenge>
+      <feedId>{{ .Site.Params.feed.follow.feed_id }}</feedId>
+      <userId>{{ .Site.Params.feed.follow.user_id }}</userId>
+    </follow_challenge>
+    {{- end }}
+    <generator>Hugo {{ hugo.Version }} &amp; FixIt {{ hugo.Store.Get "version" }}</generator>
+    <language>{{ .Site.Language.Locale }}</language>{{ with .Site.Params.author.email }}
+    <managingEditor>{{.}}{{ with $.Site.Params.author.name }} ({{ . }}){{ end }}</managingEditor>{{ end }}{{ with .Site.Params.author.email }}
+    <webMaster>{{ . }}{{ with $.Site.Params.author.name }} ({{ . }}){{ end }}</webMaster>{{ end }}{{ with .Site.Copyright }}
+    <copyright>{{ . }}</copyright>{{ end }}{{ if not .Date.IsZero }}
+    <lastBuildDate>{{ (index $pages.ByLastmod.Reverse 0).Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{- with .OutputFormats.Get "rss" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end }}
+    {{- range $page := $pages }}
+    {{- $fullText := ((.Params.feed | default dict) | merge $.Config ).full_text }}
+    {{- $author := partial "function/get-author-map.html" .Params.author }}
+    {{- $cover := dict "Page" . "Preview" true "Build" true | partial "function/get-cover.html" -}}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{- with $author.email }}<author>{{ . }}{{ with $author.name }} ({{ . }}){{ end }}</author>{{ end }}
+      <guid>{{ .Permalink }}</guid>
+      {{- with .GetTerms "categories" }}
+      {{- range . }}
+      <category domain="{{ .Permalink }}">{{ .LinkTitle }}</category>
+      {{- end }}
+      {{- end }}
+      {{- if $fullText }}
+      <description>
+        {{- dict "Content" .Content "Ruby" (.Param "ruby") "Fraction" (.Param "fraction") "Fontawesome" (.Param "fontawesome") "FeaturedImage" $cover.URL | partial "function/xml-content.html" -}}
+      </description>
+      {{- else }}
+      <description>{{ (.Summary | default .Description | default .Title) | transform.XMLEscape | safeHTML }}</description>
+      {{- end }}
+    </item>
+    {{- end }}
+  </channel>
+</rss>

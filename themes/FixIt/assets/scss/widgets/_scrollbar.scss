@@ -1,0 +1,47 @@
+@use "core/functions" as *;
+@use "core/mixins" as *;
+
+/* Modern browsers with `scrollbar-*` support (high priority) */
+@supports (scrollbar-width: auto) {
+  * {
+    scrollbar-color: fi-var(scrollbar-thumb-color) fi-var(scrollbar-track-color);
+    scrollbar-width: fi-var(scrollbar-width);
+
+    @include media('print') {
+      scrollbar-width: none;
+    }
+  }
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+::-webkit-scrollbar {
+  height: fi-var(scrollbar-width-legacy);
+  width: fi-var(scrollbar-width-legacy);
+  overflow: visible;
+
+  @include media('print') {
+    display: none;
+  }
+}
+::-webkit-scrollbar-button {
+  height: 0;
+  width: 0;
+}
+::-webkit-scrollbar-corner {
+  background-color: fi-var(scrollbar-track-color);
+}
+::-webkit-scrollbar-thumb {
+  background-color: fi-var(scrollbar-thumb-color);
+  &:hover {
+    background-color: fi-var(scrollbar-thumb-hover-color);
+  }
+}
+::-webkit-scrollbar-track {
+  background-color: fi-var(scrollbar-track-color);
+}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  @include border-radius(full);
+}

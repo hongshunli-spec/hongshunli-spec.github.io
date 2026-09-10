@@ -1,0 +1,16 @@
+{{- /*
+  Encrypted pages detection partial.
+
+  Scans all regular pages for password-protected content and emits a build-time
+  warning listing encrypted pages with their titles and permalinks.
+*/ -}}
+
+{{- $encryptedPages := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- if or .Params.password (.Store.Get "hasEncryptor") -}}
+    {{- $encryptedPages = $encryptedPages | append (printf " • %s: %s" .Title .Permalink) -}}
+  {{- end -}}
+{{- end -}}
+{{- with $encryptedPages -}}
+  {{- warnidf "warning-encryption" "[FixIt] %s\n%s\n%s" (T "single.encryptionWarning") (delimit . "\n") (T "single.encryptionCommand") -}}
+{{- end -}}

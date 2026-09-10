@@ -1,0 +1,75 @@
+@use "core/functions" as *;
+@use "core/mixins" as *;
+
+.fixed-buttons {
+  position: fixed;
+  inset-inline-end: 1.5rem;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  @include z-index(fixed, -10);
+}
+
+.fixed-button {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0.5rem 0.625rem;
+  color: fi-var(global-font-secondary-color);
+  transition: color 0.4s ease;
+  background-color: light-dark(#f1f1f1, #1e1e1f);
+  @include border-radius(full);
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+    color: fi-var(global-font-color);
+  }
+
+  @include media('print') {
+    display: none !important;
+  }
+}
+
+.back-to-top {
+  overflow: hidden;
+  position: relative;
+  @include set-fi-vars((
+    // Ring stroke width
+    b2t-stroke: 0.5rem,
+    // Progress color
+    b2t-prog: light-dark(fi-var(success), fi-var(global-font-color)),
+    // dasharray = circumference = 2πr
+    // dashoffset = circumference * (1 - scrollPercent / 100)
+    b2t-dasharray: 314.15
+  ));
+
+  // SVG circular progress ring
+  svg {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 100%;
+    // Rotate to start from top
+    rotate: -90deg;
+  }
+
+  .bg {
+    fill: none;
+    stroke: fi-var(global-border-color-light);
+    stroke-width: fi-var(b2t-stroke);
+  }
+
+  // Progress ring
+  .progress {
+    fill: none;
+    stroke: fi-var(b2t-prog);
+    stroke-width: fi-var(b2t-stroke);
+    stroke-linecap: round;
+    stroke-dasharray: fi-var(b2t-dasharray);
+    stroke-dashoffset: calc(#{fi-var(b2t-dasharray)} * (1 - #{fi-var(b2t-progress, 0)} / 100));
+    transition: stroke-dashoffset .1s linear;
+  }
+}
