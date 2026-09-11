@@ -9,7 +9,7 @@
 .pyq-month { margin: 2.2rem 0 1rem; font-size: 1.15rem; font-weight: 700; color: var(--primary-color, #4a4a4a); border-left: 4px solid #07c160; padding-left: .6rem; }
 .pyq-item { margin: 0 0 1.6rem; padding: .8rem .9rem; border: 1px solid var(--border-color, #e5e5e5); border-radius: 10px; background: var(--card-background-color, transparent); }
 .pyq-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .35rem; }
-.pyq-date { font-size: 1.05rem; font-weight: 700; color: #555; }
+.pyq-date { font-size: 1.1rem; font-weight: 700; color: #333; }
 .pyq-loc { font-size: .78rem; color: #07c160; }
 .pyq-text { font-size: .98rem; line-height: 1.55; margin-bottom: .6rem; word-break: break-word; }
 .pyq-text p { margin: 0 0 .35rem; }
@@ -47,38 +47,50 @@
     <h2 class="group-title pyq-month">{{ .Key }}</h2>
     {{- range .Pages -}}
       {{- $content := .Content -}}
-      {{- $imgs := findRE "<img[^>]*src=['\"][^'\"]+['\"]" $content -}}
-      {{- $cm := index (findRE "(?s)<blockquote>.*?</blockquote>" $content) 0 | default "" -}}
-      {{- $text := replaceRE "<img[^>]*>" "" $content -}}
-      {{- $text = replaceRE "(?s)<blockquote>.*?</blockquote>" "" $text -}}
-      {{- $text = replaceRE "<h1[^>]*>.*?</h1>" "" $text -}}
-      {{- $text = replaceRE "<p></p>\\s*" "" $text -}}
-      {{- $text = replaceRE "<hr>" "" $text -}}
-      {{- if $cm -}}
-        {{- $cm = replaceRE "(?s)<li>([^<]*?)\\s*回复\\s*([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span> 回复 <span class=\"pyq-nick\">$2</span>：$3</li>" $cm -}}
-        {{- $cm = replaceRE "(?s)<li>([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span>：$2</li>" $cm -}}
+      {{- $segments := split $content "<h2" -}}
+      {{- range $i, $seg := $segments -}}
+        {{- if gt $i 0 -}}
+          {{- $item := printf "<h2%s" $seg -}}
+          {{- $imgs := findRE "<img[^>]*src=['\"][^'\"]+['\"]" $item -}}
+          {{- $cm := index (findRE "(?s)<blockquote>.*?</blockquote>" $item) 0 | default "" -}}
+          {{- $title := replaceRE "(?s)<h2[^>]*>(.*?)</h2>" "$1" $item -}}
+          {{- $title = replaceRE "<[^>]+>" "" $title -}}
+          {{- $title = replaceRE "\\s+" " " $title | strings.TrimSpace -}}
+          {{- $text := replaceRE "<img[^>]*>" "" $item -}}
+          {{- $text = replaceRE "(?s)<blockquote>.*?</blockquote>" "" $text -}}
+          {{- $text = replaceRE "(?s)<h2[^>]*>.*?</h2>" "" $text -}}
+          {{- $text = replaceRE "<h1[^>]*>.*?</h1>" "" $text -}}
+          {{- $text = replaceRE "<p></p>\\s*" "" $text -}}
+          {{- $text = replaceRE "<hr>" "" $text -}}
+          {{- $text = strings.TrimSpace $text -}}
+          {{- if $cm -}}
+            {{- $cm = replaceRE "(?s)<li>([^<]*?)\\s*回复\\s*([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span> 回复 <span class=\"pyq-nick\">$2</span>：$3</li>" $cm -}}
+            {{- $cm = replaceRE "(?s)<li>([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span>：$2</li>" $cm -}}
+          {{- end -}}
+          {{- $n := len $imgs -}}
+          {{- if or $title $text $imgs $cm -}}
+            <article class="pyq-item">
+              <div class="pyq-head">
+                {{- if $title -}}<span class="pyq-date">{{ $title }}</span>{{- end -}}
+              </div>
+              {{- if $text -}}
+                <div class="pyq-text">{{ $text | safeHTML }}</div>
+              {{- end -}}
+              {{- if gt $n 0 -}}
+                <div class="pyq-grid grid-{{ cond (eq $n 1) 1 (cond (le $n 4) 2 3) }}">
+                  {{- range $imgs -}}
+                    {{- $src := replaceRE "<img[^>]*src=['\"]" "" . | replaceRE "['\"][^>]*$" "" -}}
+                    <a href="{{ $src }}" target="_blank" rel="noopener"><img src="{{ $src }}" loading="lazy" alt="朋友圈图片"></a>
+                  {{- end -}}
+                </div>
+              {{- end -}}
+              {{- with $cm -}}
+                <div class="pyq-comment">{{ . | safeHTML }}</div>
+              {{- end -}}
+            </article>
+          {{- end -}}
+        {{- end -}}
       {{- end -}}
-      {{- $n := len $imgs -}}
-      <article class="pyq-item">
-        <div class="pyq-head">
-          <span class="pyq-date">{{ .Date | dateFormat "01-02" }}</span>
-          {{- with .Params.location -}}<span class="pyq-loc">📍 {{ . }}</span>{{- end -}}
-        </div>
-        {{- if $text -}}
-          <div class="pyq-text">{{ $text | safeHTML }}</div>
-        {{- end -}}
-        {{- if gt $n 0 -}}
-          <div class="pyq-grid grid-{{ cond (eq $n 1) 1 (cond (le $n 4) 2 3) }}">
-            {{- range $imgs -}}
-              {{- $src := replaceRE "<img[^>]*src=['\"]" "" . | replaceRE "['\"][^>]*$" "" -}}
-              <a href="{{ $src }}" target="_blank" rel="noopener"><img src="{{ $src }}" loading="lazy" alt="朋友圈图片"></a>
-            {{- end -}}
-          </div>
-        {{- end -}}
-        {{- with $cm -}}
-          <div class="pyq-comment">{{ . | safeHTML }}</div>
-        {{- end -}}
-      </article>
     {{- end -}}
   {{- end -}}
 </div>
