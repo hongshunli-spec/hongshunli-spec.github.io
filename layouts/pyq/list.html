@@ -9,7 +9,7 @@
 .pyq-month { margin: 2.2rem 0 1rem; font-size: 1.15rem; font-weight: 700; color: var(--primary-color, #4a4a4a); border-left: 4px solid #07c160; padding-left: .6rem; }
 .pyq-item { margin: 0 0 1.6rem; padding: .8rem .9rem; border: 1px solid var(--border-color, #e5e5e5); border-radius: 10px; background: var(--card-background-color, transparent); }
 .pyq-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .35rem; }
-.pyq-date { font-size: .9rem; font-weight: 600; color: #888; }
+.pyq-date { font-size: 1.05rem; font-weight: 700; color: #555; }
 .pyq-loc { font-size: .78rem; color: #07c160; }
 .pyq-text { font-size: .98rem; line-height: 1.55; margin-bottom: .6rem; word-break: break-word; }
 .pyq-text p { margin: 0 0 .35rem; }
@@ -30,7 +30,10 @@
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .pyq-comment { margin-top: .55rem; padding: .45rem .7rem; background: rgba(128,128,128,.07); border-radius: 6px; font-size: .9rem; color: #666; }
-.pyq-comment p { margin: .12rem 0; }
+.pyq-comment p { margin: 0 0 .2rem; font-size: .82rem; color: #999; }
+.pyq-comment blockquote { margin: 0; padding: 0; background: none; border: none; }
+.pyq-comment ul { margin: .15rem 0; padding: 0; list-style: none; }
+.pyq-comment li { margin: .15rem 0; color: #444; }
 .pyq-comment .c-name { color: #576b95; font-weight: 600; margin-right: .3rem; }
 </style>
 
@@ -45,12 +48,16 @@
     {{- range .Pages -}}
       {{- $content := .Content -}}
       {{- $imgs := findRE "<img[^>]*src=['\"][^'\"]+['\"]" $content -}}
+      {{- $cm := index (findRE "(?s)<blockquote>.*?</blockquote>" $content) 0 | default "" -}}
       {{- $text := replaceRE "<img[^>]*>" "" $content -}}
+      {{- $text = replaceRE "(?s)<blockquote>.*?</blockquote>" "" $text -}}
       {{- $text = replaceRE "<h1[^>]*>.*?</h1>" "" $text -}}
       {{- $text = replaceRE "<p></p>\\s*" "" $text -}}
       {{- $text = replaceRE "<hr>" "" $text -}}
-      {{- $text = replaceRE "<li>([^<]*?)\\s*回复\\s*([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span> 回复 <span class=\"pyq-nick\">$2</span>：$3</li>" $text -}}
-      {{- $text = replaceRE "<li>([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span>：$2</li>" $text -}}
+      {{- if $cm -}}
+        {{- $cm = replaceRE "(?s)<li>([^<]*?)\\s*回复\\s*([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span> 回复 <span class=\"pyq-nick\">$2</span>：$3</li>" $cm -}}
+        {{- $cm = replaceRE "(?s)<li>([^<]*?)\\s*[:：]\\s*(.*?)</li>" "<li><span class=\"pyq-nick\">$1</span>：$2</li>" $cm -}}
+      {{- end -}}
       {{- $n := len $imgs -}}
       <article class="pyq-item">
         <div class="pyq-head">
@@ -67,6 +74,9 @@
               <a href="{{ $src }}" target="_blank" rel="noopener"><img src="{{ $src }}" loading="lazy" alt="朋友圈图片"></a>
             {{- end -}}
           </div>
+        {{- end -}}
+        {{- with $cm -}}
+          <div class="pyq-comment">{{ . | safeHTML }}</div>
         {{- end -}}
       </article>
     {{- end -}}
