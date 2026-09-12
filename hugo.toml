@@ -1,4 +1,4 @@
-baseURL = "https://hongshunli-blog.pages.dev/"
+baseURL = "https://blog.hongshunli.de5.net/"
 title = "SunnyHorn的博客"
 theme = ["FixIt"]
 defaultContentLanguage = "zh-cn"

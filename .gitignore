@@ -12,3 +12,6 @@ static/*
 !static/images/
 !static/admin/
 !static/uploads/
+
+_img_backup/
+
