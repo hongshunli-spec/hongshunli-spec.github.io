@@ -49,6 +49,10 @@ mainSections = ["posts"]
     url = "/albums/"
     weight = 10
   [[menu.main]]
+    name = "👥 朋友相册"
+    url = "/album/朋友相册/"
+    weight = 15
+  [[menu.main]]
     name = "💬 微信朋友圈"
     url = "/pyq/"
     weight = 20
