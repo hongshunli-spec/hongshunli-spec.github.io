@@ -23,8 +23,8 @@ jobs:
           cd /tmp
           curl -L -o dart-sass.tar.gz https://github.com/sass/dart-sass/releases/download/1.77.8/dart-sass-1.77.8-linux-x64.tar.gz
           tar -xzf dart-sass.tar.gz
-          sudo mv dart-sass/sass /usr/local/bin/sass
-          sudo chmod 755 /usr/local/bin/sass
+          sudo mv dart-sass /usr/local/lib/dart-sass
+          sudo ln -sf /usr/local/lib/dart-sass/sass /usr/local/bin/sass
           sass --version
       - name: Setup Hugo (extended)
         run: |
