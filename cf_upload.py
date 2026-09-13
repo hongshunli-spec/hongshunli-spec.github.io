@@ -136,7 +136,7 @@ def main():
     cur, cursz = [], 0
     for m in to_upload:
         sz = os.path.getsize(m[1])
-        if cur and (len(cur) >= 100 or cursz + sz > 20*1024*1024):
+        if cur and (len(cur) >= 80 or cursz + sz > 4*1024*1024):
             batches.append(cur); cur, cursz = [], 0
         cur.append(m); cursz += sz
     if cur:
@@ -144,7 +144,7 @@ def main():
     print(f"Upload batches: {len(batches)}", flush=True)
     okc = failc = 0
     jwt_holder = {"jwt": jwt, "lock": threading.Lock()}
-    def up_with_retry(batch, attempts=4):
+    def up_with_retry(batch, attempts=10):
         for i in range(attempts):
             with jwt_holder["lock"]:
                 cur_jwt = jwt_holder["jwt"]
@@ -155,7 +155,7 @@ def main():
             with jwt_holder["lock"]:
                 jwt_holder["jwt"] = get_jwt()
         return False, err
-    with ThreadPoolExecutor(max_workers=3) as ex:
+    with ThreadPoolExecutor(max_workers=2) as ex:
         futs = {ex.submit(up_with_retry, b): i for i, b in enumerate(batches)}
         for f in as_completed(futs):
             s, err = f.result()
