@@ -1,0 +1,106 @@
+// FixIt responsive breakpoints system design
+// ┌──────┬───────────┬───────────┬──────────────┐
+// │ Name │ min-width │ max-width │ Direction    │
+// ├──────┼───────────┼───────────┼──────────────┤
+// │ xs   │ (null)    │ 679.9px   │ only         │
+// │ sm   │ 680px     │ 959.9px   │ only/up/down │
+// │ md   │ 960px     │ 1199.9px  │ only/down    │
+// │ lg   │ 1200px    │ 1439.9px  │ only/up      │
+// │ xl   │ 1440px    │ (null)    │ only         │
+// └──────┴───────────┴───────────┴──────────────┘
+@use "sass:map";
+@use "sass:list";
+
+/// Responsive breakpoints map for the `media` mixin.
+/// @type Map
+$breakpoints: (
+  'xs': null,
+  'sm': 680px,
+  'md': 960px,
+  'lg': 1200px,
+  'xl': 1440px,
+) !default;
+
+/// Get the max-width for a breakpoint (0.1px below the next breakpoint).
+@function _bp-max($name) {
+  // Ordered list of breakpoint names for range derivation
+  $keys: map.keys($breakpoints);
+  $idx: list.index($keys, $name);
+  @if $idx == null or $idx >= list.length($keys) {
+    @return null;
+  }
+  $next: list.nth($keys, $idx + 1);
+  @return map.get($breakpoints, $next) - 0.1px;
+}
+
+/// Apply styles within a named media target.
+/// @param {String} $target - Target name: xs | sm | md | lg | xl | print | reduce-motion
+/// @param {String} $direction  - Range direction: only | up | down [default: only]
+///
+/// @example
+///   // xs: < 680px
+///   @include media('xs') { ... }
+///   // sm: 680px – 959.9px
+///   @include media('sm') { ... }
+///   // md and above: ≥ 960px
+///   @include media('md', 'up') { ... }
+///   // lg and below: ≤ 1199.9px
+///   @include media('lg', 'down') { ... }
+///   // print media
+///   @include media('print') { ... }
+///   // reduced motion
+///   @include media('reduce-motion') { ... }
+@mixin media($target, $direction: 'only') {
+  @if $target == 'print' {
+    @media only print {
+      @content;
+    }
+  } @else if $target == 'reduce-motion' {
+    @media screen and (prefers-reduced-motion: reduce) {
+      @content;
+    }
+  } @else if map.has-key($breakpoints, $target) {
+    $min: map.get($breakpoints, $target);
+    $max: _bp-max($target);
+
+    @if $direction == 'only' {
+      @if $min == null {
+        // xs: max-width only
+        @media only screen and (max-width: $max) {
+          @content;
+        }
+      } @else if $max == null {
+        // xl: min-width only, no upper bound
+        @media only screen and (min-width: $min) {
+          @content;
+        }
+      } @else {
+        @media only screen and (min-width: $min) and (max-width: $max) {
+          @content;
+        }
+      }
+    } @else if $direction == 'up' {
+      @if $min == null {
+        // xs-up: always applies
+        @content;
+      } @else {
+        @media only screen and (min-width: $min) {
+          @content;
+        }
+      }
+    } @else if $direction == 'down' {
+      @if $max == null {
+        // xl-down: always applies
+        @content;
+      } @else {
+        @media only screen and (max-width: $max) {
+          @content;
+        }
+      }
+    } @else {
+      @warn "Unknown direction `#{$direction}`. Expected: only, up, down.";
+    }
+  } @else {
+    @warn "Unknown media target `#{$target}`. Expected: xs, sm, md, lg, xl, print, reduce-motion.";
+  }
+}

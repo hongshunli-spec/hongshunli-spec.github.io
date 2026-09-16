@@ -1,0 +1,25 @@
+# Decap CMS 配置 - hongshunli-spec.github.io 博客后台
+# 后端：GitHub + 自建 Cloudflare Pages OAuth 网关（pages.dev，国内访问更稳）
+backend:
+  name: github
+  repo: hongshunli-spec/hongshunli-spec.github.io
+  branch: main
+  base_url: https://blog-cms-oauth.pages.dev
+  auth_endpoint: /auth
+
+media_folder: static/uploads
+public_folder: /uploads
+
+collections:
+  - name: posts
+    label: 博客文章
+    label_singular: 文章
+    folder: content/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 发布日期, name: date, widget: datetime }
+      - { label: 草稿, name: draft, widget: boolean, default: false }
+      - { label: 标签, name: tags, widget: list, required: false }
+      - { label: 正文, name: body, widget: markdown }

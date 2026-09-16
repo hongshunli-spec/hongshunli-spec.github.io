@@ -1,0 +1,4 @@
+/* 自定义样式：主页文章列表去掉斜线点线（FixIt .summary::after） */
+.home.posts .summary:not(:last-of-type)::after {
+  display: none !important;
+}

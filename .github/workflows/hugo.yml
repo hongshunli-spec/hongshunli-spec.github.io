@@ -1,0 +1,51 @@
+name: Deploy Hugo
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+      - name: Install Dart Sass (standalone binary)
+        run: |
+          cd /tmp
+          curl -L -o dart-sass.tar.gz https://github.com/sass/dart-sass/releases/download/1.77.8/dart-sass-1.77.8-linux-x64.tar.gz
+          tar -xzf dart-sass.tar.gz
+          sudo mv dart-sass /usr/local/lib/dart-sass
+          sudo ln -sf /usr/local/lib/dart-sass/sass /usr/local/bin/sass
+          sass --version
+      - name: Setup Hugo (extended)
+        run: |
+          HUGO_VERSION=0.165.0
+          wget -q https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
+          tar -xzf hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz
+          sudo mv hugo /usr/local/bin/
+          hugo version
+      - name: Build
+        run: hugo --minify
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

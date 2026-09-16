@@ -1,0 +1,13 @@
+@use "core/functions" as *;
+
+.cc-window.cc-banner {
+  .cc-btn {
+    color: fi-var(global-font-color);
+    background-color: fi-var(global-background-color);
+
+    &:hover,
+    &:focus {
+      background-color: light-dark(#ccc, #444);
+    }
+  }
+}

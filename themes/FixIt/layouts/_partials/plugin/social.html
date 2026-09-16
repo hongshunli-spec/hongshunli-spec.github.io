@@ -1,0 +1,21 @@
+{{- /*
+  Social profile link helper.
+  - Builds destination from explicit URL or from Prefix/Template/Id.
+  - Delegates final rendering to plugin/link.html with rel=me.
+  @param {String} [.Url] - Explicit target URL
+  @param {String} [.Template] - URL template containing one %%v placeholder
+  @param {String} [.Prefix] - URL prefix used to build Template
+  @param {String} [.Id] - Account id used by Template
+*/ -}}
+
+{{- $destination := "" -}}
+{{- with .Url -}}
+  {{- $destination = . | relLangURL -}}
+{{- else -}}
+  {{- $template := .Template | default "%v" -}}
+  {{- with .Prefix -}}
+    {{- $template = . | strings.TrimSuffix "/" | printf "%v/%%v" -}}
+  {{- end -}}
+  {{- $destination = printf (string $template) .Id -}}
+{{- end -}}
+{{- dict "Destination" $destination "Rel" "me" "ExternalIcon" false | merge . | partial "plugin/link.html" -}}

@@ -1,0 +1,273 @@
+# Translations for Italian
+# Traduzioni per l'italiano
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "La versione di Hugo è troppo bassa.\n\nLa versione attuale di Hugo è {{ .Current }}, la versione minima supportata per FixIt è {{ .Minimal }}.\n\nSe stai eseguendo Hugo sul tuo computer, consulta https://gohugo.io/getting-started/installing/#upgrade-hugo per la guida all'aggiornamento.\n\nSe stai distribuendo su una piattaforma di terze parti, configura la versione di Hugo di conseguenza."
+configurationError = "Errore di configurazione\nNon hai ancora configurato correttamente il parametro della versione di FixIt. Vedi https://fixit.lruihao.cn/docs/getting-started/configuration/params/"
+compatibilityError = "Errore di compatibilità ({{ .From }} -> {{ .To }}):\nHai un aggiornamento incompatibile. Vedi https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "Stai utilizzando una versione di sviluppo di FixIt. Si prega di considerare l'utilizzo di una versione stabile.\nVedi https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "L'ambiente attuale è \"sviluppo\". Il \"sistema di commenti\", \"PWA\", \"CDN\", \"impronta digitale\" e \"analisi\" saranno disabilitati."
+quicklyUpgrade = "Aggiornamento rapido usa il comando: "
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "Torna all'inizio"
+viewComments = "Vedi commenti"
+noscript = "Questo sito funziona meglio con JavaScript abilitato."
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "Archivi"
+
+[allSome]
+other = "Tutti {{ .Some }}"
+
+[category]
+other = "Categoria"
+
+[categories]
+other = "Categorie"
+
+[collection]
+other = "Collezione"
+
+[collections]
+other = "Collezioni"
+
+[tag]
+other = "Etichetta"
+
+[tags]
+other = "Etichette"
+
+[posts]
+other = "Articoli"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "Aggiornati di recente"
+
+[section.totalWordCount]
+one = "Una parola"
+other = "Totale {{ .Count }} parole"
+
+[section.archiveCounter]
+one = "Solo un articolo"
+other = "Totale {{ .Count }} articoli"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "Più"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "Scegliere la lingua"
+noTranslations = "Nessuna traduzione"
+switchTheme = "Cambiare il tema"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "Realizzato da {{ .Hugo }} | Tema - {{ .Theme }}"
+siteUV = "Visitatori totali"
+sitePV = "Visite totali"
+siteRunning = "Sito in esecuzione ..."
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "Il tuo commento ..."
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "Tabella"
+search = "Cerca"
+searchPlaceholder = "Cerca il titolo o il contenuto dell'articolo ..."
+searchIn = "Cerca in"
+searchBy = "Cerca per"
+gotoResultsPage = "Vai alla pagina dei risultati della ricerca ..."
+clear = "Chiaro"
+cancel = "Annulla"
+navigate = "Naviga"
+select = "Seleziona"
+close = "Chiudi"
+refresh = "Aggiorna"
+noResultsFound = "Nessun risultato trovato"
+copyToClipboard = "Copia negli appunti"
+copyText = "Copia"
+copiedText = "Copiato"
+toggleLineNumbers = "Attiva/disattiva i numeri di linea"
+toggleLineWrap = "Attiva/disattiva il ritorno a capo del codice"
+toggleCodeEditable = "Attiva/disattiva la modifica del blocco di codice"
+downloadCode = "Scarica codice"
+expandCode = "Espandi o riduci il blocco di codice"
+fullscreen = "Schermo intero"
+exitFullscreen = "Esci da schermo intero"
+cookieconsentMessage = "Questo sito Web utilizza i Cookies per migliorare la tua esperienza."
+cookieconsentDismiss = "Essere d'accordo"
+cookieconsentLink = "Per saperne di più"
+toggleSortOrder = "Cambia ordinamento"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "Condividi su"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "Contenuti"
+navigation = "Navigazione"
+disclaimer = "Avvertenza: "
+pin = "Fissa in alto"
+repost = "Ripubblica"
+publishedOnDate = "pubblicato su {{ .Date }}"
+views = "visualizzazioni"
+comments = "commenti"
+author = "Autore"
+updatedOnDate = "Aggiornato il {{ .Date }}"
+readMarkdown = "Leggi Markdown"
+viewSource = "Visualizza sorgente"
+editThisPage = "Modifica questa pagina"
+reportIssue = "Segnala un problema"
+openInEditor = "Apri nell'editor"
+back = "Indietro"
+home = "Home"
+readMore = "Leggi di più"
+expirationReminder = "Questo articolo è stato aggiornato l'ultima volta il {{ .Date }}, il contenuto potrebbe non essere aggiornato."
+encryptedAbstract = "Questo articolo è stato crittografato, quindi il suo contenuto grezzo è invisibile!"
+print = "Stampa"
+encryptedMessage = "Per favore inserisci la password"
+password = "Password"
+enterBtn = "Entra"
+encryptyAgain = "Crittografa di nuovo"
+encryptionWarning = "Rilevata crittografia dei contenuti, ma sono ancora in testo in chiaro!"
+encryptionCommand = "Eseguire `npx @hugo-fixit/encrypt` dopo la compilazione per crittograffarli effettivamente."
+
+[single.disclaimerMessage]
+ai = "Questo articolo è stato generato da un'IA. Si prega di verificare le informazioni in modo indipendente."
+repost = "Questo articolo è un repost. Si prega di visitare la fonte originale per maggiori informazioni."
+original = "Questo è il contenuto originale dell'autore."
+relatedContent = "Contenuti correlati"
+
+[single.includedIn]
+categories = "incluso in {{ .Categories }}"
+collections = "incluso in {{ .Collections }}"
+both = "incluso in {{ .Categories }} e {{ .Collections }}"
+
+[single.wordCount]
+one = "Una parola"
+other = "{{ .Count }} parole"
+
+[single.fuzzyWordCount]
+other = "circa {{ .Count }} parole"
+
+[single.readingTime]
+one = "Un minuto"
+other = "{{ .Count }} minuti"
+
+[single.reward]
+donate = "Dona"
+wechatpay = "WeChat Pay"
+alipay = "Alipay"
+paypal = "PayPal"
+bitcoin = "Bitcoin"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "Pagina non trovata"
+
+[pageNotFoundText]
+other = "Mi spiace, la pagina cercata non esiste."
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "disconnesso"
+
+[offlineText]
+other = "Non sei connesso a Internet, saranno disponibili solo le pagine memorizzate nella cache."
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "Aggiornamento disponibile"
+updateText = "È disponibile una nuova versione di questo sito."
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "Avviso di reindirizzamento"
+message = "Stai per lasciare {{ .Title }}. Presta attenzione alla sicurezza del tuo account e dei tuoi beni."
+confirm = "Continua a visitare"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "Nota"
+tip = "Suggerimento"
+important = "Importante"
+warning = "Avvertimento"
+caution = "Attenzione"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "Verificato"
+" " = "Non verificato"
+"/" = "In corso"
+"-" = "Annullato"
+"<" = "Programmato"
+">" = "Ripianificato"
+"!" = "Importante"
+"!x" = "Importante Verificato"
+"?" = "Domanda"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "Note"
+abstract = "Sommario"
+info = "Info"
+todo = "Da fare"
+tip = "Suggerimenti"
+success = "Successo"
+question = "Domande"
+warning = "Avvertimento"
+failure = "Fallimento"
+danger = "Pericolo"
+bug = "Bug"
+example = "Esempio"
+quote = "Citazione"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "NUOVO"
+changed = "CAMBIATO"
+deleted = "CANCELLATO"
+deprecated = "DEPRECATO"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "Zoom avanti"
+zoomOut = "Zoom indietro"
+reset = "Reimposta"
+download = "Scarica SVG"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "Diagramma"
+code = "Codice"
+# === Tabs ===

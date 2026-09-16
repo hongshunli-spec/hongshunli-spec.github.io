@@ -1,0 +1,269 @@
+# Translations for Traditional Chinese
+# 繁體中文的翻譯
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "Hugo 版本過低。\n\n目前使用的 Hugo 版本為 {{ .Current }}，FixIt 支持的最老的 Hugo 版本為 {{ .Minimal }}。\n\n如果你正在自己的計算機上運行 Hugo，請訪問 https://gohugo.io/getting-started/installing/#upgrade-hugo 以查閱升級指南。\n\n如果你正在第三方平台上部署，請按照相應文檔配置 Hugo 版本。"
+configurationError = "配置文件錯誤\n你還沒有正確配置 FixIt 的版本參數。參考 https://fixit.lruihao.cn/zh-cn/docs/getting-started/configuration/params/?lang=chinese_traditional"
+compatibilityError = "兼容性錯誤 ({{ .From }} -> {{ .To }}):\n你進行了一次不兼容的更新。参考 https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "你正在使用開發版的 FixIt，請考慮使用穩定版。\n見 https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "當前運行環境是“development”。“評論系統”、“PWA”、“CDN”、“fingerprint”和“統計”不會啟用。"
+quicklyUpgrade = "使用命令快速升級："
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "回到頂部"
+viewComments = "查看評論"
+noscript = "該網站在啟用 JavaScript 的情況下效果最佳。"
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "歸檔"
+
+[allSome]
+other = "所有{{ .Some }}"
+
+[category]
+other = "分類"
+
+[categories]
+other = "分類"
+
+[collection]
+other = "合集"
+
+[collections]
+other = "合集"
+
+[tag]
+other = "標籤"
+
+[tags]
+other = "標籤"
+
+[posts]
+other = "文章"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "最近更新"
+
+[section.totalWordCount]
+other = "總計約 {{ .Count }} 字"
+
+[section.archiveCounter]
+other = "共計 {{ .Count }} 篇文章"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "更多"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "選擇語言"
+noTranslations = "無翻譯"
+switchTheme = "切換主題"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "由 {{ .Hugo }} 強力驅動 | 主題 - {{ .Theme }}"
+siteUV = "總訪客數"
+sitePV = "總訪問量"
+siteRunning = "網站運行中……"
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "你的評論……"
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "表"
+search = "搜尋"
+searchPlaceholder = "搜尋文章標題或內容……"
+searchIn = "在 {{ . }} 中搜尋"
+searchBy = "搜尋引擎"
+gotoResultsPage = "前往搜尋結果頁面……"
+clear = "清除"
+cancel = "取消"
+navigate = "切換"
+select = "選擇"
+close = "關閉"
+refresh = "重新整理"
+noResultsFound = "沒有找到結果"
+copyToClipboard = "複製到剪貼板"
+copyText = "複製"
+copiedText = "已複製"
+toggleLineNumbers = "切換行號"
+toggleLineWrap = "切換自動換行"
+toggleCodeEditable = "切換可編輯程式碼區塊"
+downloadCode = "下載程式碼"
+expandCode = "展開或摺疊程式碼區塊"
+fullscreen = "全螢幕"
+exitFullscreen = "退出全螢幕"
+cookieconsentMessage = "本網站使用 Cookies 來改善你的流覽體驗。"
+cookieconsentDismiss = "同意"
+cookieconsentLink = "瞭解更多"
+toggleSortOrder = "切換排序方式"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "分享到"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "目錄"
+navigation = "導航"
+disclaimer = "作者聲明："
+pin = "置頂"
+repost = "轉貼"
+publishedOnDate = "發佈於 {{ .Date }}"
+views = "次閱讀"
+comments = "條評論"
+author = "作者"
+updatedOnDate = "更新於 {{ .Date }}"
+readMarkdown = "閱讀原始文檔"
+viewSource = "查看原始碼"
+editThisPage = "編輯此頁"
+reportIssue = "報告問題"
+openInEditor = "在編輯器中打開"
+back = "返回"
+home = "主頁"
+readMore = "閱讀全文"
+expirationReminder = "本文最後更新於 {{ .Date }}，文中內容可能已過時。"
+encryptedAbstract = "本文已加密，囙此其原始內容不可見！"
+print = "列印"
+encryptedMessage = "請輸入密碼"
+password = "密碼"
+enterBtn = "進入"
+encryptyAgain = "重新加密"
+encryptionWarning = "偵測到內容加密，但仍為明文狀態！"
+encryptionCommand = "請在建構後執行 `npx @hugo-fixit/encrypt` 以實際加密內容。"
+relatedContent = "相關內容"
+
+[single.disclaimerMessage]
+ai = "本文由 AI 生成，請注意甄別內容真實性。"
+repost = "本文為轉載內容，請訪問原文了解更多信息。"
+original = "本文為作者原創內容。"
+
+[single.includedIn]
+categories = "收錄於 {{ .Categories }}"
+collections = "收錄於 {{ .Collections }}"
+both = "收錄於 {{ .Categories }} 和 {{ .Collections }}"
+
+[single.wordCount]
+other = "{{ .Count }} 字"
+
+[single.fuzzyWordCount]
+other = "約 {{ .Count }} 字"
+
+[single.readingTime]
+other = "預計閱讀 {{ .Count }} 分鐘"
+
+[single.reward]
+donate = "讚賞"
+wechatpay = "微信"
+alipay = "支付寶"
+paypal = "PayPal"
+bitcoin = "比特幣"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "找不到網頁"
+
+[pageNotFoundText]
+other = "抱歉，你要查找的頁面不存在。"
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "離線"
+
+[offlineText]
+other = "你沒有連接到 Internet，只有緩存的頁面可用。"
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "發現新版本"
+updateText = "當前站點有新版本可用。"
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "跳轉提示"
+message = "即將離開{{ .Title }}，請注意帳號財產安全。"
+confirm = "繼續訪問"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "注意"
+tip = "提示"
+important = "重要"
+warning = "警告"
+caution = "小心"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "已完成"
+" " = "未完成"
+"/" = "進行中"
+"-" = "已取消"
+"<" = "已計劃"
+">" = "已重新計劃"
+"!" = "重要"
+"!x" = "重要已核驗"
+"?" = "問題"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "注意"
+abstract = "摘要"
+info = "資訊"
+todo = "待辦"
+tip = "提示"
+success = "成功"
+question = "問題"
+warning = "警告"
+failure = "失敗"
+danger = "危險"
+bug = "Bug"
+example = "範例"
+quote = "引用"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "新增"
+changed = "更改"
+deleted = "刪除"
+deprecated = "棄用"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "放大"
+zoomOut = "縮小"
+reset = "重置"
+download = "下載 SVG"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "圖表"
+code = "程式碼"
+# === Tabs ===

@@ -1,0 +1,9 @@
+{{- $title := .Title -}}
+{{- /* 若 front matter 未显式写 title，则从正文第一行 `# 标题` 提取 */ -}}
+{{- if not .Params.title -}}
+  {{- $m := index (findRE "(?m)^#\\s+.+$" .RawContent 1) 0 -}}
+  {{- if $m -}}
+    {{- $title = $m | replaceRE "^#\\s+" "" | safeHTML -}}
+  {{- end -}}
+{{- end -}}
+{{- return $title -}}

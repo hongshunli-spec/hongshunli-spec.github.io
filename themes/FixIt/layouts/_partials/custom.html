@@ -1,0 +1,113 @@
+{{- /*
+  Custom partial block definitions.
+
+  Defines named template blocks (custom-head, custom-menu, custom-profile,
+  custom-aside, custom-comment, custom-footer, custom-widgets, custom-assets,
+  custom-post__toc, custom-post__content, custom-post__footer) that users
+  can extend via the custom_partials configuration.
+*/ -}}
+
+{{- define "custom-head" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.head -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-menu:desktop" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.menu_desktop -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-menu:mobile" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.menu_mobile -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-profile" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.profile -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-aside" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.aside -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-comment" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.comment -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-footer" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.footer -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-widgets" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.widgets -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-assets" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.assets -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-post__toc:before" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.post_toc_before -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-post__toc:after" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.post_toc_after -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-post__content:before" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.post_content_before -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-post__content:after" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.post_content_after -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-post__footer:before" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.post_footer_before -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "custom-post__footer:after" -}}
+  {{- $ctx := . -}}
+  {{- range .Site.Params.custom_partials.post_footer_after -}}
+    {{- partial . $ctx -}}
+  {{- end -}}
+{{- end -}}

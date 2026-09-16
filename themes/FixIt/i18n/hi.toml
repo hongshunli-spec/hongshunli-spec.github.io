@@ -1,0 +1,274 @@
+# Translations for Hindi
+# हिंदी के लिए अनुवाद
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "Hugo संस्करण बहुत पुराना है।\n\nवर्तमान में उपयोग किया जा रहा Hugo संस्करण {{ .Current }} है, जबकि FixIt के लिए न्यूनतम आवश्यक संस्करण {{ .Minimal }} है।\n\nयदि आप अपने कंप्यूटर पर Hugo का उपयोग कर रहे हैं, तो कृपया अपग्रेड गाइड देखें: https://gohugo.io/getting-started/installing/#upgrade-hugo\n\nयदि आप किसी तृतीय-पक्ष प्लेटफ़ॉर्म पर तैनात कर रहे हैं, तो कृपया Hugo संस्करण को तदनुसार कॉन्फ़िगर करें। "
+configurationError = "कन्फ़िग्यरेशन त्रुटि \nआपने फिक्सइट संस्करण पैरामीटर को सही ढंग से कॉन्फ़िगर नहीं किया है।. यह देखें: https://fixit.lruihao.cn/docs/getting-started/configuration/params/"
+compatibilityError = "संगतता त्रुटि ({{ .From }} -> {{ .To }}):\nआपके पास एक असंगत अपडेट है. यह देखें: https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "आप फिक्सइट के डिवेलपर संस्करण का उपयोग कर रहे हैं। कृपया एक स्थिर संस्करण का उपयोग करने पर विचार करें।\nयह देखें: https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "वर्तमान परिवेश \"डिवेलप्मेंट\" का है। \"टिप्पणी प्रणाली\", \"पीडब्ल्यूए\", \"सीडीएन\", \"फ़िंगरप्रिंट\" और \"विश्लेषण\" अक्षम कर दिए जाएंगे।"
+quicklyUpgrade = "शीघ्रता से अपग्रेड यह कमांड का उपयोग करें: "
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "वापस शीर्ष पर"
+viewComments = "टिप्पणियाँ देखें"
+noscript = "यह वेबसाइट जेएस को चालू करके बेहतर काम करती है।"
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "अभिलेखागार"
+
+[allSome]
+other = "सभी {{ .Some }}"
+
+[category]
+other = "श्रेणी"
+
+[categories]
+other = "श्रेणियाँ"
+
+[collection]
+other = "संग्रह"
+
+[collections]
+other = "संग्रह"
+
+[tag]
+other = "टैग"
+
+[tags]
+other = "टैग "
+
+[posts]
+other = "पदों"
+
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "हाल ही में अपडेट किया गया"
+
+[section.totalWordCount]
+one = "कुल एक शब्द"
+other = "कुल {{ .Count }} शब्द"
+
+[section.archiveCounter]
+one = "केवल एक लेख"
+other = "कुल {{ .Count }} लेख"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "और देखें"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "भाषा चुने"
+noTranslations = "कोई अनुवाद नहीं"
+switchTheme = "थीम बदलें"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "{{ .Hugo }} के द्वारा संचालित | थीम - {{ .Theme }}"
+siteUV = "कुल विज़िटर"
+sitePV = "कुल विज़िट"
+siteRunning = "वेबसाइट चल रही है ..."
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "आपकी टिप्पणी ..."
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "तालिका"
+search = "खोज"
+searchPlaceholder = "शीर्षक या सामग्री खोजें ..."
+searchIn = "{{ . }} में खोजें"
+searchBy = "द्वारा खोजें"
+gotoResultsPage = "खोज परिणाम पेज पर जाएं ..."
+clear = "साफ़ करें"
+cancel = "रद्द करें"
+navigate = "नेविगेट"
+select = "चुनें"
+close = "बंद करें"
+refresh = "रिफ़्रेश"
+noResultsFound = "कोई परिणाम नहीं मिला"
+copyToClipboard = "क्लिपबोर्ड पर कॉपी करें"
+copyText = "कॉपी करें"
+copiedText = "कॉपी किया गया"
+toggleLineNumbers = "लाइन नंबर टॉगल करें"
+toggleLineWrap = "लाइन रैप टॉगल करें"
+toggleCodeEditable = "कोड ब्लॉक संपादन योग्य टॉगल करें"
+downloadCode = "कोड डाउनलोड करें"
+expandCode = "कोड ब्लॉक का विस्तार या संकुचित करें"
+fullscreen = "पूर्ण स्क्रीन"
+exitFullscreen = "पूर्ण स्क्रीन से बाहर निकलें"
+cookieconsentMessage = "यह वेबसाइट आपके अनुभव को बेहतर बनाने के लिए कुकीज़ का उपयोग करती है।"
+cookieconsentDismiss = "समझ गया!"
+cookieconsentLink = "और अधिक जानें"
+toggleSortOrder = "क्रम बदलें"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = " शेयर करें"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "सामग्री"
+navigation = "नेविगेशन"
+disclaimer = "लेखक का बयान: "
+pin = "शीर्ष पर पिन करें"
+repost = "दोबारा पोस्ट करें"
+publishedOnDate = "{{ .Date }} पर प्रकाशित"
+views = "दृश्य"
+comments = "टिप्पणियाँ"
+author = "रचयिता"
+updatedOnDate = "{{ .Date }} पर अपडेट"
+readMarkdown = "मार्कडाउन पढ़ें"
+viewSource = "स्रोत देखें"
+editThisPage = "इस पृष्ठ को संपादित करें"
+reportIssue = "समस्या की रिपोर्ट करें"
+openInEditor = "संपादक में खोलें"
+back = "पीछे"
+home = "घर"
+readMore = "और पढ़ें"
+expirationReminder = "यह लेख अंतिम बार {{ .Date }} पर अद्यतन किया गया था, सामग्री पुरानी हो सकती है."
+encryptedAbstract = "यह लेख एन्क्रिप्ट किया गया है, इसलिए इसकी मूल सामग्री अदृश्य है!"
+print = "प्रिंट"
+encryptedMessage = "कृपया पासवर्ड दर्ज करें"
+password = "पासवर्ड"
+enterBtn = "दर्ज करें"
+encryptyAgain = "फिर से एन्क्रिप्ट करें"
+encryptionWarning = "सामग्री एन्क्रिप्शन का पता चला, लेकिन वे अभी भी सादे पाठ में हैं!"
+encryptionCommand = "उन्हें वास्तव में एन्क्रिप्ट करने के लिए बिल्ड के बाद `npx @hugo-fixit/encrypt` चलाएं।"
+relatedContent = "संबंधित सामग्री"
+
+[single.disclaimerMessage]
+ai = "यह लेख AI द्वारा उत्पन्न किया गया था। कृपया जानकारी को स्वतंत्र रूप से सत्यापित करें।"
+repost = "यह लेख एक पुनर्प्रकाशन है। कृपया अधिक जानकारी के लिए मूल स्रोत पर जाएं।"
+original = "यह लेखक की मूल सामग्री है।"
+
+[single.includedIn]
+categories = "{{ .Categories }} में शामिल"
+collections = "{{ .Collections }} में शामिल"
+both = "{{ .Categories }} और {{ .Collections }} में शामिल"
+
+[single.wordCount]
+one = "एक शब्द "
+other = "{{ .Count }} शब्द "
+
+[single.fuzzyWordCount]
+other = "लगभग {{ .Count }} शब्द"
+
+[single.readingTime]
+one = "एक मिनट"
+other = "{{ .Count }} मिनट"
+
+[single.reward]
+donate = "दान करें"
+wechatpay = "वीचैट पे"
+alipay = "अली पे"
+paypal = "पेपैल"
+bitcoin = "बिटकॉइन"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "पृष्ठ नहीं मिला"
+
+[pageNotFoundText]
+other = "आप जिस पृष्ठ को खोज रहे हैं वह मौजूद नहीं है। क्षमा मांगना।"
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "ऑफलाइन"
+
+[offlineText]
+other = "आप इंटरनेट से कनेक्ट नहीं हैं, केवल कैश्ड पेज ही उपलब्ध होंगे।"
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "अपडेट उपलब्ध"
+updateText = "इस साइट का नया संस्करण उपलब्ध है।"
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "रीडायरेक्शन सूचना"
+message = "आप {{ .Title }} छोड़ने वाले हैं, कृपया अपने खाते और संपत्ति की सुरक्षा पर ध्यान दें।"
+confirm = "देखना जारी रखें"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "ध्यान दें"
+tip = "टिप"
+important = "महत्वपूर्ण"
+warning = "चेतावनी"
+caution = "सावधान"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "जांच की गई"
+" " = "जांच नहीं की गई"
+"/" = "काम जारी है"
+"-" = "रद्द किया गया"
+"<" = "अनुसूचित"
+">" = "पुनः अनुसूचित"
+"!" = "महत्वपूर्ण"
+"!x" = "महत्वपूर्ण सत्यापित"
+"?" = "सवाल"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "ध्यान दें"
+abstract = "सारांश"
+info = "जानकारी"
+todo = "करने के लिए"
+tip = "टिप"
+success = "सफलता"
+question = "प्रश्न"
+warning = "चेतावनी"
+failure = "असफलता"
+danger = "खतरा"
+bug = "बग"
+example = "उदाहरण"
+quote = "उद्धरण"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "नया"
+changed = "बदला हुआ"
+deleted = "हटाए गए"
+deprecated = "अप्रचलित"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "ज़ूम इन"
+zoomOut = "ज़ूम आउट"
+reset = "रीसेट"
+download = "SVG डाउनलोड करें"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "आरेख"
+code = "कोड"
+# === Tabs ===

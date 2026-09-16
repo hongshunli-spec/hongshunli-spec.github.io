@@ -1,0 +1,7 @@
+@use "core/mixins" as *;
+
+.single .mapbox {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  @include border-radius;
+}

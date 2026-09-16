@@ -1,0 +1,37 @@
+{{- /*
+  The basic syntax of alert is compatible with GitHub, Obsidian, and Typora.
+  @param {String} .Type - The type of the alert box
+  @param {String} .Text - The content of the alert box
+  @param {Map} [.Attributes] - The attributes of the alert box
+  @example {{- dict "Text" .Text "Type" .AlertType "Attributes" .Attributes | partial "plugin/alert.html" -}}
+*/ -}}
+
+{{- $iconMap := dict
+  "note" "octicon-info-16 me-2"
+  "tip" "octicon-light-bulb-16 me-2"
+  "important" "octicon-report-16 me-2"
+  "warning" "octicon-alert-16 me-2"
+  "caution" "octicon-stop-16 me-2"
+-}}
+
+{{- $attrs := "" }}
+{{- range $key, $value := .Attributes }}
+  {{- $attrs = printf "%s %s=%q" $attrs $key $value }}
+{{- end }}
+
+{{- with .Attributes.class }}
+  {{- $attrs = replace $attrs . (printf "alert alert-%s %s" $.Type .) }}
+{{- else }}
+  {{- $attrs = printf "class=%q %s" (printf "alert alert-%s" $.Type) $attrs }}
+{{- end }}
+{{- $attrs = partial "function/trim.html" $attrs -}}
+
+<div {{ $attrs | safeHTMLAttr }}>
+  {{- $icon := index $iconMap .Type -}}
+  <p class="alert-title">
+    {{- dict "Class" $icon | partial "plugin/icon.html" }}
+    {{- or (T (printf "alert.%v" .Type)) (title .Type) -}}
+  </p>
+  {{- .Text | safeHTML -}}
+</div>
+{{- /* EOF */ -}}

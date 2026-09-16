@@ -1,0 +1,7 @@
+{{- dict
+  "Options" .Attributes
+  "Inner" .Inner
+  "Resources" .Page.Resources
+  "Position" .Position
+  | partial "plugin/timeline.html"
+-}}

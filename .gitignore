@@ -1,0 +1,36 @@
+public/
+resources/
+.hugo_build.lock
+.obsidian/
+node_modules/
+dart-sass/
+themes_bak_*/
+*.bak_*
+# static 图片纳入git(除album个人相册过大1.58GB)
+static/*
+!static/qqzone/
+!static/images/
+!static/admin/
+!static/uploads/
+
+_img_backup/
+
+
+# 美篇备份图片不入git(大文件)
+backup/
+
+staging_gcp/
+
+cf_upload*
+
+manifest.json
+
+gen_manifest.py
+
+missing_hashes.json
+
+*.log
+
+*.ps1
+
+*.py

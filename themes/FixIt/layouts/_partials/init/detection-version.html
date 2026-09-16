@@ -1,0 +1,42 @@
+{{- /*
+  Version detection and update checking partial.
+
+  Validates Hugo minimum version,
+  detects the FixIt theme version from params,
+  warns about dev versions, and optionally
+  checks for newer releases via the GitHub API.
+*/ -}}
+
+{{- $version := hugo.Store.Get "version" -}}
+{{- $latest := $version -}}
+{{- $devOpts := .Site.Store.Get "devOpts" -}}
+
+{{- /* Check Hugo version */ -}}
+{{- $MINIMAL_HUGO_VERSION := "0.161.0" -}}
+{{- if lt hugo.Version $MINIMAL_HUGO_VERSION -}}
+  {{- errorf "\n\n%v\n\n" (dict "Current" hugo.Version "Minimal" $MINIMAL_HUGO_VERSION | T "init.hugoVersionError") -}}
+{{- end -}}
+
+{{- /* Check for updates */ -}}
+{{- if $devOpts.c4u -}}
+  {{- $url := "https://api.github.com/repos/hugo-fixit/FixIt/releases/latest" -}}
+  {{- $options := dict "headers" (hugo.Store.Get "githubTokenHeader") -}}
+  {{- $latest = (partial "function/get-remote-json" (dict "URL" $url "OPTIONS" $options )).tag_name -}}
+{{- end -}}
+
+{{- /* FixIt theme version detection */ -}}
+{{- if .Site.Language.IsDefault -}}
+  {{- if not .Site.Params.version -}}
+    {{- errorf "FixIt %v\n%v\n\n" $version (T "init.configurationError") -}}
+  {{- else if gt "1.0.0" (strings.TrimPrefix "v" .Site.Params.version) -}}
+    {{- errorf "FixIt %v\n%v\n\n" $version (dict "From" .Site.Params.version "To" $version | T "init.compatibilityError")  -}}
+  {{- end -}}
+  {{- if gt (len (findRE "^v[0-9]+\\.[0-9]+\\.[0-9]+-[0-9a-f]+$" $version)) 0 -}}
+    {{- warnidf "warning-dev-version" "FixIt %v\n%v" $version (T "init.devVersionWarn") -}}
+  {{- end -}}
+  {{- if (gt $latest $version) | and $devOpts.c4u -}}
+    {{- warnf "FixIt %v (⬆️ %v)\n%v`git submodule update --remote --merge`\n\n" $version $latest (T "init.quicklyUpgrade") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- hugo.Store.Set "latest" $latest -}}

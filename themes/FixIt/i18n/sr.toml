@@ -1,0 +1,273 @@
+# Translations for Serbian
+# Превод на Српски
+# https://gohugo.io/content-management/multilingual/#translation-of-strings
+
+# === Init ===
+[init]
+hugoVersionError = "Верзија Hugo-а је прениска.\n\nТренутна верзија Hugo-а је {{ .Current }}, а минимална подржана верзија за FixIt је {{ .Minimal }}.\n\nАко покрећете Hugo на свом рачунару, погледајте https://gohugo.io/getting-started/installing/#upgrade-hugo за водич за надоградњу.\n\nАко постављате на платформу треће стране, конфигуришите верзију Hugo-а у складу с тим."
+configurationError = "Грешка у конфигурацији\nНисте правилно конфигурисали параметар верзије FixIt. Погледајте https://fixit.lruihao.cn/docs/getting-started/configuration/params/"
+compatibilityError = "Грешка у компатибилности ({{ .From }} -> {{ .To }}):\nИмате некомпатибилно ажурирање. Погледајте https://github.com/hugo-fixit/FixIt/releases"
+devVersionWarn = "Користите развојну верзију FixIt. Размотрите коришћење стабилне верзије.\nПогледајте https://github.com/hugo-fixit/FixIt/releases"
+devEnvWarn = "Тренутно окружење је \"развојно\". \"Систем коментара\", \"PWA\", \"CDN\", \"отисак прста\" и \"аналитика\" ће бити онемогућени."
+quicklyUpgrade = "Брзо ажурирање користите команду: "
+# === Init ===
+
+# === Base Layout ===
+[baseof]
+backToTop = "Назад на Врх"
+viewComments = "Погледај Коментаре"
+noscript = "Овај сајт најбоље ради са омогућеним JavaScript-ом."
+# === Base Layout ===
+
+# === Taxonomy ===
+[archives]
+other = "Остало"
+
+[allSome]
+other = "Све {{ .Some }}"
+
+[category]
+other = "Категорија"
+
+[categories]
+other = "Категорије"
+
+[collection]
+other = "Collection"
+
+[collections]
+other = "Collections"
+
+[tag]
+other = "Таг"
+
+[tags]
+other = "Тагови"
+
+[posts]
+other = "Постови"
+# === Taxonomy ===
+
+# === Section ===
+[section]
+recentlyUpdated = "Недавно Ажурирано"
+
+[section.totalWordCount]
+one = "Једна реч"
+other = "Укупно {{ .Count }} речи"
+
+[section.archiveCounter]
+one = "Само један чланак"
+other = "{{ .Count }} чланака укупно"
+# === Section ===
+
+# === Pagination ===
+[pagination]
+more = "Више"
+# === Pagination ===
+
+# === Header ===
+[header]
+selectLanguage = "Изабери Језик"
+noTranslations = "Нема превода"
+switchTheme = "Промени Тему"
+# === Header ===
+
+# === Footer ===
+[footer]
+poweredBySome = "Покреће {{ .Hugo }} | Тема - {{ .Theme }}"
+siteUV = "Укупно посетилаца"
+sitePV = "Укупно посета"
+siteRunning = "Website running ..."
+# === Footer ===
+
+# === Comment ===
+[comment]
+valinePlaceholder = "Ваш коментар ..."
+# === Comment ===
+
+# === Assets ===
+[assets]
+table = "Табела"
+search = "Претрага"
+searchPlaceholder = "Претражи наслове или садржај..."
+searchIn = "Претражи у {{ . }}"
+searchBy = "Претражи преко"
+gotoResultsPage = "Иди на страницу резултата претраге ..."
+clear = "Очисти"
+cancel = "Поништи"
+navigate = "Навигација"
+select = "Изабери"
+close = "Затвори"
+refresh = "Освежи"
+noResultsFound = "Резултати нису пронађени"
+copyToClipboard = "Копирај на радну таблу"
+copyText = "Копирај"
+copiedText = "Копирано"
+toggleLineNumbers = "Прекидач за бројеве линија"
+toggleLineWrap = "Прекидач за оматање линија"
+toggleCodeEditable = "Пребаци уређивање блока кода"
+downloadCode = "Преузми код"
+expandCode = "Прошири или смањи блок кода"
+fullscreen = "Цео екран"
+exitFullscreen = "Изађи из целог екрана"
+cookieconsentMessage = "Ова веб локација користи Cookies да би побољшала ваше искуство."
+cookieconsentDismiss = "Договорити се"
+cookieconsentLink = "Сазнајте више"
+toggleSortOrder = "Промени редослед сортирања"
+# === Assets ===
+
+# === Share ===
+[shareOn]
+other = "Подели на"
+# === Share ===
+
+# === Single Post ===
+[single]
+contents = "Садржаји"
+navigation = "Навигација"
+disclaimer = "Obavetenje: "
+pin = "Закачи"
+repost = "Поново објави"
+publishedOnDate = "објављено {{ .Date }}"
+views = "прегледа"
+comments = "коментари"
+author = "Аутор"
+updatedOnDate = "Ажурирано {{ .Date }}"
+readMarkdown = "Читај Markdown"
+viewSource = "Погледај извор"
+editThisPage = "Уреди ову страницу"
+reportIssue = "Пријави проблем"
+openInEditor = "Отвори у уреднику"
+back = "Назад"
+home = "Почетна"
+readMore = "Прочитај више"
+expirationReminder = "Овај чланак је последњи пут ажуриран {{ .Date }}, садржај је можда застарео."
+encryptedAbstract = "Овај чланак је шифрован."
+print = "Штампај"
+encryptedMessage = "Унесите лозинку да бисте видели садржај."
+password = "Паролица"
+enterBtn = "Унеси"
+encryptyAgain = "Поново шифруј"
+encryptionWarning = "Детектовано је шифровање садржаја, али су и даље у обичном тексту!"
+encryptionCommand = "Покрените `npx @hugo-fixit/encrypt` након изградње да бисте их заиста шифровали."
+
+[single.disclaimerMessage]
+ai = "Овај чланак је генерисан од стране вештачке интелигенције. Молимо вас да независно проверите информације."
+repost = "Овај чланак је репост. Молимо вас да посетите оригинални извор за више информација."
+original = "Ово је оригинални садржај аутора."
+relatedContent = "Повезани садржај"
+
+[single.includedIn]
+categories = "укључено {{ .Categories }}"
+collections = "укључено {{ .Collections }}"
+both = "укључено {{ .Categories }} и {{ .Collections }}"
+
+[single.wordCount]
+one = "Једна реч"
+other = "{{ .Count }} речи"
+
+[single.fuzzyWordCount]
+other = "Око {{ .Count }} речи"
+
+[single.readingTime]
+one = "Један минут"
+other = "{{ .Count }} минута"
+
+[single.reward]
+donate = "Донирај"
+wechatpay = "WeChat Pay"
+alipay = "Alipay"
+paypal = "PayPal"
+bitcoin = "Bitcoin"
+# === Single Post ===
+
+# === Error Pages ===
+[pageNotFound]
+other = "Страница није пронађена"
+
+[pageNotFoundText]
+other = "Страница коју тражите не постоји. Жао нам је."
+# === Error Pages ===
+
+# === Offline ===
+[offlineTitle]
+other = "Оффлине"
+
+[offlineText]
+other = "Нисте повезани на Интернет, биће доступне само кеширане странице."
+# === Offline ===
+
+# === Service Worker ===
+[serviceWorker]
+updateTitle = "Ажурирање доступно"
+updateText = "Нова верзија овог сајта је доступна."
+# === Service Worker ===
+
+# === Link Redirection ===
+[linkRedirection]
+title = "Обавештење о преусмеравању"
+message = "Управо ћете напустити {{ .Title }}. Обратите пажњу на безбедност свог налога и имовине."
+confirm = "Настави посету"
+# === Link Redirection ===
+
+# === Alert ===
+[alert]
+note = "Напомена"
+tip = "Савет"
+important = "Важно"
+warning = "Упозорење"
+caution = "Опрез"
+# === Alert ===
+
+# === Task List ===
+[taskList]
+x = "Проверено"
+" " = "Непроверено"
+"/" = "У току"
+"-" = "Отказано"
+"<" = "Планирано"
+">" = "Преустановљено"
+"!" = "Важно"
+"!x" = "Важно Проверено"
+"?" = "Питање"
+# === Task List ===
+
+# === Admonition ===
+[admonition]
+note = "Напомена"
+abstract = "Сажетак"
+info = "Инфо"
+todo = "То-до"
+tip = "Савет"
+success = "Успех"
+question = "Питање"
+warning = "Упозорење"
+failure = "Неуспех"
+danger = "Опасност"
+bug = "Грешка"
+example = "Пример"
+quote = "Цитат"
+# === Admonition ===
+
+# === Version ===
+[version]
+new = "НОВО"
+changed = "ПРОМЕЊЕНО"
+deleted = "ОБРИСАНО"
+deprecated = "ЗАСТАРЕЛО"
+# === Version ===
+
+# === Diagram ===
+[diagram]
+zoomIn = "Увећај"
+zoomOut = "Умањи"
+reset = "Ресетуј"
+download = "Преузми SVG"
+# === Diagram ===
+
+# === Tabs ===
+[tabs]
+diagram = "Дијаграм"
+code = "Код"
+# === Tabs ===

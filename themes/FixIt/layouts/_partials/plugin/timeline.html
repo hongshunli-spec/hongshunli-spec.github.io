@@ -1,0 +1,93 @@
+{{- /*
+  Timeline rendering partial for code fences extended syntax and shortcode usage.
+  - Supports events from inline content, data key, resource file, or direct Events input.
+  - Supports reverse order, placement, animation, node style, and size options.
+  @param {Object} [.Options] - Render options from shortcode or code fence attributes
+  @param {Boolean} [.Options.reverse] - Whether to sort events in descending order
+  @param {String} [.Options.placement] - Default timestamp placement
+  @param {Boolean} [.Options.animation] - Whether to enable item animation
+  @param {String} [.Options.size] - Timeline size variant
+  @param {String} [.Options.node] - Timeline node style
+  @param {String} [.Options.data] - Key of data source under data/timeline
+  @param {String} [.Options.file] - Local resource path for timeline data
+  @param {String} [.Inner] - Inline timeline source content
+  @param {Array} [.Events] - Direct events array override
+  @param {Object} [.Page] - Current page context
+*/ -}}
+
+{{- $reverse := .Options.reverse | default false -}}
+{{- $placement := .Options.placement | default "bottom" -}}
+{{- $animation := .Options.animation | default false -}}
+{{- $size := .Options.size | default "medium" -}}
+{{- $node := .Options.node | default "circle" -}}
+{{- $data := .Options.data -}}
+{{- $file := .Options.file -}}
+
+{{- /* Get Timeline events */ -}}
+{{- $content := .Inner -}}
+{{ with $data }}
+  {{- $content = index hugo.Data.timeline (printf "%v.%v" . page.Language) | default (index hugo.Data.timeline .) -}}
+  {{- if not $content -}}
+    {{- warnf "Timeline: data not found, please ensure the data file \"data/timeline/%s.{json|yml|yaml|toml}\" exists." . -}}
+  {{- end -}}
+{{- else -}}
+  {{- with dict "Path" $file "Resources" .Resources | partial "function/resource.html" }}
+    {{- $content = .Content -}}
+  {{- else with $file -}}
+    {{- warnf "Timeline: no such data file: %s" . -}}
+  {{- end -}}
+  {{- $content = $content | transform.Unmarshal -}}
+{{- end -}}
+{{- $events := $content.events | default slice -}}
+{{- with .Events -}}
+  {{- $events = . -}}
+{{- end -}}
+{{- $events = sort $events "timestamp" (cond $reverse "desc" "asc") -}}
+{{- if not $events -}}
+  {{- warnf "Timeline: events is empty, executing in file %s" $.Position -}}
+{{- end -}}
+
+{{- /* Set Timeline style  */ -}}
+{{- $style := "" -}}
+{{- with .Options.width -}}
+  {{- $style = printf "width: %v;" . -}}
+{{- end -}}
+{{- with .Options.height -}}
+  {{- $style = add $style (printf "height: %v;" .) -}}
+{{- end -}}
+{{- with $style -}}
+  {{- $style = printf `style="%v"` . -}}
+{{- end -}}
+
+<ul
+  class="fi-timeline{{ with .Options.class }} {{ . }}{{ end }}"
+  {{ $style | safeHTMLAttr }}
+  {{- with $animation }} data-animation{{- end -}}
+>
+  {{- range $index, $item := $events -}}
+    {{- $itemStyle := printf "--fi-timeline-index: %v;" (add $index 1) -}}
+    {{- with $item.color -}}
+      {{- $itemStyle = add $itemStyle (printf "--timeline-circle-color: %v;" .) -}}
+    {{- end -}}
+    {{- $itemStyle = printf `style="%v"` $itemStyle -}}
+
+    <li
+      class="fi-timeline-item"
+      data-size="{{ $item.size | default $size }}"
+      data-node="{{ $item.node | default $node }}"
+      {{ $itemStyle | safeHTMLAttr }}
+      {{- with $item.type }} data-type="{{ . }}"{{- end -}}
+    >
+      {{- if $item.hideTimestamp -}}
+        <div class="fi-timeline-item__content">{{ $item.content | page.RenderString }}</div>
+      {{- else if eq ($item.placement | default $placement) "top" -}}
+        <div class="fi-timeline-item__timestamp is-top">{{ $item.timestamp }}</div>
+        <div class="fi-timeline-item__content">{{ $item.content | page.RenderString }}</div>
+      {{- else -}}
+        <div class="fi-timeline-item__content">{{ $item.content | page.RenderString }}</div>
+        <div class="fi-timeline-item__timestamp is-bottom">{{ $item.timestamp }}</div>
+      {{- end -}}
+  </li>
+  {{- end -}}
+</ul>
+{{- /* EOF */ -}}

@@ -1,0 +1,29 @@
+{{- /*
+  Browser compatibility polyfills partial.
+
+  Conditionally loads polyfill.io and object-fit-images for older browsers
+  based on site compatibility configuration.
+*/ -}}
+
+{{- $compatibility := .Site.Params.compatibility | default dict -}}
+{{- $cdn := .Site.Store.Get "cdn" | default dict -}}
+{{- $fingerprint := .Site.Store.Get "fingerprint" -}}
+
+{{- /* Polyfill.io */ -}}
+{{- if $compatibility.polyfill -}}
+  {{- $features := slice -}}
+  {{- range resources.Get "data/polyfill.yml" | transform.Unmarshal -}}
+    {{- range . -}}
+      {{- $features = $features | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $features | uniq -}}
+    {{- delimit . "%2C" | printf "https://cdnjs.cloudflare.com/polyfill/v3/polyfill.js?features=%v" | dict "Source" | dict "Page" $ "Data" | partial "store/script.html" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* object-fit-images */ -}}
+{{- if $compatibility.object_fit -}}
+  {{- $source := $cdn.objectFitImagesJS | default "lib/object-fit-images/ofi.min.js" -}}
+  {{- dict "Source" $source "Fingerprint" $fingerprint | dict "Page" . "Data" | partial "store/script.html" -}}
+{{- end -}}

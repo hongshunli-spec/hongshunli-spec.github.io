@@ -1,0 +1,74 @@
+{
+  "name": "@hugo-fixit/core",
+  "type": "module",
+  "version": "1.0.0-alpha.1",
+  "private": true,
+  "packageManager": "pnpm@11.4.0",
+  "description": "Hugo FixIt core theme component source files",
+  "author": {
+    "name": "Lruihao",
+    "email": "1024@lruihao.cn",
+    "url": "https://lruihao.cn"
+  },
+  "license": "MIT",
+  "homepage": "https://fixit.lruihao.cn",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugo-fixit/FixIt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hugo-fixit/FixIt/issues"
+  },
+  "keywords": [
+    "hugo",
+    "theme",
+    "fixit"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev:demo": "pnpm -F demo dev",
+    "dev:test": "pnpm -F test dev",
+    "dev:docs": "hugo server --source=../fixit-docs -D --disableFastRender --navigateToChanged --ignoreCache -O",
+    "build:demo": "pnpm -F demo build",
+    "build:test": "pnpm -F test build",
+    "build": "concurrently 'pnpm build:demo' 'pnpm build:test' && pnpm -F integration start && pnpm encrypt",
+    "encrypt": "pnpm -F encrypt start",
+    "clean": "rm -rf public resources/_gen apps/*/public apps/*/resources/_gen",
+    "preview": "serve public",
+    "lint": "eslint --cache .",
+    "typecheck": "tsc --noEmit -p assets/tsconfig.json",
+    "version": "pnpm -F versioning start prod",
+    "changelog": "auto-changelog-plus --starting-date 2021-12-18",
+    "gen:lexers": "pnpm -F chroma-lexers start",
+    "gen:docs": "pnpm -F gen-docs start",
+    "gen:typedoc": "typedoc",
+    "gen:sassdoc": "npx sassdoc@2.7.2 assets/scss/ --dest public/references/scss --config .sassdocrc",
+    "unocss": "unocss",
+    "unocss:watch": "unocss --watch",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.3.0",
+    "@hugo-fixit/unocss-preset": "workspace:*",
+    "@types/node": "^25.9.4",
+    "@unocss/cli": "^66.8.1",
+    "auto-changelog-plus": "^1.3.0",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.9.1",
+    "jiti": "^2.7.0",
+    "lint-staged": "^17.4.1",
+    "serve": "^14.2.6",
+    "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.12",
+    "typedoc": "^0.28.20",
+    "typescript": "^6.0.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm -F versioning start dev && pnpm typecheck && pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}

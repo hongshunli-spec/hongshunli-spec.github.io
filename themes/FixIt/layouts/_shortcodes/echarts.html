@@ -1,0 +1,14 @@
+{{- $options := .Get "width" | default (.Get 0) | dict "width" -}}
+{{- $options = .Get "height" | default (.Get 1) | dict "height" | merge $options -}}
+{{- $options = .Get "js" | default false | dict "js" | merge $options -}}
+{{- $options = .Get "async" | default false | dict "async" | merge $options -}}
+{{- $options = .Get "data" | dict "data" | merge $options -}}
+{{- $options = .Get "file" | dict "file" | merge $options -}}
+{{- dict
+  "Options" $options
+  "Inner" .Inner
+  "Resources" .Page.Resources
+  "Position" .Position
+  "Page" .Page
+  | partial "plugin/echarts.html"
+-}}

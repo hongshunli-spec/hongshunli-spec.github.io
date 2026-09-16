@@ -1,0 +1,22 @@
+// link guard intermediate page
+@use "core/functions" as *;
+@use "core/mixins" as *;
+
+#content-link {
+  align-self: center;
+
+  .card {
+    width: MIN(600px, calc(100% - 2rem));
+    box-sizing: border-box;
+    margin: 0 auto;
+    @include link-guard-content;
+
+    @include media('xs') {
+      width: MIN(600px, 100%);
+    }
+  }
+
+  body:has(&) {
+    @include set-fi-var(global-background-color, fi-var(header-background-color));
+  }
+}

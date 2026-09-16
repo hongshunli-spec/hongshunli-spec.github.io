@@ -1,0 +1,14 @@
+{
+  "name": "@hugo-fixit/chroma-lexers",
+  "private": true,
+  "description": "Generate Chroma lexer SCSS map from GitHub for the FixIt theme",
+  "author": "Lruihao",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "devDependencies": {
+    "@hugo-fixit/shared": "workspace:*",
+    "ora": "^9.4.1"
+  }
+}

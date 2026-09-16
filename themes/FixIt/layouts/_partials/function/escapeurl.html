@@ -1,0 +1,9 @@
+{{- /*
+  Escape URL special characters to query format, e.g: `#` -> `%23`
+
+  See: https://github.com/hugo-fixit/FixIt/issues/245
+*/ -}}
+
+{{- $content := . -}}
+{{- $content = replace $content "#" "%23" -}}
+{{- return $content -}}

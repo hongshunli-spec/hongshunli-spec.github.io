@@ -1,0 +1,93 @@
+{
+  "todo-tree.tree.scanMode": "workspace only",
+  "files.associations": {
+    "*.template.ts": "gots",
+    "*.template.js": "gojs",
+    "*.template.scss": "gocss",
+    "*.template.svg": "html",
+    "**/plugin/script.html": "gohtml",
+    "**/layouts/**/*.json": "gojson",
+    "**/layouts/**/*.xml": "gohtml",
+    "**/layouts/**/*.md": "gotemplate"
+  },
+  // Disable the default formatter, use ESLint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    {
+      "rule": "style/*",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "format/*",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-indent",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-spacing",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-spaces",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-order",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-dangle",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*-newline",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*quotes",
+      "severity": "off",
+      "fixable": true
+    },
+    {
+      "rule": "*semi",
+      "severity": "off",
+      "fixable": true
+    }
+  ],
+  // SCSS path resolution (Some Sass extension)
+  "somesass.workspace.loadPaths": ["assets/scss"],
+  "somesass.scss.links.enabled": true,
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "go-html-template",
+    "javascript",
+    "typescript",
+    "html",
+    "markdown",
+    "json",
+    "json5",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "css",
+    "scss"
+  ]
+}

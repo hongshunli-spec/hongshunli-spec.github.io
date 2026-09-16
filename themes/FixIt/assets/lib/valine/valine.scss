@@ -1,0 +1,45 @@
+// ========== Global ========== //
+// Color of the border
+$border-color: #d7dee4;
+$border-color-dark: #383f47;
+
+// ========== Code ========== //
+// Color of the code
+$code-color: #E74C3C !default;
+$code-color-dark: #E5BF78 !default;
+
+// Color of the code background
+$code-background-color: #f4f6f8 !default;
+$code-background-color-dark: #2d333B !default;
+
+@mixin overflow-wrap($value) {
+  word-wrap: $value;
+  overflow-wrap: $value;
+}
+
+.v[data-class=v] {
+  .vcount {
+    z-index: 60;
+  }
+  .vcards .vcard .vcontent.expand {
+    &::before, &::after {
+      z-index: 50;
+    }
+  }
+
+  .vwrap,
+  .vwrap .vheader .vinput,
+  .vcards .vcard .vh,
+  .vcards .vcard .vquote,
+  blockquote {
+    border-color: light-dark($border-color, $border-color-dark);
+  }
+
+  code, pre, pre code {
+    font-size: 90%;
+    tab-size: 4;
+    color: light-dark($code-color, $code-color-dark);
+    background-color: light-dark($code-background-color, $code-background-color-dark);
+    @include overflow-wrap(break-word);
+  }
+}

@@ -1,0 +1,61 @@
+{{- /*
+  Render hook for file-tree code blocks
+  Alternative to file-tree shortcode's inner content rendering.
+
+  Supported attributes:
+  - level: The expand level of the tree (expand all: -1, collapse all: 0, default: 1)
+  - folder_slash: Whether to append a trailing "/" to folder names (default: false)
+  - ignore_list: List of file or folder names to ignore, separated by commas
+  - highlight_list: List of file or folder names to highlight, separated by commas
+
+  Content format: YAML/JSON/TOML with the following item structure:
+    name: string     - The name of the file or folder
+    type: string     - Type of item, either "dir" (directory) or "file"
+    children?: array - (Optional) Array of child items, only valid for directories
+
+  Example usage:
+    ```file-tree {level=2 folder_slash=true}
+    - name: my-project
+      type: dir
+      children:
+        - name: src
+          type: dir
+        - name: package.json
+          type: file
+    ```
+*/ -}}
+
+{{- $pageConfig := dict "Page" .Page "Key" "filetree" | partial "function/param.html" -}}
+{{- $config := .Attributes | merge $pageConfig -}}
+{{- $level := cond (isset $config "level") ($config.level | int) 1 -}}
+{{- $folderSlash := $config.folder_slash | default .Attributes.folderslash | default false -}}
+{{- $ignoreList := union (apply (split (.Attributes.ignore_list | default .Attributes.ignorelist | default "") ",") "trim" "." " ") $pageConfig.ignore_list -}}
+{{- $highlightList := union (apply (split (.Attributes.highlight_list | default .Attributes.highlightlist | default "") ",") "trim" "." " ") $pageConfig.highlight_list -}}
+{{- /* Deprecated camelCase attribute support */ -}}
+{{- if isset .Attributes "folderslash" -}}
+  {{- warnidf "v1-deprecated-file-tree-attr" "The attribute `folderSlash` is deprecated since v1.0.0, use `folder_slash` instead. See %s" .Position -}}
+{{- end -}}
+{{- if isset .Attributes "ignorelist" | and (not (isset .Attributes "ignore_list")) -}}
+  {{- warnidf "v1-deprecated-file-tree-attr" "The attribute `ignoreList` is deprecated since v1.0.0, use `ignore_list` instead. See %s" .Position -}}
+{{- end -}}
+{{- if isset .Attributes "highlightlist" | and (not (isset .Attributes "highlight_list")) -}}
+  {{- warnidf "v1-deprecated-file-tree-attr" "The attribute `highlightList` is deprecated since v1.0.0, use `highlight_list` instead. See %s" .Position -}}
+{{- end -}}
+
+{{- $content := strings.TrimSpace .Inner | default "" -}}
+{{- $treeData := slice -}}
+{{- with $content -}}
+  {{- $treeData = . | unmarshal -}}
+  {{- if reflect.IsMap $treeData -}}
+    {{- $treeData = $treeData.filetree -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $options := dict
+  "items" $treeData
+  "level" $level
+  "folder_slash" $folderSlash
+  "ignore_list" $ignoreList
+  "highlight_list" $highlightList
+-}}
+{{- partial "plugin/file-tree.html" $options -}}

@@ -1,0 +1,52 @@
+@use "core/functions" as *;
+@use "core/mixins" as *;
+
+@keyframes octocat-wave {
+  0%,
+  100% {
+    rotate: 0;
+  }
+  20%,
+  60% {
+    rotate: -25deg;
+  }
+  40%,
+  80% {
+    rotate: 10deg;
+  }
+}
+
+.github-corner {
+  position: fixed;
+  top: 0;
+  @include z-index(fixed);
+
+  :hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+
+  svg {
+    width: fi-var(header-height);
+    height: fi-var(header-height);
+    border: 0;
+    color: fi-var(github-corner-color);
+    fill: fi-var(github-corner-fill);
+  }
+
+  &.start {
+    inset-inline-start: 0;
+  }
+
+  &.end {
+    inset-inline-end: 0;
+  }
+
+  // Flip octocat to face the start side
+  :is([dir="ltr"] &.start, [dir="rtl"] &.end) svg {
+    scale: -1 1;
+  }
+
+  @include media('print') {
+    display: none !important;
+  }
+}
