@@ -1,4 +1,4 @@
-import type { CoreService, SearchService } from '../../core/tokens'
+﻿import type { CoreService, SearchService } from '../../core/tokens'
 import type { SearchConfig, SearchEngine, SearchResult } from './types'
 import { createAlgoliaEngine } from './engines/algolia'
 import { createCSEEngine } from './engines/cse'
@@ -262,7 +262,13 @@ export class SearchModule implements SearchService {
     // Initialize dialog and autocomplete once
     if (!this.#initialized) {
       this.#initialized = true
-      this.#initAutosearch()
+      // autocomplete 初始化失败不能中断 dialog 绑定（修复搜索按钮无反应）
+      try {
+        this.#initAutosearch()
+      }
+      catch (err) {
+        console.error('[FixIt] search autocomplete init failed:', err)
+      }
       this.#initDialog()
       this.#initKeyboardShortcuts()
     }

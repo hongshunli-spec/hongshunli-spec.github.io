@@ -39,6 +39,16 @@ mainSections = ["posts"]
     enable = true
     type = "fuse"
 
+[outputFormats.search]
+baseName = "search"
+mediaType = "application/json"
+rel = "search"
+isPlainText = true
+isHTML = false
+
+[outputs]
+home = ["html", "rss", "archives", "search", "offline", "manifest", "link"]
+
 [menu]
   [[menu.main]]
     name = "🏠 我的博客"

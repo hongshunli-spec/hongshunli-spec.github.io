@@ -21,20 +21,25 @@ function bootstrap(): void {
    * 4. Global features — misc (PWA, comments), events (scroll, resize)
    */
   function init() {
-    try {
-      window.fixit.menu.setup()
-      window.fixit.theme.setup()
-      window.fixit.toc.setup()
-      window.fixit.search.setup()
-      window.fixit.content.setup()
-      window.fixit.enc.setup()
-      window.fixit.pwa.setup()
-      window.fixit.misc.setup()
-      window.fixit.events.setup()
+    // 各模块独立 try：某个模块失败不中断后续模块（修复 search.setup 偶发未执行）
+    const safeSetup = (name: string) => {
+      try {
+        const svc = (window.fixit as any)[name] as { setup?: () => void } | undefined
+        svc?.setup?.()
+      }
+      catch (err) {
+        console.error(`[FixIt] ${name} setup failed:`, err)
+      }
     }
-    catch (err) {
-      console.error(err)
-    }
+    safeSetup('menu')
+    safeSetup('theme')
+    safeSetup('toc')
+    safeSetup('search')
+    safeSetup('content')
+    safeSetup('enc')
+    safeSetup('pwa')
+    safeSetup('misc')
+    safeSetup('events')
     printBanner(window.fixit.version)
   }
 
