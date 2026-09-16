@@ -97,5 +97,11 @@
     {{- end -}}
   {{- end -}}
 
+  
+  {{- /* Album index (static albums) */ -}}
+  {{- range site.Data.albums -}}
+    {{- $meta := dict "uri" .uri "title" .title "tags" .tags "collections" (slice "相册") "date" .date -}}
+    {{- $index = $index | append (dict "content" .description "objectID" .uri | merge $meta) -}}
+  {{- end -}}
   {{- $index | jsonify | safeJS -}}
 {{- end -}}
